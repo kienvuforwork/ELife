@@ -9,7 +9,8 @@ const Search = () => {
         {" "}
         <input
           type="text"
-          className="border-transparent text-elife-700 rounded-xl focus:bg-elife-400 bg-elife-500 w-[350px] h-[32px]"
+          placeholder=""
+          className="focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 text-elife-700 rounded-xl bg-elife-500 w-[350px] h-[32px] p-2 pl-4"
         />
       </div>
 

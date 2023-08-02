@@ -5,6 +5,11 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  variants: {
+    extend: {
+      borderWidth: ['focus'], // Enable focus variant for borderWidth utilities
+    },
+  },
   theme: {
     extend: {
       backgroundImage: {
@@ -20,10 +25,14 @@ module.exports = {
           700: '#14171a',
         },
         blue:{
-          500: '#0a66c2'
+          400: '#e0f7ff',
+          500: '#a1e0ff',
+          600:'#64c9ff',
+          700: '#1da1f2'
         }
       }
     },
   },
   plugins: [],
 }
+
