@@ -3,7 +3,7 @@ import "./global.css";
 import Navbar from "./components/Navbar/navbar";
 import { Roboto } from "@next/font/google";
 import Providers from "./providers/reduxProvider";
-
+import RegisterModal from "./components/Modals/registerModal";
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -24,6 +24,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       <Providers>
         <body className="bg-elife-700 text-white">
           <Navbar></Navbar>
+          <RegisterModal></RegisterModal>
           {children}
         </body>
       </Providers>
