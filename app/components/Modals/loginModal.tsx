@@ -3,13 +3,13 @@ import Modal from "./modal";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import Input from "../Inputs/input";
 import Button from "../button";
-import { onClose as onCloseRegisterModal } from "@/app/store/registerModalSlice";
-import { onOpen as onOpenLoginModal } from "@/app/store/loginModalSlice";
+import { onClose as onCloseLoginModal } from "@/app/store/loginModalSlice";
+import { onOpen as onOpenRegisterModal } from "@/app/store/registerModalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
-const RegisterModal = () => {
+const LoginModal = () => {
   const isOpen = useSelector(
-    (state: RootState) => state.registerModalSlice.isOpen
+    (state: RootState) => state.loginModalSlice.isOpen
   );
   const dispatch: AppDispatch = useDispatch();
 
@@ -17,12 +17,14 @@ const RegisterModal = () => {
     return;
   };
   const onClose = () => {
-    dispatch(onCloseRegisterModal());
+    dispatch(onCloseLoginModal());
   };
-  const switchToLogin = () => {
+
+  const switchToRegister = () => {
     onClose();
-    dispatch(onOpenLoginModal());
+    dispatch(onOpenRegisterModal());
   };
+
   const onSubmit = () => {
     return;
   };
@@ -37,18 +39,10 @@ const RegisterModal = () => {
       password: "",
     },
   });
-  const title = <div className="text-elife-500 text-lg">Register</div>;
+  const title = <div className="text-elife-500 text-lg">Log in</div>;
   const body = (
     <div className="flex flex-col justify-center items-start w-full gap-4 my-4 mb-10">
-      <div className="text-elife-400 text-xl">Welcome to Elife !</div>
-
-      <Input
-        id="email"
-        label="Email"
-        errors={errors}
-        register={register}
-        required
-      ></Input>
+      <div className="text-elife-400 text-xl">Welcome Back !</div>
       <Input
         id="userName"
         label="User name"
@@ -70,12 +64,12 @@ const RegisterModal = () => {
       {" "}
       <Button onClick={dummy} label="Register" full={true}></Button>
       <div className="mt-5">
-        Already have an account?{" "}
+        Do not have account?{" "}
         <span
           className="hover:text-blue-600 cursor-pointer text-blue-500"
-          onClick={switchToLogin}
+          onClick={switchToRegister}
         >
-          Login now!
+          Join us!
         </span>
       </div>
     </div>
@@ -92,4 +86,4 @@ const RegisterModal = () => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

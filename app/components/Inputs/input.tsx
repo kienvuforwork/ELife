@@ -48,7 +48,7 @@ const Input: React.FC<InputProps> = ({
 `}
       />
       <label
-        className={`absolute text-elife-600 left-5 text-md duration-150 transform -translate-y-8 top-3 z-10 peer-placeholder-shown:scale-110 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:top-0 peer-focus:-translate-y-4 peer-focus:text-blue-600 ${
+        className={`absolute text-elife-600 left-5 text-md duration-150 transform -translate-y-8 top-2 z-10 peer-placeholder-shown:scale-110 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:top-0 peer-focus:-translate-y-4 peer-focus:text-blue-600 ${
           errors[id] ? "text-rose-500" : "text-zinc-400"
         }`}
       >

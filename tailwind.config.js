@@ -30,7 +30,7 @@ module.exports = {
           600:'#64c9ff',
           700: '#1da1f2'
         }
-      }
+      },
     },
   },
   plugins: [],

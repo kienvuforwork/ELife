@@ -19,19 +19,10 @@ const Modal: React.FC<ModalProps> = ({
   body,
   footer,
 }) => {
-  const [showModal, setShowModal] = useState(true);
-  const handleClose = () => {
-    setShowModal(false);
-  };
-  const handleAnimationEnd = () => {
-    if (!showModal) {
-      onClose();
-    }
-  };
-  return showModal ? (
+  return isOpen ? (
     <div className="fixed top-0 left-0 right-0 bottom-0  bg-black bg-opacity-50 flex items-center justify-center">
       <div
-        className={`flex flex-col items-center justify-center bg-black h-auto md:w-4/6 xl:w-2/6 my-6 py-5 z-10 shadow-xl rounded-md px-4 translate duration-300 
+        className={`flex flex-col items-center justify-center bg-black h-auto md:w-4/6 xl:w-1/4 my-6 py-5 z-10 shadow-xl rounded-md px-4 translate duration-300 
       `}
       >
         {/* TITLE */}
@@ -41,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({
           <IoMdClose
             size={24}
             className="ml-auto cursor-pointer"
-            onClick={() => handleClose()}
+            onClick={() => onClose()}
           ></IoMdClose>
           <div className="flex items-center justify-center w-full border-b border-1 border-eflie-500 pb-2">
             {title}
@@ -52,9 +43,7 @@ const Modal: React.FC<ModalProps> = ({
         {footer}
       </div>
     </div>
-  ) : (
-    <Fragment></Fragment>
-  );
+  ) : null;
 };
 
 export default Modal;
