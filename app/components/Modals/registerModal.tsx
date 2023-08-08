@@ -23,7 +23,6 @@ const RegisterModal = () => {
     onClose();
     dispatch(onOpenLoginModal());
   };
-
   const {
     register,
     handleSubmit,
