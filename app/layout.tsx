@@ -6,6 +6,7 @@ import Providers from "./providers/reduxProvider";
 import RegisterModal from "./components/Modals/registerModal";
 import LoginModal from "./components/Modals/loginModal";
 import Content from "./components/content/content";
+
 interface RootLayoutProps {
   children: ReactNode;
 }

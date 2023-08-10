@@ -28,7 +28,7 @@ const Input: React.FC<InputProps> = ({
   const handleFocus = () => {
     setIsFocused(true);
   };
-  const message = errors[id]?.message;
+  const message = errors[id]?.message as String;
   const handleBlur = () => {
     setIsFocused(false);
   };
