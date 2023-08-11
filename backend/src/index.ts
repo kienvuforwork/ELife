@@ -6,12 +6,15 @@ import http from "http";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import router from "./router";
-
+const corsOptions = {
+    origin: ['http://localhost:3000', 'http://127.0.0.1:5500'], // Set your frontend's origin here
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+  };
 
 const app = express()
-app.use(cors({
-    credentials : true,
-}))
+app.use(cors(corsOptions))
 
 app.use(compression())
 app.use(cookieParser())

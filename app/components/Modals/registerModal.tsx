@@ -7,15 +7,31 @@ import { onClose as onCloseRegisterModal } from "@/app/store/registerModalSlice"
 import { onOpen as onOpenLoginModal } from "@/app/store/loginModalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
+import { postData } from "../helpers/fetchData";
+import { useRouter } from "next/navigation";
 const RegisterModal = () => {
   const isOpen = useSelector(
     (state: RootState) => state.registerModalSlice.isOpen
   );
   const dispatch: AppDispatch = useDispatch();
-  const validateEmail = (value: string) => {
-    const isValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value);
-    return isValid || "Invalid email address";
+  const router = useRouter();
+  const validateEmail = async (email: string) => {
+    const isValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
+    if (!isValid) {
+      return "Invalid email!";
+    }
+    try {
+      const res = await postData("http://localhost:8080/auth/check-email", {
+        email,
+      });
+      if (res.status === "fail") {
+        return "This email already taken!";
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
+
   const onClose = () => {
     dispatch(onCloseRegisterModal());
   };
@@ -29,7 +45,7 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      userName: "",
+      username: "",
       email: "",
       password: "",
     },
@@ -39,18 +55,32 @@ const RegisterModal = () => {
     minLength: 5,
     validate: { validateEmail },
   });
-  register("userName", {
+  register("username", {
     required: { value: true, message: "You should have an username!" },
-    minLength: 5,
+    minLength: {
+      value: 6,
+      message: "Username should be at least 6 characters long",
+    },
   });
 
   register("password", {
     required: { value: true, message: "You should have a password!" },
-    minLength: 5,
+    minLength: {
+      value: 8,
+      message: "Password should be at least 8 characters long",
+    },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+    const res = await postData("http://localhost:8080/auth/register", {
+      ...data,
+    });
+    if (res.status === "success") {
+      document.cookie = `token=${res.token}`;
+      router.push("");
+      dispatch(onCloseRegisterModal());
+    }
   };
   const title = <div className="text-elife-500 text-lg">Register</div>;
   const body = (
@@ -65,7 +95,7 @@ const RegisterModal = () => {
         required
       ></Input>
       <Input
-        id="userName"
+        id="username"
         label="Username"
         errors={errors}
         register={register}

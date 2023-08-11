@@ -6,7 +6,7 @@ import Providers from "./providers/reduxProvider";
 import RegisterModal from "./components/Modals/registerModal";
 import LoginModal from "./components/Modals/loginModal";
 import Content from "./components/content/content";
-
+import { useRouter } from "next/router";
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -26,7 +26,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     <html lang="en" className={roboto.className}>
       <Providers>
         <body className="bg-black text-white">
-          <Navbar></Navbar>
+          <Navbar currentUser={null}></Navbar>
           <RegisterModal></RegisterModal>
           <LoginModal></LoginModal>
           <Content></Content>

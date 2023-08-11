@@ -6,7 +6,7 @@ const Content = () => {
   return (
     <Container>
       <div className="h-100 grid grid-cols-12 mt-5">
-        <div className="xl:col-span-8 md:col-span-9 col-span-8 h-5">
+        <div className="xl:col-span-8 col-span-8 h-5">
           <MainBar></MainBar>
         </div>
         <div className="col-span-4 xl:col-span-3">

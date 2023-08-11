@@ -36,7 +36,9 @@ const Input: React.FC<InputProps> = ({
     <div className="w-full relative mt-4">
       <div
         className={`border-t-2 ${
-          isFocused ? "border-blue-300 w-3/4" : "border-transparent w-0"
+          isFocused
+            ? "border-blue-300 w-3/5 md:w-2/3  2xl:3/5 "
+            : "border-transparent w-0"
         } absolute top-0 right-0 transition-all`}
       ></div>
       <input

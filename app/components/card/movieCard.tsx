@@ -52,7 +52,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ image_src, name, rating }) => {
     }
   };
   return (
-    <div className="flex xl:gap-5 gap-2 w-full xl:p-5 p-1 border-t-2 border-elife-700 hover:bg-elife-700 h-100">
+    <div className="flex xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1 border-t-2 border-elife-700 hover:bg-elife-700 ">
       <div className="w-1/3">
         {" "}
         <img src={image_src} className="w-full"></img>
