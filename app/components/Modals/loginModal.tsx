@@ -93,17 +93,17 @@ const LoginModal = () => {
     </div>
   );
   const footer = (
-    <div>
+    <div className="w-full">
       {" "}
       <Button
         onClick={handleSubmit(onSubmit)}
         label="Login"
         full={true}
       ></Button>
-      <div className="mt-5">
+      <div className="mt-5 flex justify-center">
         Do not have account?{" "}
         <span
-          className="hover:text-blue-600 cursor-pointer text-blue-500"
+          className="hover:text-blue-600 cursor-pointer text-blue-500 ml-1"
           onClick={switchToRegister}
         >
           Join us!

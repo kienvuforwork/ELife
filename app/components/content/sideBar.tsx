@@ -1,13 +1,18 @@
 "use client";
 import getMovies from "@/app/api/Movie/getMovie";
 import MovieCard from "../card/movieCard";
-import { Movies } from "@/app/api/Movie/getMovie";
+import SongCard from "../card/songCard";
+import getSongs from "@/app/api/Music/getMusic";
+import { MovieModel } from "@/app/api/Model/Movie";
 import { useState, useEffect, Fragment } from "react";
 import SwitchBar from "./switchBar";
+import { MusicModel } from "@/app/api/Model/Music";
 const SideBar = () => {
-  const [movies, setMovies] = useState<Movies[]>([]);
+  const [movies, setMovies] = useState<MovieModel[]>([]);
+  const [songs, setSongs] = useState<MusicModel[]>([]);
   const [isMovie, setIsMovie] = useState<boolean>(true);
   const [isMusic, setIsMusic] = useState<boolean>(false);
+
   const hanldeMovie = () => {
     setIsMovie(true);
     setIsMusic(false);
@@ -16,18 +21,29 @@ const SideBar = () => {
     setIsMusic(true);
     setIsMovie(false);
   };
+
   useEffect(() => {
-    const fetchMovie = async () => {
+    const fetchMovies = async () => {
       try {
         const movieData = await getMovies();
-        console.log(movieData);
         setMovies(movieData);
       } catch (e) {
         console.error("Error fetching movie:", e);
       }
     };
-    fetchMovie();
+    const fetchSongs = async () => {
+      try {
+        const songs = await getSongs();
+        setSongs(songs);
+        console.log(songs);
+      } catch (e) {
+        console.error("Error fetching song:", e);
+      }
+    };
+    fetchMovies();
+    fetchSongs();
   }, []);
+
   return (
     <Fragment>
       {" "}
@@ -53,11 +69,17 @@ const SideBar = () => {
       ) : null}
       {isMusic ? (
         <div className="border-2 border-t-0 border-elife-700 flex flex-col  h-[70vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-elife-700">
-          <div>MUSIcccccccc</div>
+          {songs?.map((song, index) => (
+            <SongCard
+              name={song.item.title}
+              artist={song.item.artist_names}
+              date={song.item.release_date_for_display}
+              key={index}
+              image_src={song.item.song_art_image_thumbnail_url}
+            ></SongCard>
+          ))}
         </div>
-      ) : (
-        "null"
-      )}
+      ) : null}
     </Fragment>
   );
 };

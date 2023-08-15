@@ -1,4 +1,4 @@
-
+import { MovieModel } from "../Model/Movie";
 const options = {
   method: 'GET',
   headers: {
@@ -7,22 +7,15 @@ const options = {
   }
 };
 
-export interface Movies {
-  id : number,
-  name:string,
-  poster_path: string,
-  vote_average: number,
 
-}
 
 const  getMovies = async () => {
   const url = 'https://api.themoviedb.org/3/trending/tv/day?language=en-US';
   const data = await fetch(url, options)
   .then(res => res.json())
   .catch(err => console.error('error:' + err));
-  const movies : Movies[] = data.results;
+  const movies : MovieModel[] = data.results;
   return movies;
-
 }
 
 export default getMovies;

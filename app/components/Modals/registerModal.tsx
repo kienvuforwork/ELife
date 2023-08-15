@@ -15,6 +15,7 @@ const RegisterModal = () => {
   const isOpen = useSelector(
     (state: RootState) => state.registerModalSlice.isOpen
   );
+  const apiUrl = process.env.API_KEY_LAST_FM;
   const [isDisable, setIsDisable] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
@@ -120,17 +121,17 @@ const RegisterModal = () => {
     </div>
   );
   const footer = (
-    <div>
+    <div className="w-full">
       {" "}
       <Button
         onClick={handleSubmit(onSubmit)}
         label="Register"
         full={true}
       ></Button>
-      <div className="mt-5">
+      <div className="mt-5 flex items-center justify-center">
         Already have an account?{" "}
         <span
-          className="hover:text-blue-600 cursor-pointer text-blue-500"
+          className="hover:text-blue-600 cursor-pointer text-blue-500 ml-1"
           onClick={switchToLogin}
         >
           Login now!
