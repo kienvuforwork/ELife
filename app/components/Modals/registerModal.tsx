@@ -9,10 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
 import { postData } from "../helpers/fetchData";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 const RegisterModal = () => {
   const isOpen = useSelector(
     (state: RootState) => state.registerModalSlice.isOpen
   );
+  const [isDisable, setIsDisable] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
   const validateEmail = async (email: string) => {
@@ -43,6 +46,7 @@ const RegisterModal = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FieldValues>({
     defaultValues: {
       username: "",
@@ -72,14 +76,18 @@ const RegisterModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    setIsDisable(true);
     const res = await postData("http://localhost:8080/auth/register", {
       ...data,
     });
+
     if (res.status === "success") {
       document.cookie = `token=${res.token}`;
+      setIsDisable(false);
+      reset();
       router.push("");
       dispatch(onCloseRegisterModal());
+      toast.success("Register Successfully!!");
     }
   };
   const title = <div className="text-elife-500 text-lg">Register</div>;
@@ -138,6 +146,7 @@ const RegisterModal = () => {
       title={title}
       body={body}
       footer={footer}
+      disabled={isDisable}
     ></Modal>
   );
 };

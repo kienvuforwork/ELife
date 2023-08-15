@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
 import { postData } from "../helpers/fetchData";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 const LoginModal = () => {
   const isOpen = useSelector(
     (state: RootState) => state.loginModalSlice.isOpen
   );
   const dispatch: AppDispatch = useDispatch();
-
+  const [isDisable, setIsDisable] = useState<boolean>(false);
   const onClose = () => {
     dispatch(onCloseLoginModal());
   };
@@ -25,6 +27,7 @@ const LoginModal = () => {
   };
   const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setIsDisable(true);
     const res = await postData("http://localhost:8080/auth/login", {
       ...data,
     });
@@ -32,13 +35,20 @@ const LoginModal = () => {
     if (res.status === "success") {
       document.cookie = `token=${res.token}`;
       router.push("");
+      setIsDisable(false);
       dispatch(onCloseLoginModal());
+      reset();
+      toast.success("Logged in!");
+    } else if (res.status === "Fail") {
+      setIsDisable(false);
+      toast.error("Incorrect username or password!!");
     }
   };
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FieldValues>({
     defaultValues: {
       userName: "",
@@ -57,7 +67,7 @@ const LoginModal = () => {
     required: { value: true, message: "You should have a password!" },
     minLength: {
       value: 8,
-      message: "Password should be at least 6 characters long",
+      message: "Password should be at least 8 characters long",
     },
   });
 
@@ -109,6 +119,7 @@ const LoginModal = () => {
       title={title}
       body={body}
       footer={footer}
+      disabled={isDisable}
     ></Modal>
   );
 };

@@ -58,7 +58,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ image_src, name, rating }) => {
         <img src={image_src} className="w-full"></img>
       </div>
       <div className="flex flex-col w-2/3 gap-2">
-        <div className="xl:text-lg font-medium text-sm text-elife-600 hover:cursor-pointer">
+        <div className="xl:text-lg font-medium text-sm text-elife-500 hover:cursor-pointer">
           <a>{name}</a>
         </div>
         <div className="xl:text-sm text-xs"> {rating.toFixed(2)} </div>
