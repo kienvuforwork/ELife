@@ -2,17 +2,18 @@
 import getMovies from "@/app/api/Movie/getMovie";
 import MovieCard from "../card/movieCard";
 import SongCard from "../card/songCard";
-import getSongs from "@/app/api/Music/getMusic";
+
 import { MovieModel } from "@/app/api/Model/Movie";
 import { useState, useEffect, Fragment } from "react";
 import SwitchBar from "./switchBar";
 import { MusicModel } from "@/app/api/Model/Music";
+import data from "@/app/api/Music/data";
 const SideBar = () => {
   const [movies, setMovies] = useState<MovieModel[]>([]);
   const [songs, setSongs] = useState<MusicModel[]>([]);
   const [isMovie, setIsMovie] = useState<boolean>(true);
   const [isMusic, setIsMusic] = useState<boolean>(false);
-
+  console.log(data);
   const hanldeMovie = () => {
     setIsMovie(true);
     setIsMusic(false);
@@ -33,7 +34,7 @@ const SideBar = () => {
     };
     const fetchSongs = async () => {
       try {
-        const songs = await getSongs();
+        const songs = data.chart_items;
         setSongs(songs);
         console.log(songs);
       } catch (e) {

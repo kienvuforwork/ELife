@@ -9,14 +9,15 @@ import Dropdown from "../dropdown";
 import Button from "../button";
 import { onOpen as onOpenRegisterModal } from "@/app/store/registerModalSlice";
 import { onOpen as onOpenLoginModal } from "@/app/store/loginModalSlice";
-import { AppDispatch } from "@/app/store";
+import { AppDispatch, RootState } from "@/app/store";
 import { useDispatch } from "react-redux";
-interface NavbarProp {
-  currentUser: null;
-}
+import { useSelector } from "react-redux";
+import { Fragment } from "react";
 
-const Navbar: React.FC<NavbarProp> = ({ currentUser }) => {
+const Navbar = () => {
   const dispatch: AppDispatch = useDispatch();
+  const currentUser = useSelector((state: RootState) => state.userSlice);
+  console.log(currentUser);
   return (
     <Container>
       <div className="grid grid-cols-12 py-4">
@@ -29,25 +30,28 @@ const Navbar: React.FC<NavbarProp> = ({ currentUser }) => {
           <Search></Search>
         </div>
 
-        <div className="flex items-center relative col-start-10 col-span-3 justify-center gap-2">
-          <Button
-            onClick={() => dispatch(onOpenLoginModal())}
-            label="Sign in"
-            sm
-          ></Button>
-          <Button
-            onClick={() => dispatch(onOpenRegisterModal())}
-            label="Sign up"
-            sm
-          ></Button>
-          {/* <Notification></Notification>
-          <Avatar></Avatar>
-          <UserMenu></UserMenu>
-          <Dropdown></Dropdown> */}
-        </div>
-        {/* <Search></Search>
-                    <Notification></Notification>
-                    <UserMenu></UserMenu> */}
+        {!currentUser.username ? (
+          <div className="flex items-center col-start-10 col-span-3 justify-center gap-2">
+            {" "}
+            <Button
+              onClick={() => dispatch(onOpenLoginModal())}
+              label="Sign in"
+              sm
+            ></Button>
+            <Button
+              onClick={() => dispatch(onOpenRegisterModal())}
+              label="Sign up"
+              sm
+            ></Button>
+          </div>
+        ) : (
+          <div className="flex items-center col-start-10 col-span-3 justify-center gap-2">
+            {" "}
+            <Avatar></Avatar>
+            <Notification></Notification>
+            <UserMenu></UserMenu>
+          </div>
+        )}
       </div>
     </Container>
   );

@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from "@/app/store";
 import { postData } from "../helpers/fetchData";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { setUser } from "@/app/store/userSlice";
 import toast from "react-hot-toast";
 const LoginModal = () => {
   const isOpen = useSelector(
@@ -34,6 +35,7 @@ const LoginModal = () => {
 
     if (res.status === "success") {
       document.cookie = `token=${res.token}`;
+      dispatch(setUser({ ...res.user }));
       router.push("");
       setIsDisable(false);
       dispatch(onCloseLoginModal());

@@ -1,0 +1,613 @@
+const data ={
+    "chart_items": [
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 16,
+                "api_path": "/songs/9409784",
+                "artist_names": "Oliver Anthony",
+                "full_title": "Rich Men North of Richmond by Oliver Anthony",
+                "header_image_thumbnail_url": "https://images.genius.com/9659b75ec9985a938f1196eae465ff91.300x300x1.jpg",
+                "header_image_url": "https://images.genius.com/9659b75ec9985a938f1196eae465ff91.1000x1000x1.jpg",
+                "id": 9409784,
+                "instrumental": false,
+                "lyrics_owner_id": 179936,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1692099503,
+                "path": "/Oliver-anthony-rich-men-north-of-richmond-lyrics",
+                "pyongs_count": 1,
+                "relationships_index_url": "https://genius.com/Oliver-anthony-rich-men-north-of-richmond-sample",
+                "release_date_components": {
+                    "year": 2023,
+                    "month": 8,
+                    "day": 8
+                },
+                "release_date_for_display": "August 8, 2023",
+                "release_date_with_abbreviated_month_for_display": "Aug. 8, 2023",
+                "song_art_image_thumbnail_url": "https://images.genius.com/9659b75ec9985a938f1196eae465ff91.300x300x1.jpg",
+                "song_art_image_url": "https://images.genius.com/9659b75ec9985a938f1196eae465ff91.1000x1000x1.jpg",
+                "stats": {
+                    "unreviewed_annotations": 13,
+                    "concurrents": 127,
+                    "hot": true,
+                    "pageviews": 282631
+                },
+                "title": "Rich Men North of Richmond",
+                "title_with_featured": "Rich Men North of Richmond",
+                "updated_by_human_at": 1692103461,
+                "url": "https://genius.com/Oliver-anthony-rich-men-north-of-richmond-lyrics",
+                "featured_artists": [],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/3626821",
+                    "header_image_url": "https://images.genius.com/0388650ccc155fa3c34453d5011c6774.320x320x1.jpg",
+                    "id": 3626821,
+                    "image_url": "https://images.genius.com/0388650ccc155fa3c34453d5011c6774.320x320x1.jpg",
+                    "index_character": "o",
+                    "is_meme_verified": false,
+                    "is_verified": false,
+                    "name": "Oliver Anthony",
+                    "slug": "Oliver-anthony",
+                    "url": "https://genius.com/artists/Oliver-anthony"
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 13,
+                "api_path": "/songs/9368459",
+                "artist_names": "Travis Scott (Ft. Playboi Carti)",
+                "full_title": "FE!N by Travis Scott (Ft. Playboi Carti)",
+                "header_image_thumbnail_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.300x300x1.png",
+                "header_image_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.1000x1000x1.png",
+                "id": 9368459,
+                "instrumental": false,
+                "lyrics_owner_id": 9387139,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1692022747,
+                "path": "/Travis-scott-fe-n-lyrics",
+                "pyongs_count": 31,
+                "relationships_index_url": "https://genius.com/Travis-scott-fe-n-sample",
+                "release_date_components": {
+                    "year": 2023,
+                    "month": 7,
+                    "day": 28
+                },
+                "release_date_for_display": "July 28, 2023",
+                "release_date_with_abbreviated_month_for_display": "Jul. 28, 2023",
+                "song_art_image_thumbnail_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.300x300x1.png",
+                "song_art_image_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.1000x1000x1.png",
+                "stats": {
+                    "unreviewed_annotations": 1,
+                    "concurrents": 21,
+                    "hot": false,
+                    "pageviews": 936881
+                },
+                "title": "FE!N",
+                "title_with_featured": "FE!N (Ft. Playboi Carti)",
+                "updated_by_human_at": 1692095338,
+                "url": "https://genius.com/Travis-scott-fe-n-lyrics",
+                "featured_artists": [
+                    {
+                        "_type": "artist",
+                        "api_path": "/artists/289976",
+                        "header_image_url": "https://images.genius.com/d9da964146617602999d235936e9146a.318x159x1.png",
+                        "id": 289976,
+                        "image_url": "https://images.genius.com/988f153044ac8570914c1b42917d0db6.603x603x1.png",
+                        "index_character": "p",
+                        "is_meme_verified": true,
+                        "is_verified": true,
+                        "name": "Playboi Carti",
+                        "slug": "Playboi-carti",
+                        "url": "https://genius.com/artists/Playboi-carti",
+                        "iq": 7191
+                    }
+                ],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/20185",
+                    "header_image_url": "https://images.genius.com/77659552bac452cb5dee1ac1d68c62a9.480x288x24.gif",
+                    "id": 20185,
+                    "image_url": "https://images.genius.com/5d19fecdb3828ca9ec89dda588e2eb7d.1000x1000x1.jpg",
+                    "index_character": "t",
+                    "is_meme_verified": true,
+                    "is_verified": true,
+                    "name": "Travis Scott",
+                    "slug": "Travis-scott",
+                    "url": "https://genius.com/artists/Travis-scott",
+                    "iq": 5821
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 6,
+                "api_path": "/songs/9379104",
+                "artist_names": "Olivia Rodrigo",
+                "full_title": "​bad idea right? by Olivia Rodrigo",
+                "header_image_thumbnail_url": "https://images.genius.com/c312eeb5deb4b6b62f5f67c39a28d50d.300x300x1.png",
+                "header_image_url": "https://images.genius.com/c312eeb5deb4b6b62f5f67c39a28d50d.1000x1000x1.png",
+                "id": 9379104,
+                "instrumental": false,
+                "lyrics_owner_id": 126836,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1692004184,
+                "path": "/Olivia-rodrigo-bad-idea-right-lyrics",
+                "pyongs_count": 11,
+                "relationships_index_url": "https://genius.com/Olivia-rodrigo-bad-idea-right-sample",
+                "release_date_components": {
+                    "year": 2023,
+                    "month": 8,
+                    "day": 11
+                },
+                "release_date_for_display": "August 11, 2023",
+                "release_date_with_abbreviated_month_for_display": "Aug. 11, 2023",
+                "song_art_image_thumbnail_url": "https://images.genius.com/c312eeb5deb4b6b62f5f67c39a28d50d.300x300x1.png",
+                "song_art_image_url": "https://images.genius.com/c312eeb5deb4b6b62f5f67c39a28d50d.1000x1000x1.png",
+                "stats": {
+                    "unreviewed_annotations": 1,
+                    "concurrents": 13,
+                    "hot": false,
+                    "pageviews": 562800
+                },
+                "title": "​bad idea right?",
+                "title_with_featured": "​bad idea right?",
+                "updated_by_human_at": 1692004184,
+                "url": "https://genius.com/Olivia-rodrigo-bad-idea-right-lyrics",
+                "featured_artists": [],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/1599675",
+                    "header_image_url": "https://images.genius.com/33526fae949eca0c337d03fa9b93b364.1000x562x1.png",
+                    "id": 1599675,
+                    "image_url": "https://images.genius.com/69fb560dfa6184da4b62698df2e09231.800x800x1.png",
+                    "index_character": "o",
+                    "is_meme_verified": false,
+                    "is_verified": true,
+                    "name": "Olivia Rodrigo",
+                    "slug": "Olivia-rodrigo",
+                    "url": "https://genius.com/artists/Olivia-rodrigo",
+                    "iq": 2147
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 22,
+                "api_path": "/songs/9324297",
+                "artist_names": "Noname (Ft. Eryn Allen Kane & Jay Electronica)",
+                "full_title": "​​​​​​balloons by Noname (Ft. Eryn Allen Kane & Jay Electronica)",
+                "header_image_thumbnail_url": "https://images.genius.com/bc0e23f8869d7f3d999cebb6b454e568.300x300x1.jpg",
+                "header_image_url": "https://images.genius.com/bc0e23f8869d7f3d999cebb6b454e568.1000x1000x1.jpg",
+                "id": 9324297,
+                "instrumental": false,
+                "lyrics_owner_id": 8280771,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1691965323,
+                "path": "/Noname-balloons-lyrics",
+                "pyongs_count": null,
+                "relationships_index_url": "https://genius.com/Noname-balloons-sample",
+                "release_date_components": {
+                    "year": 2023,
+                    "month": 8,
+                    "day": 11
+                },
+                "release_date_for_display": "August 11, 2023",
+                "release_date_with_abbreviated_month_for_display": "Aug. 11, 2023",
+                "song_art_image_thumbnail_url": "https://images.genius.com/bc0e23f8869d7f3d999cebb6b454e568.300x300x1.jpg",
+                "song_art_image_url": "https://images.genius.com/bc0e23f8869d7f3d999cebb6b454e568.1000x1000x1.jpg",
+                "stats": {
+                    "unreviewed_annotations": 10,
+                    "concurrents": 21,
+                    "hot": false,
+                    "pageviews": 55783
+                },
+                "title": "​​​​​​balloons",
+                "title_with_featured": "​​​​​​balloons (Ft. Eryn Allen Kane & Jay Electronica)",
+                "updated_by_human_at": 1692029687,
+                "url": "https://genius.com/Noname-balloons-lyrics",
+                "featured_artists": [
+                    {
+                        "_type": "artist",
+                        "api_path": "/artists/198",
+                        "header_image_url": "https://images.genius.com/f503cab8a5c0da1b16a111bc4a8eba1a.853x853x1.jpg",
+                        "id": 198,
+                        "image_url": "https://images.genius.com/f503cab8a5c0da1b16a111bc4a8eba1a.853x853x1.jpg",
+                        "index_character": "j",
+                        "is_meme_verified": false,
+                        "is_verified": true,
+                        "name": "Jay Electronica",
+                        "slug": "Jay-electronica",
+                        "url": "https://genius.com/artists/Jay-electronica",
+                        "iq": 115
+                    },
+                    {
+                        "_type": "artist",
+                        "api_path": "/artists/179759",
+                        "header_image_url": "https://images.genius.com/a2d03569e30a0e10801b4e7a11bb3c34.512x510x1.jpg",
+                        "id": 179759,
+                        "image_url": "https://images.genius.com/a2d03569e30a0e10801b4e7a11bb3c34.512x510x1.jpg",
+                        "index_character": "e",
+                        "is_meme_verified": false,
+                        "is_verified": true,
+                        "name": "Eryn Allen Kane",
+                        "slug": "Eryn-allen-kane",
+                        "url": "https://genius.com/artists/Eryn-allen-kane",
+                        "iq": 100
+                    }
+                ],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/48449",
+                    "header_image_url": "https://images.genius.com/7b095d5f728073b798813ea8cb73ffaf.800x1000x1.jpg",
+                    "id": 48449,
+                    "image_url": "https://images.genius.com/3e0642e0d60983bc42f6672798b48508.1000x1000x1.jpg",
+                    "index_character": "n",
+                    "is_meme_verified": false,
+                    "is_verified": true,
+                    "name": "Noname",
+                    "slug": "Noname",
+                    "url": "https://genius.com/artists/Noname",
+                    "iq": 2098
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 11,
+                "api_path": "/songs/9402180",
+                "artist_names": "Oxxxymiron",
+                "full_title": "Лига Опасного Интернета (Liga Opasnogo Interneta) by Oxxxymiron",
+                "header_image_thumbnail_url": "https://images.genius.com/e414d2d86105301a7a94cf61a4d42cf3.300x169x1.jpg",
+                "header_image_url": "https://images.genius.com/e414d2d86105301a7a94cf61a4d42cf3.1000x563x1.jpg",
+                "id": 9402180,
+                "instrumental": false,
+                "lyrics_owner_id": 5469055,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1691932572,
+                "path": "/Oxxxymiron-liga-opasnogo-interneta-lyrics",
+                "pyongs_count": 15,
+                "relationships_index_url": "https://genius.com/Oxxxymiron-liga-opasnogo-interneta-sample",
+                "release_date_components": {
+                    "year": 2023,
+                    "month": 8,
+                    "day": 11
+                },
+                "release_date_for_display": "August 11, 2023",
+                "release_date_with_abbreviated_month_for_display": "Aug. 11, 2023",
+                "song_art_image_thumbnail_url": "https://images.genius.com/ef1cd6d9de3dd2912e057e5c0aaa75e3.300x300x1.png",
+                "song_art_image_url": "https://images.genius.com/ef1cd6d9de3dd2912e057e5c0aaa75e3.1000x1000x1.png",
+                "stats": {
+                    "unreviewed_annotations": 0,
+                    "concurrents": 54,
+                    "hot": true,
+                    "pageviews": 136783
+                },
+                "title": "Лига Опасного Интернета (Liga Opasnogo Interneta)",
+                "title_with_featured": "Лига Опасного Интернета (Liga Opasnogo Interneta)",
+                "updated_by_human_at": 1692047663,
+                "url": "https://genius.com/Oxxxymiron-liga-opasnogo-interneta-lyrics",
+                "featured_artists": [],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/24422",
+                    "header_image_url": "https://images.genius.com/b360933d6cf2e2de5ebc0af39d54ad47.1000x1000x1.jpg",
+                    "id": 24422,
+                    "image_url": "https://images.genius.com/0f299a2ca2bef916127fa00ed11c54cf.1000x1000x1.jpg",
+                    "index_character": "o",
+                    "is_meme_verified": true,
+                    "is_verified": true,
+                    "name": "Oxxxymiron",
+                    "slug": "Oxxxymiron",
+                    "url": "https://genius.com/artists/Oxxxymiron",
+                    "iq": 6522
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 35,
+                "api_path": "/songs/207",
+                "artist_names": "Eminem",
+                "full_title": "Lose Yourself by Eminem",
+                "header_image_thumbnail_url": "https://images.genius.com/3d2eced2857919f7a8e66dd264d67c53.300x155x1.png",
+                "header_image_url": "https://images.genius.com/3d2eced2857919f7a8e66dd264d67c53.1000x516x1.png",
+                "id": 207,
+                "instrumental": false,
+                "lyrics_owner_id": 8,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1692047280,
+                "path": "/Eminem-lose-yourself-lyrics",
+                "pyongs_count": 1532,
+                "relationships_index_url": "https://genius.com/Eminem-lose-yourself-sample",
+                "release_date_components": {
+                    "year": 2002,
+                    "month": 10,
+                    "day": 28
+                },
+                "release_date_for_display": "October 28, 2002",
+                "release_date_with_abbreviated_month_for_display": "Oct. 28, 2002",
+                "song_art_image_thumbnail_url": "https://images.genius.com/ce61c1b2664c5952984e30f9b59f1346.300x300x1.png",
+                "song_art_image_url": "https://images.genius.com/ce61c1b2664c5952984e30f9b59f1346.1000x1000x1.png",
+                "stats": {
+                    "unreviewed_annotations": 1,
+                    "concurrents": 39,
+                    "hot": false,
+                    "pageviews": 7718494
+                },
+                "title": "Lose Yourself",
+                "title_with_featured": "Lose Yourself",
+                "updated_by_human_at": 1692047280,
+                "url": "https://genius.com/Eminem-lose-yourself-lyrics",
+                "featured_artists": [],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/45",
+                    "header_image_url": "https://images.genius.com/7879bf220b8614a7fe4617006f132a92.1000x391x1.png",
+                    "id": 45,
+                    "image_url": "https://images.genius.com/76c536a17ca35f7edd1f78e129609fe0.573x573x1.jpg",
+                    "index_character": "e",
+                    "is_meme_verified": true,
+                    "is_verified": true,
+                    "name": "Eminem",
+                    "slug": "Eminem",
+                    "url": "https://genius.com/artists/Eminem",
+                    "iq": 260888
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 8,
+                "api_path": "/songs/9160905",
+                "artist_names": "Ryan Gosling",
+                "full_title": "I’m Just Ken by Ryan Gosling",
+                "header_image_thumbnail_url": "https://images.genius.com/ec297b8459ca95ffeef0012fd267d3c7.300x300x1.png",
+                "header_image_url": "https://images.genius.com/ec297b8459ca95ffeef0012fd267d3c7.1000x1000x1.png",
+                "id": 9160905,
+                "instrumental": false,
+                "lyrics_owner_id": 8280771,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1692046298,
+                "path": "/Ryan-gosling-im-just-ken-lyrics",
+                "pyongs_count": 5,
+                "relationships_index_url": "https://genius.com/Ryan-gosling-im-just-ken-sample",
+                "release_date_components": {
+                    "year": 2023,
+                    "month": 7,
+                    "day": 21
+                },
+                "release_date_for_display": "July 21, 2023",
+                "release_date_with_abbreviated_month_for_display": "Jul. 21, 2023",
+                "song_art_image_thumbnail_url": "https://images.genius.com/ec297b8459ca95ffeef0012fd267d3c7.300x300x1.png",
+                "song_art_image_url": "https://images.genius.com/ec297b8459ca95ffeef0012fd267d3c7.1000x1000x1.png",
+                "stats": {
+                    "unreviewed_annotations": 3,
+                    "concurrents": 28,
+                    "hot": false,
+                    "pageviews": 531851
+                },
+                "title": "I’m Just Ken",
+                "title_with_featured": "I’m Just Ken",
+                "updated_by_human_at": 1692046298,
+                "url": "https://genius.com/Ryan-gosling-im-just-ken-lyrics",
+                "featured_artists": [],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/220055",
+                    "header_image_url": "https://images.genius.com/3c0fbe8142e7936039f41cbd53838f60.1000x667x1.jpg",
+                    "id": 220055,
+                    "image_url": "https://images.genius.com/3356cecfcdf99c560af2134283664a76.1000x1000x1.jpg",
+                    "index_character": "r",
+                    "is_meme_verified": false,
+                    "is_verified": false,
+                    "name": "Ryan Gosling",
+                    "slug": "Ryan-gosling",
+                    "url": "https://genius.com/artists/Ryan-gosling"
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 47,
+                "api_path": "/songs/811",
+                "artist_names": "Eminem",
+                "full_title": "Without Me by Eminem",
+                "header_image_thumbnail_url": "https://images.genius.com/3ab979343099b21ed1537b08d934fc3b.300x169x1.jpg",
+                "header_image_url": "https://images.genius.com/3ab979343099b21ed1537b08d934fc3b.1000x563x1.jpg",
+                "id": 811,
+                "instrumental": false,
+                "lyrics_owner_id": 3,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1691636824,
+                "path": "/Eminem-without-me-lyrics",
+                "pyongs_count": 438,
+                "relationships_index_url": "https://genius.com/Eminem-without-me-sample",
+                "release_date_components": {
+                    "year": 2002,
+                    "month": 5,
+                    "day": 14
+                },
+                "release_date_for_display": "May 14, 2002",
+                "release_date_with_abbreviated_month_for_display": "May. 14, 2002",
+                "song_art_image_thumbnail_url": "https://images.genius.com/43c0028d130e85df2c466f2075684dbe.300x300x1.png",
+                "song_art_image_url": "https://images.genius.com/43c0028d130e85df2c466f2075684dbe.1000x1000x1.png",
+                "stats": {
+                    "unreviewed_annotations": 0,
+                    "concurrents": 25,
+                    "hot": false,
+                    "pageviews": 4242058
+                },
+                "title": "Without Me",
+                "title_with_featured": "Without Me",
+                "updated_by_human_at": 1691636822,
+                "url": "https://genius.com/Eminem-without-me-lyrics",
+                "featured_artists": [],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/45",
+                    "header_image_url": "https://images.genius.com/7879bf220b8614a7fe4617006f132a92.1000x391x1.png",
+                    "id": 45,
+                    "image_url": "https://images.genius.com/76c536a17ca35f7edd1f78e129609fe0.573x573x1.jpg",
+                    "index_character": "e",
+                    "is_meme_verified": true,
+                    "is_verified": true,
+                    "name": "Eminem",
+                    "slug": "Eminem",
+                    "url": "https://genius.com/artists/Eminem",
+                    "iq": 260888
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 27,
+                "api_path": "/songs/9368450",
+                "artist_names": "Travis Scott (Ft. Drake)",
+                "full_title": "MELTDOWN by Travis Scott (Ft. Drake)",
+                "header_image_thumbnail_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.300x300x1.png",
+                "header_image_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.1000x1000x1.png",
+                "id": 9368450,
+                "instrumental": false,
+                "lyrics_owner_id": 6877117,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1692017154,
+                "path": "/Travis-scott-meltdown-lyrics",
+                "pyongs_count": 13,
+                "relationships_index_url": "https://genius.com/Travis-scott-meltdown-sample",
+                "release_date_components": {
+                    "year": 2023,
+                    "month": 7,
+                    "day": 28
+                },
+                "release_date_for_display": "July 28, 2023",
+                "release_date_with_abbreviated_month_for_display": "Jul. 28, 2023",
+                "song_art_image_thumbnail_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.300x300x1.png",
+                "song_art_image_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.1000x1000x1.png",
+                "stats": {
+                    "unreviewed_annotations": 2,
+                    "concurrents": 21,
+                    "hot": false,
+                    "pageviews": 752093
+                },
+                "title": "MELTDOWN",
+                "title_with_featured": "MELTDOWN (Ft. Drake)",
+                "updated_by_human_at": 1692095225,
+                "url": "https://genius.com/Travis-scott-meltdown-lyrics",
+                "featured_artists": [
+                    {
+                        "_type": "artist",
+                        "api_path": "/artists/130",
+                        "header_image_url": "https://images.genius.com/76e53fbaa0156b75ac0bf5b7d61c22fd.1000x667x1.jpg",
+                        "id": 130,
+                        "image_url": "https://images.genius.com/78b4a556c0eaa5d14346f0aa3fb85939.988x988x1.png",
+                        "index_character": "d",
+                        "is_meme_verified": false,
+                        "is_verified": false,
+                        "name": "Drake",
+                        "slug": "Drake",
+                        "url": "https://genius.com/artists/Drake"
+                    }
+                ],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/20185",
+                    "header_image_url": "https://images.genius.com/77659552bac452cb5dee1ac1d68c62a9.480x288x24.gif",
+                    "id": 20185,
+                    "image_url": "https://images.genius.com/5d19fecdb3828ca9ec89dda588e2eb7d.1000x1000x1.jpg",
+                    "index_character": "t",
+                    "is_meme_verified": true,
+                    "is_verified": true,
+                    "name": "Travis Scott",
+                    "slug": "Travis-scott",
+                    "url": "https://genius.com/artists/Travis-scott",
+                    "iq": 5821
+                }
+            }
+        },
+        {
+            "_type": "chart_item",
+            "type": "song",
+            "item": {
+                "_type": "song",
+                "annotation_count": 17,
+                "api_path": "/songs/9368452",
+                "artist_names": "Travis Scott",
+                "full_title": "MY EYES by Travis Scott",
+                "header_image_thumbnail_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.300x300x1.png",
+                "header_image_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.1000x1000x1.png",
+                "id": 9368452,
+                "instrumental": false,
+                "lyrics_owner_id": 14287967,
+                "lyrics_state": "complete",
+                "lyrics_updated_at": 1692050586,
+                "path": "/Travis-scott-my-eyes-lyrics",
+                "pyongs_count": 22,
+                "relationships_index_url": "https://genius.com/Travis-scott-my-eyes-sample",
+                "release_date_components": {
+                    "year": 2023,
+                    "month": 7,
+                    "day": 28
+                },
+                "release_date_for_display": "July 28, 2023",
+                "release_date_with_abbreviated_month_for_display": "Jul. 28, 2023",
+                "song_art_image_thumbnail_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.300x300x1.png",
+                "song_art_image_url": "https://images.genius.com/93c577bcd2cce45a2e7063978bcb3b1a.1000x1000x1.png",
+                "stats": {
+                    "unreviewed_annotations": 0,
+                    "concurrents": 16,
+                    "hot": false,
+                    "pageviews": 611195
+                },
+                "title": "MY EYES",
+                "title_with_featured": "MY EYES",
+                "updated_by_human_at": 1692050586,
+                "url": "https://genius.com/Travis-scott-my-eyes-lyrics",
+                "featured_artists": [],
+                "primary_artist": {
+                    "_type": "artist",
+                    "api_path": "/artists/20185",
+                    "header_image_url": "https://images.genius.com/77659552bac452cb5dee1ac1d68c62a9.480x288x24.gif",
+                    "id": 20185,
+                    "image_url": "https://images.genius.com/5d19fecdb3828ca9ec89dda588e2eb7d.1000x1000x1.jpg",
+                    "index_character": "t",
+                    "is_meme_verified": true,
+                    "is_verified": true,
+                    "name": "Travis Scott",
+                    "slug": "Travis-scott",
+                    "url": "https://genius.com/artists/Travis-scott",
+                    "iq": 5821
+                }
+            }
+        }
+    ],
+    "next_page": 2
+}
+
+export default data;

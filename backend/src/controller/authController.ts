@@ -14,7 +14,7 @@ const cookieOptions = {
     httpOnly:true
 }
 
-
+console.log(process.env.TOKEN_SECRET)
 const signToken = (id:String) =>{
     return jwt.sign({id}, process.env.TOKEN_SECRET, {expiresIn: 100})
 }
@@ -69,7 +69,7 @@ export const login = async ( req:express.Request, res:express.Response, next:exp
     res.status(201).json({
         status:"success",
         token,
-        
+        user,
     })
 }
 
