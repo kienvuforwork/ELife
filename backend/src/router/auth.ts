@@ -1,9 +1,9 @@
 import express from "express"
 
-import { register,login, checkEmail } from "../controller/authController"
+import { register,login, checkEmail, protect } from "../controller/authController"
 
 export default (router:express.Router)=>{
     router.post("/auth/register", register)
     router.post("/auth/login", login)
-    router.post("/auth/check-email", checkEmail )
+    router.post("/auth/check-email", protect, checkEmail )
 }   

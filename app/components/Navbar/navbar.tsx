@@ -17,7 +17,7 @@ import { Fragment } from "react";
 const Navbar = () => {
   const dispatch: AppDispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.userSlice);
-  console.log(currentUser);
+
   return (
     <Container>
       <div className="grid grid-cols-12 py-4">

@@ -1,3 +1,4 @@
+
 const User = require('./../model/UserModel')
 import express from "express";
 const jwt = require('jsonwebtoken');
@@ -14,9 +15,9 @@ const cookieOptions = {
     httpOnly:true
 }
 
-console.log(process.env.TOKEN_SECRET)
+
 const signToken = (id:String) =>{
-    return jwt.sign({id}, process.env.TOKEN_SECRET, {expiresIn: 100})
+    return jwt.sign({id}, process.env.TOKEN_SECRET, {expiresIn: 100000})
 }
 
 export const register = async(req:express.Request, res:express.Response) =>{
@@ -33,7 +34,7 @@ export const register = async(req:express.Request, res:express.Response) =>{
         const newUser = await User.create({
             email, username, password
         })
-        const token = jwt.sign({id:newUser._id}, process.env.TOKEN_SECRET, {expiresIn: 1000})
+        const token = jwt.sign({id:newUser._id}, process.env.TOKEN_SECRET, {expiresIn: "1000d"})
         return res.status(200).cookie('jwt', token, cookieOptions).json({
             status: 'success',
             token,
@@ -92,4 +93,37 @@ export const checkEmail = async ( req:express.Request, res:express.Response, nex
         }
 
     })
+}
+
+
+export const protect = async ( req:express.Request, res:express.Response, next:express.NextFunction)=>{
+    let token
+    if ( req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+        
+         token = req.headers.authorization.split(' ')[1];
+    }
+
+    if(!token){
+        return res.status(401).json({
+            status:"fail",
+            data:{
+                message:"You are not log in!"
+            }
+    
+        })
+    }
+    const decoded = await jwt.verify(token,process.env.TOKEN_SECRET)
+
+    const user = await User.findById(decoded.id)
+    if(!user){
+        return res.status(401).json({
+            status:"fail",
+            data:{
+                message:"User no longer exist!"
+            }
+    
+        })
+    }
+
+   next()
 }

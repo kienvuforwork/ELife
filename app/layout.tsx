@@ -7,7 +7,6 @@ import RegisterModal from "./components/Modals/registerModal";
 import LoginModal from "./components/Modals/loginModal";
 import Content from "./components/content/content";
 import ToasterProvider from "./providers/toasterProvider";
-
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -22,16 +21,15 @@ export const metadata = {
   description: "Life style",
 };
 
-const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
+const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
   return (
     <html lang="en" className={roboto.className}>
       <Providers>
         <body className="bg-black text-white">
           <ToasterProvider></ToasterProvider>
-          <Navbar currentUser={null}></Navbar>
+          <Navbar></Navbar>
           <RegisterModal></RegisterModal>
           <LoginModal></LoginModal>
-          <Content></Content>
           {children}
         </body>
       </Providers>

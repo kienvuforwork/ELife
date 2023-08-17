@@ -1,3 +1,4 @@
+
 import { MovieModel } from "../Model/Movie";
 const options = {
   method: 'GET',
@@ -15,6 +16,7 @@ const  getMovies = async () => {
   .then(res => res.json())
   .catch(err => console.error('error:' + err));
   const movies : MovieModel[] = data.results;
+
   return movies;
 }
 
