@@ -10,10 +10,10 @@ const Content = async () => {
   return (
     <Container>
       <div className="h-100 grid grid-cols-12 mt-5">
-        <div className="xl:col-span-8 col-span-8 h-5">
+        <div className="col-start-3 col-span-6 h-5">
           <MainBar></MainBar>
         </div>
-        <div className="col-span-4 xl:col-span-3">
+        <div className="col-span-4 xl:col-span-3 border-2 border-elife-700">
           <SideBar moviesData={movieData} musicData={musicData}></SideBar>
         </div>
       </div>

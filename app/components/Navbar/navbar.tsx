@@ -5,18 +5,25 @@ import Search from "./search";
 import UserMenu from "./userMenu";
 import Notification from "./notification";
 import Avatar from "../avatar";
-import Dropdown from "../dropdown";
 import Button from "../button";
 import { onOpen as onOpenRegisterModal } from "@/app/store/registerModalSlice";
 import { onOpen as onOpenLoginModal } from "@/app/store/loginModalSlice";
 import { AppDispatch, RootState } from "@/app/store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Fragment } from "react";
+import { setUser } from "@/app/store/userSlice";
+interface NavbarProps {
+  currentUser: any;
+}
 
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const dispatch: AppDispatch = useDispatch();
-  const currentUser = useSelector((state: RootState) => state.userSlice);
+  console.log(currentUser.username);
+  if (currentUser) {
+    const { username } = { ...currentUser };
+    dispatch(setUser(username));
+    // const currentUser = useSelector((state: RootState) => state.userSlice);
+  }
 
   return (
     <Container>
@@ -30,7 +37,7 @@ const Navbar = () => {
           <Search></Search>
         </div>
 
-        {!currentUser.username ? (
+        {!currentUser?.username ? (
           <div className="flex items-center col-start-10 col-span-3 justify-center gap-2">
             {" "}
             <Button

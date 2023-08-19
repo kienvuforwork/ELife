@@ -2,9 +2,12 @@
 
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { useState, useRef, useEffect } from "react";
-import Dropdown from "../dropdown";
+import DropdownItem from "../dropdownItem";
 
 const Notification = () => {
+  const dummy = () => {
+    return;
+  };
   const [isOpen, setIsOpen] = useState(false);
   const notificationRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -37,7 +40,11 @@ const Notification = () => {
     >
       {" "}
       <IoMdNotificationsOutline className="w-6 h-6 cursor-pointer"></IoMdNotificationsOutline>
-      {isOpen && <Dropdown type="test"></Dropdown>}
+      {isOpen && (
+        <div className="absolute left-0 bg-elife-400 w-52 top-8 transform -translate-x-1/2 z-10 rounded-md focus:outline-none hover:outline-none">
+          <DropdownItem name="Account setting" onClick={dummy}></DropdownItem>
+        </div>
+      )}
     </div>
   );
 };

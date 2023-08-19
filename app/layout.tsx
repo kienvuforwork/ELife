@@ -5,8 +5,10 @@ import { Roboto } from "@next/font/google";
 import Providers from "./providers/reduxProvider";
 import RegisterModal from "./components/Modals/registerModal";
 import LoginModal from "./components/Modals/loginModal";
-import Content from "./components/content/content";
 import ToasterProvider from "./providers/toasterProvider";
+import { getCurrentUser } from "./actions/getCurrentUser";
+import { NextRequest } from "next/server";
+
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -22,12 +24,14 @@ export const metadata = {
 };
 
 const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
+  const currentUser = await getCurrentUser();
+  console.log(currentUser.username);
   return (
     <html lang="en" className={roboto.className}>
       <Providers>
         <body className="bg-black text-white">
           <ToasterProvider></ToasterProvider>
-          <Navbar></Navbar>
+          <Navbar currentUser={currentUser}></Navbar>
           <RegisterModal></RegisterModal>
           <LoginModal></LoginModal>
           {children}

@@ -27,16 +27,16 @@ const SideBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
   return (
     <Fragment>
       {" "}
-      <div className="xl:text-2xl text-md font-medium flex justify-center text-elife-400 text-center p-4">
+      <div className="xl:text-2xl text-md font-medium flex justify-center text-elife-400 text-center p-4 pb-0 gap-4 flex-col">
         {" "}
         Trending Now: What Everyone's
+        <SwitchBar
+          onSetMovie={() => hanldeMovie()}
+          onSetMusic={() => hanldeMusic()}
+        ></SwitchBar>
       </div>
-      <SwitchBar
-        onSetMovie={() => hanldeMovie()}
-        onSetMusic={() => hanldeMusic()}
-      ></SwitchBar>
       {isMovie ? (
-        <div className="border-2 border-t-0 border-elife-700 flex flex-col  h-[70vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-elife-700">
+        <div className=" flex flex-col  h-[70vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-elife-700">
           {moviesData.map((movie, index) => (
             <MovieCard
               image_src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
@@ -48,7 +48,7 @@ const SideBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
         </div>
       ) : null}
       {isMusic ? (
-        <div className="border-2 border-t-0 border-elife-700 flex flex-col  h-[70vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-elife-700">
+        <div className=" flex flex-col  h-[70vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-elife-700">
           {musicData?.map((song, index) => (
             <SongCard
               name={song.item.title}
