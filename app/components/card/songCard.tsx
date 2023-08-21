@@ -1,10 +1,13 @@
 "use client";
 
+import CardLoadingSkeleton from "./cardLoadingSkeleton";
+
 interface SongCardProps {
   name: string;
   artist: string;
   date: string;
   image_src: string;
+  isLoading?: boolean;
 }
 
 const SongCard: React.FC<SongCardProps> = ({
@@ -12,8 +15,12 @@ const SongCard: React.FC<SongCardProps> = ({
   artist,
   date,
   image_src,
+  isLoading,
 }) => {
-  console.log(image_src);
+  if (isLoading) {
+    return <CardLoadingSkeleton></CardLoadingSkeleton>;
+  }
+
   return (
     <div className="flex xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1 border-t-2 border-elife-700 hover:bg-elife-700 ">
       <div className="w-1/3">

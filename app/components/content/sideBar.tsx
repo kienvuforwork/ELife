@@ -15,6 +15,12 @@ interface SideBarProps {
 const SideBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
   const [isMovie, setIsMovie] = useState<boolean>(true);
   const [isMusic, setIsMusic] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    if (moviesData) {
+      setIsLoading(false);
+    }
+  }, []);
   const hanldeMovie = () => {
     setIsMovie(true);
     setIsMusic(false);
@@ -43,6 +49,7 @@ const SideBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
               name={movie.name}
               rating={movie.vote_average}
               key={index}
+              isLoading={isLoading}
             ></MovieCard>
           ))}
         </div>

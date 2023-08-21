@@ -46,26 +46,22 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           <Search></Search>
         </div>{" "}
         {!user?.username ? (
-          <div className="flex items-center col-start-10 col-span-3 justify-center gap-2">
+          <div
+            className={`flex items-center col-start-10 col-span-3 justify-center gap-2`}
+          >
             {" "}
-            {isLoading ? (
-              <div className=" bg-gray-800 w-5 h-5 rounded-full animate-pulse "></div>
-            ) : (
-              <Button
-                onClick={() => dispatch(onOpenLoginModal())}
-                label="Sign in"
-                sm
-              ></Button>
-            )}
-            {isLoading ? (
-              <div className=" bg-gray-800 w-5 h-5 rounded-full animate-pulse "></div>
-            ) : (
-              <Button
-                onClick={() => dispatch(onOpenRegisterModal())}
-                label="Sign up"
-                sm
-              ></Button>
-            )}
+            <Button
+              onClick={() => dispatch(onOpenLoginModal())}
+              label="Sign in"
+              isLoading={isLoading}
+              sm
+            ></Button>
+            <Button
+              onClick={() => dispatch(onOpenRegisterModal())}
+              label="Sign up"
+              sm
+              isLoading={isLoading}
+            ></Button>
           </div>
         ) : (
           <div className="flex items-center col-start-10 col-span-3 justify-center gap-2">

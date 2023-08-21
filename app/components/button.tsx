@@ -7,6 +7,7 @@ interface ButtonProps {
   md?: boolean;
   lg?: boolean;
   full?: boolean;
+  isLoading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,13 +17,16 @@ const Button: React.FC<ButtonProps> = ({
   md,
   lg,
   full,
+  isLoading,
 }) => {
   return (
     <button
       onClick={onClick}
-      className={`rounded-3xl hover:opacity-70  transition bg-blue-700 py-2  ${
-        full ? "w-full" : ""
-      } ${sm ? "px-4 py-2 rounded " : ""}`}
+      className={`rounded-3xl hover:opacity-70  transition bg-blue-700 py-2 ${
+        isLoading
+          ? "bg-gray-800   rounded-full text-gray-800 animate-pulse "
+          : ""
+      }  ${full ? "w-full" : ""} ${sm ? "px-4 py-2 rounded " : ""}`}
     >
       {" "}
       {label}

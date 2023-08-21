@@ -2,13 +2,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStarHalfStroke } from "@fortawesome/free-regular-svg-icons";
 import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
+import CardLoadingSkeleton from "./cardLoadingSkeleton";
 interface MovieCardProps {
   image_src: string;
   name: string;
   rating: number;
+  isLoading?: boolean;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ image_src, name, rating }) => {
+const MovieCard: React.FC<MovieCardProps> = ({
+  image_src,
+  name,
+  rating,
+  isLoading,
+}) => {
   const convertRatingOutOf10ToOutOf5 = (ratingOutOf10: number) => {
     // Ensure the input is within the valid range
     if (ratingOutOf10 < 0 || ratingOutOf10 > 10) {
@@ -38,6 +45,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ image_src, name, rating }) => {
     }
     return <div>{starIcons}</div>;
   };
+
   const halfStarsIcon = () => {
     if (halfStar) {
       return (
@@ -51,6 +59,11 @@ const MovieCard: React.FC<MovieCardProps> = ({ image_src, name, rating }) => {
       );
     }
   };
+
+  if (isLoading) {
+    return <CardLoadingSkeleton></CardLoadingSkeleton>;
+  }
+
   return (
     <div className="flex xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1 border-t-2 border-elife-700 hover:bg-elife-700 ">
       <div className="w-1/3">
