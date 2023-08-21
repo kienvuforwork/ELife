@@ -1,14 +1,28 @@
 "use client";
 
 import { AiOutlineMenu } from "react-icons/ai";
-
 import { useState, useEffect, useRef } from "react";
 import DropdownItem from "../dropdownItem";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/store";
+import { clearUser } from "@/app/store/userSlice";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 const UserMenu = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const dummy = () => {
     return;
   };
+  const dispatch: AppDispatch = useDispatch();
+  const logout = () => {
+    dispatch(clearUser()); // Assuming this clears the user data in your Redux store
+    toast.success("Logged out!");
+    router.push("");
+    Cookies.remove("token");
+  };
+
   const userMenuRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const handleOutsideClick = (event: Event) => {
@@ -40,7 +54,8 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute left-0 bg-elife-400 w-52 top-8 transform -translate-x-1/2 z-10 rounded-md focus:outline-none hover:outline-none">
           <DropdownItem name="Account setting" onClick={dummy}></DropdownItem>
-          <DropdownItem name="Logout" onClick={dummy}></DropdownItem>
+          <DropdownItem name="Logout" onClick={logout}></DropdownItem>
+          <Skeleton></Skeleton>
         </div>
       )}
     </div>

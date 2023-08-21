@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import "./global.css";
 import Navbar from "./components/Navbar/navbar";
 import { Roboto } from "@next/font/google";
@@ -7,7 +7,6 @@ import RegisterModal from "./components/Modals/registerModal";
 import LoginModal from "./components/Modals/loginModal";
 import ToasterProvider from "./providers/toasterProvider";
 import { getCurrentUser } from "./actions/getCurrentUser";
-import { NextRequest } from "next/server";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -25,12 +24,12 @@ export const metadata = {
 
 const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
   const currentUser = await getCurrentUser();
-  console.log(currentUser.username);
+
   return (
     <html lang="en" className={roboto.className}>
       <Providers>
         <body className="bg-black text-white">
-          <ToasterProvider></ToasterProvider>
+          <ToasterProvider></ToasterProvider>{" "}
           <Navbar currentUser={currentUser}></Navbar>
           <RegisterModal></RegisterModal>
           <LoginModal></LoginModal>

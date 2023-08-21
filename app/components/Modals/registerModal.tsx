@@ -86,7 +86,7 @@ const RegisterModal = () => {
       document.cookie = `token=${res.token}`;
       setIsDisable(false);
       reset();
-      router.push("");
+      router.push("/home");
       dispatch(onCloseRegisterModal());
       toast.success("Register Successfully!!");
     }
