@@ -2,11 +2,7 @@
 import { RxAvatar } from "react-icons/rx";
 
 const Avatar = () => {
-  return (
-    <div className="p-1">
-      <RxAvatar className="w-7 h-7 cursor-pointer"></RxAvatar>
-    </div>
-  );
+  return <RxAvatar className="w-7 h-7 cursor-pointer"></RxAvatar>;
 };
 
 export default Avatar;
