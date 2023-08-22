@@ -1,7 +1,7 @@
 "use client";
 import Container from "../container";
 import Logo from "./logo";
-import Search from "./search";
+import Search from "../rightBar/search";
 import UserMenu from "./userMenu";
 import Notification from "./notification";
 import Avatar from "../avatar";

@@ -39,7 +39,7 @@ const Notification = () => {
       ref={notificationRef}
     >
       {" "}
-      <IoMdNotificationsOutline className="w-6 h-6 cursor-pointer"></IoMdNotificationsOutline>
+      <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer"></IoMdNotificationsOutline>
       {isOpen && (
         <div className="absolute left-0 bg-elife-400 w-52 top-8 transform -translate-x-1/2 z-10 rounded-md focus:outline-none hover:outline-none">
           <DropdownItem name="Account setting" onClick={dummy}></DropdownItem>

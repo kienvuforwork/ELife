@@ -29,21 +29,27 @@ const LoginModal = () => {
   const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsDisable(true);
-    const res = await postData("http://localhost:8080/auth/login", {
-      ...data,
-    });
+    try {
+      const res = await postData("http://localhost:8080/auth/login", {
+        ...data,
+      });
 
-    if (res.status === "success") {
-      document.cookie = `token=${res.token}`;
-      dispatch(setUser({ ...res.user }));
-      router.push("/home");
+      if (res.status === "success") {
+        document.cookie = `token=${res.token}`;
+        dispatch(setUser({ ...res.user }));
+        router.push("/home");
+        setIsDisable(false);
+        dispatch(onCloseLoginModal());
+        reset();
+        toast.success("Logged in!");
+      } else if (res.status === "Fail") {
+        setIsDisable(false);
+        toast.error("Incorrect username or password!!");
+      }
+    } catch (e) {
+      toast.error("error");
       setIsDisable(false);
-      dispatch(onCloseLoginModal());
       reset();
-      toast.success("Logged in!");
-    } else if (res.status === "Fail") {
-      setIsDisable(false);
-      toast.error("Incorrect username or password!!");
     }
   };
   const {

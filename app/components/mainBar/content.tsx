@@ -1,8 +1,8 @@
 import data from "@/app/api/Music/data";
 import Container from "../container";
 import MainBar from "./mainBar";
-import SideBar from "./sideBar";
 import getMovies from "@/app/api/Movie/getMovie";
+import RightBar from "../rightBar/rightBar";
 
 const Content = async () => {
   const movieData = await getMovies();
@@ -14,7 +14,7 @@ const Content = async () => {
           <MainBar></MainBar>
         </div>
         <div className="col-span-4 xl:col-span-3 border-2 border-elife-700">
-          <SideBar moviesData={movieData} musicData={musicData}></SideBar>
+          <RightBar moviesData={movieData} musicData={musicData}></RightBar>
         </div>
       </div>
     </Container>

@@ -1,4 +1,4 @@
-import { MusicModel } from "../Model/Music"
+import { MusicModel } from "../../Model/Music"
 
 
 
@@ -19,7 +19,7 @@ const getSongs = async () => {
     try {
         const response = await fetch(url, options);
         const result = await response.json();
-        console.log(result);
+      
         return result.chart_items;
     } catch (error) {
         console.error(error);

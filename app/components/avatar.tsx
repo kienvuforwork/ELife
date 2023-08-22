@@ -4,7 +4,7 @@ import { RxAvatar } from "react-icons/rx";
 const Avatar = () => {
   return (
     <div className="p-1">
-      <RxAvatar className="w-6 h-6 cursor-pointer"></RxAvatar>
+      <RxAvatar className="w-7 h-7 cursor-pointer"></RxAvatar>
     </div>
   );
 };

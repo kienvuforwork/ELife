@@ -50,7 +50,7 @@ const UserMenu = () => {
   return (
     <div className="p-1 relative" onClick={toggleDropdown} ref={userMenuRef}>
       {" "}
-      <AiOutlineMenu className="w-6 h-6 cursor-pointer"></AiOutlineMenu>{" "}
+      <AiOutlineMenu className="w-7 h-7 cursor-pointer"></AiOutlineMenu>{" "}
       {isOpen && (
         <div className="absolute left-0 bg-elife-400 w-52 top-8 transform -translate-x-1/2 z-10 rounded-md focus:outline-none hover:outline-none">
           <DropdownItem name="Account setting" onClick={dummy}></DropdownItem>

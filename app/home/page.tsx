@@ -1,4 +1,5 @@
-import Content from "../components/content/content";
+import Container from "../components/container";
+import Content from "../components/mainBar/content";
 
 // async function getData() {
 //   const res = await fetch("http://localhost:8080/user/getUser");
@@ -10,5 +11,5 @@ import Content from "../components/content/content";
 // }
 
 export default async function Home() {
-  return <Content></Content>;
+  return <div className="border-2 border-elife-700 h-[100vh] w-full"></div>;
 }

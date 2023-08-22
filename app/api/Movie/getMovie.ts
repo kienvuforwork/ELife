@@ -1,5 +1,5 @@
 
-import { MovieModel } from "../Model/Movie";
+import { MovieModel } from "../../Model/Movie";
 const options = {
   method: 'GET',
   headers: {
