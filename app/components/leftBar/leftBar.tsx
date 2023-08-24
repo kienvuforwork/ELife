@@ -14,8 +14,10 @@ import Logo from "./logo";
 import MenuItem from "./menuItem";
 import { clearUser } from "@/app/store/userSlice";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Cookies from "js-cookie";
+import { BiHomeCircle, BiSolidHomeCircle } from "react-icons/bi";
+import { onOpen as onOpenShareModal } from "@/app/store/shareModalSlice";
 
 interface LeftBarProps {
   currentUser: any;
@@ -23,7 +25,6 @@ interface LeftBarProps {
 
 const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
   const router = useRouter();
-
   const dispatch: AppDispatch = useDispatch();
   const logout = () => {
     dispatch(clearUser()); // Assuming this clears the user data in your Redux store
@@ -41,8 +42,9 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
       setIsLoading(false);
     }
   }, []);
-
   const user = useSelector((state: RootState) => state.userSlice);
+  const pathname = usePathname().split("/")[1];
+  console.log("render");
   return (
     <div className="h-[100vh] flex flex-col p-2 justify-start gap-6">
       <Logo></Logo>
@@ -63,15 +65,30 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
           ></Button>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 justify-start items-start">
-          <MenuItem title="Home">
+        <div className="flex flex-col gap-2 justify-start items-start">
+          <MenuItem
+            title="Home"
+            icon={BiHomeCircle}
+            activeIcon={BiSolidHomeCircle}
+            selected={"home" === pathname}
+            key={1}
+          ></MenuItem>
+          <MenuItem
+            title="asdf"
+            icon={BiHomeCircle}
+            activeIcon={BiSolidHomeCircle}
+            selected={"asdf" === pathname}
+            key={2}
+          ></MenuItem>
+          {/* <MenuItem title="Sign out" onClick={logout} icon={}>
             {" "}
-            <Avatar></Avatar>
-          </MenuItem>
-          <MenuItem title="Sign out" onClick={logout}>
-            {" "}
-            <IoMdNotificationsOutline className="w-7 h-7 cursor-pointer"></IoMdNotificationsOutline>
-          </MenuItem>
+            < className="w-7 h-7 cursor-pointer"></IoMdNotificationsOutline>
+          </MenuItem> */}
+          <Button
+            label="Share the vibe"
+            full
+            onClick={() => dispatch(onOpenShareModal())}
+          ></Button>
         </div>
       )}
     </div>

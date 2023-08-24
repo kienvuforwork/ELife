@@ -7,7 +7,7 @@ import { onClose as onCloseRegisterModal } from "@/app/store/registerModalSlice"
 import { onOpen as onOpenLoginModal } from "@/app/store/loginModalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
-import { postData } from "../helpers/fetchData";
+import { postData } from "../../actions/fetchData";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -143,7 +143,6 @@ const RegisterModal = () => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit(onSubmit)}
       title={title}
       body={body}
       footer={footer}

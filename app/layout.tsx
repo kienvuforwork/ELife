@@ -12,6 +12,7 @@ import MainBar from "./components/mainBar/mainBar";
 import RightBar from "./components/rightBar/rightBar";
 import getMovies from "./api/Movie/getMovie";
 import data from "./api/Music/data";
+import ShareModal from "./components/Modals/shareModal";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -35,7 +36,9 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
     <html lang="en" className={roboto.className}>
       <Providers>
         <body className="bg-black text-white">
-          <ToasterProvider></ToasterProvider> <RegisterModal></RegisterModal>
+          <ToasterProvider></ToasterProvider>
+          <RegisterModal></RegisterModal>
+          <ShareModal></ShareModal>
           <LoginModal></LoginModal>
           <Container>
             {" "}

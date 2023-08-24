@@ -22,11 +22,11 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`rounded-3xl hover:opacity-70  transition bg-blue-700 py-2 ${
+      className={`rounded-3xl hover:opacity-70  transition-all duration-300 bg-blue-700 py-2 ${
         isLoading
           ? "bg-gray-800   rounded-full text-gray-800 animate-pulse "
           : ""
-      }  ${full ? "w-full" : ""} ${sm ? "px-4 py-2 rounded " : ""}`}
+      }  ${full ? "w-full text-lg" : ""} ${sm ? "px-4 rounded " : ""}`}
     >
       {" "}
       {label}
