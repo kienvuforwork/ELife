@@ -7,9 +7,10 @@ import { useState } from "react";
 interface SearchProps {
   icon?: boolean;
   placeholder: string;
+  sm?: boolean;
 }
 
-const Search: React.FC<SearchProps> = ({ icon, placeholder }) => {
+const Search: React.FC<SearchProps> = ({ icon, placeholder, sm }) => {
   const [text, setText] = useState<String>();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -27,7 +28,9 @@ const Search: React.FC<SearchProps> = ({ icon, placeholder }) => {
         type="text"
         placeholder={placeholder}
         onChange={onChange}
-        className="focus:bg-white focus:outline-none rounded-full focus:border-sky-500 focus:ring-1 focus:ring-sky-500 text-elife-700 bg-elife-500 w-full h-[40px] p-2 pl-10"
+        className={`focus:bg-white focus:outline-none rounded-full focus:border-sky-500 focus:ring-1 focus:ring-sky-500 text-elife-700 bg-elife-500 w-full  h-[40px]  p-2 pl-10 ${
+          sm ? "h-[30px] pl-2" : ""
+        }`}
       />
       <SearchResult></SearchResult>
     </div>

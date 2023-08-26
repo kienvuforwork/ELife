@@ -10,6 +10,7 @@ interface ModalProps {
   footer?: React.ReactElement;
   disabled?: boolean;
   bgWhite?: boolean;
+  big?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -20,17 +21,21 @@ const Modal: React.FC<ModalProps> = ({
   footer,
   disabled,
   bgWhite,
+  big,
 }) => {
   return isOpen ? (
     <div
       className={` ${
         disabled ? "pointer-events-none cursor-not-allowed opacity-50" : ""
-      } fixed top-0 left-0 right-0 bottom-0  bg-elife-700 bg-opacity-50 flex items-center justify-center`}
+      } fixed top-0 left-0 right-0 bottom-0  bg-elife-700 bg-opacity-50 flex items-start justify-center`}
     >
+      {/* MODAL */}
       <div
-        className={`flex flex-col items-center justify-center  ${
+        className={`flex flex-col items-center justify-center mt-[10vh]  ${
           bgWhite ? "bg-elife-400" : "bg-black"
-        } h-auto md:w-1/2 xl:w-1/4 my-6 py-5 z-10 shadow-xl rounded-md px-4 translate duration-300 
+        } h-auto  my-6 py-5 z-10  shadow-xl rounded-md px-4 translate duration-300 ${
+          big ? "2xl:w-1/2 md:w-3/4 w-full" : "md:w-1/2 xl:w-1/4"
+        }
       `}
       >
         {/* TITLE */}
