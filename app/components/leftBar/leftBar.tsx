@@ -44,9 +44,8 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
   }, []);
   const user = useSelector((state: RootState) => state.userSlice);
   const pathname = usePathname().split("/")[1];
-  console.log("render");
   return (
-    <div className="h-[100vh] flex flex-col p-2 justify-start gap-6">
+    <div className="h-[100vh] flex flex-col h-screen p-2 justify-start gap-6">
       <Logo></Logo>
       {!user?.username ? (
         <div className={`flex items-center  gap-2`}>
@@ -91,6 +90,10 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
           ></Button>
         </div>
       )}
+      <div className="flex-grow"></div>
+      {user?.username ? (
+        <Button label="Logout" full onClick={logout}></Button>
+      ) : null}
     </div>
   );
 };

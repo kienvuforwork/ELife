@@ -35,8 +35,8 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
     <Fragment>
       {" "}
       <div className="p-4 pt-2 pl-6">
-        <div>
-          <Search placeholder="Search"></Search>
+        <div className="px-4">
+          <Search placeholder="Search" rounded icon></Search>
         </div>
 
         <div className="xl:text-2xl text-md font-medium flex justify-center text-elife-400 text-center p-4  gap-4 flex-col">
