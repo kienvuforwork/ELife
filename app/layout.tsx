@@ -8,10 +8,9 @@ import ToasterProvider from "./providers/toasterProvider";
 import { getCurrentUser } from "./actions/getCurrentUser";
 import LeftBar from "./components/leftBar/leftBar";
 import Container from "./components/container";
-import MainBar from "./components/mainBar/mainBar";
 import RightBar from "./components/rightBar/rightBar";
-import getMovies from "./api/Movie/getMovie";
-import data from "./api/Music/data";
+import { getPopularTvShow } from "./actions/Movie/getTvShow";
+import data from "./actions/Music/data";
 import ShareModal from "./components/Modals/shareModal";
 
 interface RootLayoutProps {
@@ -30,7 +29,7 @@ export const metadata = {
 
 const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
   const currentUser = await getCurrentUser();
-  const movieData = await getMovies();
+  const movieData = await getPopularTvShow();
   const musicData = await data.chart_items;
   return (
     <html lang="en" className={roboto.className}>

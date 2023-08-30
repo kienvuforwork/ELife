@@ -1,6 +1,6 @@
 
-import { MovieModel } from "../../Model/Movie";
-const options = {
+import {  TvShowModel } from "../../Model/Movie";
+export const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
@@ -10,13 +10,13 @@ const options = {
 
 
 
-const  getMovies = async () => {
+export const  getPopularTvShow = async () => {
+
   const url = 'https://api.themoviedb.org/3/trending/tv/day?language=en-US';
   const data = await fetch(url, options)
   .then(res => res.json())
   .catch(err => console.error('error:' + err));
-  const movies : MovieModel[] = data.results;
-  return movies;
+  const tvShows : TvShowModel[] = data.results;
+  return tvShows;
 }
 
-export default getMovies;

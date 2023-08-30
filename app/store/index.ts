@@ -7,8 +7,9 @@ import loginModalSlice from "./loginModalSlice";
 import userSlice from "./userSlice";
 import shareModalSlice from "./shareModalSlice";
 
+
 export const store = configureStore({
-  reducer: {  registerModalSlice, loginModalSlice,userSlice, shareModalSlice },
+  reducer: {  registerModalSlice, loginModalSlice,userSlice, shareModalSlice, },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,7 +1,7 @@
-import data from "@/app/api/Music/data";
+import data from "@/app/actions/Music/data";
 import Container from "../container";
 import MainBar from "./mainBar";
-import getMovies from "@/app/api/Movie/getMovie";
+import getMovies from "@/app/actions/Movie/getTvShow";
 import RightBar from "../rightBar/rightBar";
 
 const Content = async () => {

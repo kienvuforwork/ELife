@@ -2,14 +2,14 @@
 
 import MovieCard from "../card/movieCard";
 import SongCard from "../card/songCard";
-import { MovieModel } from "@/app/Model/Movie";
+import { TvShowModel } from "@/app/Model/Movie";
 import { useState, useEffect, Fragment } from "react";
 import SwitchBar from "./switchBar";
 import { MusicModel } from "@/app/Model/Music";
 import Search from "../searchBar/search";
 
 interface SideBarProps {
-  moviesData: MovieModel[];
+  moviesData: TvShowModel[];
   musicData: MusicModel[];
 }
 
@@ -36,7 +36,14 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
       {" "}
       <div className="p-4 pt-2 pl-6">
         <div className="px-4">
-          <Search placeholder="Search" rounded icon></Search>
+          <Search
+            placeholder="Search"
+            onChoose={() => {
+              return;
+            }}
+            rounded
+            icon
+          ></Search>
         </div>
 
         <div className="xl:text-2xl text-md font-medium flex justify-center text-elife-400 text-center p-4  gap-4 flex-col">

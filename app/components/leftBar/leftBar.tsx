@@ -1,7 +1,4 @@
 "use client";
-
-import { IoMdNotificationsOutline } from "react-icons/io";
-import Avatar from "../avatar";
 import Button from "../button";
 import { onOpen as onOpenRegisterModal } from "@/app/store/registerModalSlice";
 import { onOpen as onOpenLoginModal } from "@/app/store/loginModalSlice";
@@ -45,7 +42,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
   const user = useSelector((state: RootState) => state.userSlice);
   const pathname = usePathname().split("/")[1];
   return (
-    <div className="h-[100vh] flex flex-col h-screen p-2 justify-start gap-6">
+    <div className="h-[100vh] flex flex-col  p-2 justify-start gap-6">
       <Logo></Logo>
       {!user?.username ? (
         <div className={`flex items-center  gap-2`}>
