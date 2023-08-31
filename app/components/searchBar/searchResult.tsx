@@ -3,12 +3,14 @@
 import { TvShowModel } from "@/app/Model/Movie";
 import SearchResultItem from "./searchResultItem";
 import { MusicModel } from "@/app/Model/Music";
+
 interface SearchResultListProps {
   text?: string | undefined;
-  tvShowList?: TvShowModel[] | undefined;
+  tvShowList?: TvShowModel[];
   musicList?: MusicModel[];
   right?: boolean;
-  onChoose: () => void;
+  onClose: () => void;
+  onChoose: (data: MusicModel | TvShowModel) => void;
   isLoading: boolean | undefined;
 }
 
@@ -17,6 +19,7 @@ const SearchResultList: React.FC<SearchResultListProps> = ({
   onChoose,
   tvShowList,
   isLoading,
+  onClose,
 }) => {
   if (!isLoading && tvShowList?.length === 0 && text !== "") {
     return (
@@ -32,7 +35,8 @@ const SearchResultList: React.FC<SearchResultListProps> = ({
       {tvShowList?.map((tvShow, index) =>
         tvShow.poster_path && tvShow.backdrop_path ? (
           <SearchResultItem
-            onClick={onChoose}
+            onChoose={onChoose}
+            onClick={onClose}
             img={`https://image.tmdb.org/t/p/w200/${
               tvShow.poster_path !== null
                 ? tvShow.poster_path
@@ -40,6 +44,8 @@ const SearchResultList: React.FC<SearchResultListProps> = ({
             }`}
             name={tvShow.name}
             key={index}
+            dataType="tvShow"
+            data={tvShow}
           ></SearchResultItem>
         ) : null
       )}

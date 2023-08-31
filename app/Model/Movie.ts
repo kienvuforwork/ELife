@@ -1,7 +1,11 @@
 export interface TvShowModel  {
+  type: "tvShow",
     id : number,
     name:string,
-    poster_path: string,
     vote_average: number,
-    backdrop_path?:string
+    poster_path?: string,
+    backdrop_path?:string,
+    overview?:string,
+    genre_ids?: number[],
+    origin_country?: string[],
   }

@@ -9,7 +9,7 @@ import { getCurrentUser } from "./actions/getCurrentUser";
 import LeftBar from "./components/leftBar/leftBar";
 import Container from "./components/container";
 import RightBar from "./components/rightBar/rightBar";
-import { getPopularTvShow } from "./actions/Movie/getTvShow";
+import { getPopularTvShow, getTvShowGenre } from "./actions/Movie/getTvShow";
 import data from "./actions/Music/data";
 import ShareModal from "./components/Modals/shareModal";
 
@@ -30,6 +30,7 @@ export const metadata = {
 const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
   const currentUser = await getCurrentUser();
   const movieData = await getPopularTvShow();
+  const tvShowGenres = await getTvShowGenre();
   const musicData = await data.chart_items;
   return (
     <html lang="en" className={roboto.className}>
@@ -37,7 +38,7 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
         <body className="bg-black text-white">
           <ToasterProvider></ToasterProvider>
           <RegisterModal></RegisterModal>
-          <ShareModal></ShareModal>
+          <ShareModal genres={tvShowGenres.genres}></ShareModal>
           <LoginModal></LoginModal>
           <Container>
             {" "}

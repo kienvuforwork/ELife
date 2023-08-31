@@ -1,4 +1,6 @@
-  import { createSlice } from "@reduxjs/toolkit";
+ 
+ 
+ import { createSlice } from "@reduxjs/toolkit";
   import { PayloadAction } from "@reduxjs/toolkit";
   interface shareModalState {
     isOpen: boolean;

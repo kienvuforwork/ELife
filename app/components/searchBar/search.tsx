@@ -7,13 +7,15 @@ import { getData } from "@/app/actions/fetchData";
 import { options } from "@/app/actions/Movie/getTvShow";
 import { TvShowModel } from "@/app/Model/Movie";
 import SearchResultSkeleton from "./searchResultSkeleton";
+import { MusicModel } from "@/app/Model/Music";
+import { data } from "autoprefixer";
 
 interface SearchProps {
   icon?: boolean;
   placeholder: string;
   sm?: boolean;
   rounded?: boolean;
-  onChoose: () => {};
+  onChoose: (data: TvShowModel | MusicModel) => void;
   searchTvShow?: boolean;
   searchMusic?: boolean;
 }
@@ -38,11 +40,11 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   const [text, setText] = useState<string>("");
   const [tvShow, setTvShow] = useState<TvShowModel[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const handleClick = () => {
     setText("");
     setTvShow([]);
-    onChoose();
   };
   const style = {
     sm: "h-[28px] rounded-sm ",
@@ -50,9 +52,6 @@ const Search: React.FC<SearchProps> = ({
   };
   const debouncedOnChange = useCallback(
     debounce(async (searchText: string) => {
-      if (searchText) {
-        setIsLoading(true);
-      }
       if (searchTvShow) {
         const data = await getTvShowByName(searchText);
         setTvShow(data);
@@ -64,6 +63,7 @@ const Search: React.FC<SearchProps> = ({
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchText = e.target.value;
+    setIsLoading(true);
     setText(searchText);
     debouncedOnChange(searchText);
   };
@@ -87,11 +87,12 @@ const Search: React.FC<SearchProps> = ({
           sm ? style.sm : ""
         }  h-[40px]`}
       />
-      {isLoading ? (
+      {isLoading && text ? (
         <SearchResultSkeleton></SearchResultSkeleton>
       ) : (
         <SearchResultList
-          onChoose={handleClick}
+          onChoose={onChoose}
+          onClose={handleClick}
           text={text}
           tvShowList={tvShow}
           isLoading={isLoading}

@@ -1,4 +1,5 @@
 export interface MusicModel  {
+    type:"song",
     item: {   title:string,
         artist_names: string;
         release_date_for_display :string

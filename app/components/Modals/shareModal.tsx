@@ -7,14 +7,30 @@ import { useState } from "react";
 import { PiTelevisionSimpleLight } from "react-icons/pi";
 import { CiMusicNote1 } from "react-icons/ci";
 import Search from "../searchBar/search";
+import { TvShowModel } from "@/app/Model/Movie";
+import { MusicModel } from "@/app/Model/Music";
+import MovieCard from "../card/movieCard";
 
-const ShareModal = () => {
+interface shareModalProps {
+  genres?: Genre[];
+}
+interface Genre {
+  id: number;
+  name: string;
+}
+
+const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
+  type Media = TvShowModel | MusicModel;
   const [isTvShow, setIsTvShow] = useState(false);
   const [isMusic, setIsMusic] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [selectedData, setSelectedData] = useState<Media>();
   const chosen = isTvShow || isMusic;
-
+  const onChoose = (data: Media) => {
+    dispatch(setIsChosen(true));
+    if (data.type === "tvShow") {
+      setSelectedData(data as TvShowModel);
+    }
+  };
   const toggleMovie = () => {
     setIsTvShow((prevState) => !prevState);
     setIsMusic(false);
@@ -33,8 +49,8 @@ const ShareModal = () => {
   );
 
   let body = (
-    <div className={`${chosen ? "flex" : null} pb-6  w-full`}>
-      <div className="mt-6 flex flex-col items-center">
+    <div className={`${selectedData ? "flex" : null} pb-6  w-full`}>
+      <div className="mt-6 flex flex-1 flex-col items-center">
         {!chosen && (
           <div className="text-xl font-md">What are you gonna share?</div>
         )}
@@ -86,14 +102,35 @@ const ShareModal = () => {
             <Search
               placeholder="Search"
               sm={true}
-              onChoose={() => dispatch(setIsChosen(true))}
+              onChoose={onChoose}
               searchTvShow={isTvShow}
               searchMusic={isMusic}
             ></Search>
           </div>
         ) : null}
       </div>
-      <div></div>
+      <div className="flex-1">
+        {" "}
+        {selectedData?.type === "tvShow" && (
+          <MovieCard
+            image_src={`https://image.tmdb.org/t/p/w200/${selectedData.poster_path}`}
+            name={selectedData.name}
+            isDisable
+            origin_country={selectedData.origin_country}
+            genres={selectedData.genre_ids
+              ?.map((id) => {
+                const matchedGenre = genres?.find((genre) => genre.id === id);
+                return matchedGenre ? matchedGenre.name : null;
+              })
+              .filter(Boolean) // Filter out null values
+              .map((name) => name as string)}
+            overview={selectedData.overview}
+            sm
+          ></MovieCard>
+        )}
+      </div>
+
+      <div className="flex-1">asd</div>
     </div>
   );
   return (
