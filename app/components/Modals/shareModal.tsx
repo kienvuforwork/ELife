@@ -3,13 +3,14 @@ import Modal from "./modal";
 import { AppDispatch, RootState } from "@/app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { onClose, setIsChosen } from "@/app/store/shareModalSlice";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PiTelevisionSimpleLight } from "react-icons/pi";
 import { CiMusicNote1 } from "react-icons/ci";
 import Search from "../searchBar/search";
 import { TvShowModel } from "@/app/Model/Movie";
 import { MusicModel } from "@/app/Model/Music";
 import MovieCard from "../card/movieCard";
+import Chip from "../chip";
 
 interface shareModalProps {
   genres?: Genre[];
@@ -19,14 +20,68 @@ interface Genre {
   name: string;
 }
 
+const feelingsWhileWatchingTVShow = [
+  "Dramatic",
+  "Engaging",
+  "Intense",
+  "Emotional",
+  "Suspenseful",
+  "Mysterious",
+  "Comedic",
+  "Heartwarming",
+  "Dark",
+  "Inspirational",
+  "Mind-bending",
+  "Quirky",
+  "Action-packed",
+  "Fantasy",
+  "Gripping",
+  "Epic",
+  "Romantic",
+  "Charming",
+  "Thrilling",
+  "Educational",
+  "Family-friendly",
+  "Adventurous",
+  "Unsettling",
+  "Political",
+  "Cult",
+  "Addictive",
+  "Feel-good",
+  "Controversial",
+  "Offbeat",
+  "Empowering",
+  "Supernatural",
+  "Hilarious",
+  "Historical",
+  "Diverse",
+  "Visually-stunning",
+];
+
 const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
   type Media = TvShowModel | MusicModel;
   const [isTvShow, setIsTvShow] = useState(false);
   const [isMusic, setIsMusic] = useState(false);
   const [selectedData, setSelectedData] = useState<Media>();
+  const [selectedChip, setSelectedChip] = useState<string[]>([]);
+  const [disableChip, setDisableChip] = useState(false);
+  const [chipList, setChipList] = useState<string[]>(
+    feelingsWhileWatchingTVShow
+  );
   const chosen = isTvShow || isMusic;
+  const addChip = (item: string) => {
+    if (selectedChip.length === 5) {
+      return;
+    }
+    setSelectedChip((prevState) => [...prevState, item]);
+  };
+  const removeChip = (itemToRemove: string | string[]) => {
+    const newItems = selectedChip.filter((item) => item !== itemToRemove);
+    setSelectedChip(newItems);
+  };
+
   const onChoose = (data: Media) => {
-    dispatch(setIsChosen(true));
+    setSelectedChip([]);
     if (data.type === "tvShow") {
       setSelectedData(data as TvShowModel);
     }
@@ -49,7 +104,11 @@ const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
   );
 
   let body = (
-    <div className={`${selectedData ? "flex" : null} pb-6  w-full`}>
+    <div
+      className={`${
+        selectedData ? "flex flex-col xl:flex-row gap-2" : null
+      } pb-6 mt-2  w-full`}
+    >
       <div className="mt-6 flex flex-1 flex-col items-center">
         {!chosen && (
           <div className="text-xl font-md">What are you gonna share?</div>
@@ -129,8 +188,23 @@ const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
           ></MovieCard>
         )}
       </div>
-
-      <div className="flex-1">asd</div>
+      {selectedData && chipList && (
+        <div className="flex flex-col gap-2 flex-1">
+          <div className="text-sm">Tv Show Vibes (max 5 key words)</div>
+          <div className="flex flex-wrap gap-2">
+            {chipList.map((title, index) => (
+              <Chip
+                title={title}
+                key={index}
+                addChip={(item) => addChip(item)}
+                removeChip={(item) => removeChip(item)}
+                disabled={disableChip}
+                selected={selectedChip.includes(title)}
+              ></Chip>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
   return (

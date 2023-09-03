@@ -63,6 +63,7 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
                 rating={movie.vote_average}
                 key={index}
                 isLoading={isLoading}
+                border
               ></MovieCard>
             ))}
           </div>

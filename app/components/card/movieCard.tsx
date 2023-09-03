@@ -14,6 +14,7 @@ interface MovieCardProps {
   genres?: string[] | null;
   origin_country?: string[];
   sm?: boolean;
+  border?: boolean;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({
@@ -26,6 +27,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
   genres,
   origin_country,
   sm,
+  border,
 }) => {
   const convertRatingOutOf10ToOutOf5 = (ratingOutOf10: any) => {
     // Ensure the input is within the valid range
@@ -79,9 +81,9 @@ const MovieCard: React.FC<MovieCardProps> = ({
   return (
     <div className="flex flex-col">
       <div
-        className={`flex xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1 border-t-2 border-elife-700 ${
-          isDisable ? "" : "hover:bg-elife-700"
-        } `}
+        className={`flex xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1 ${
+          border ? "border-t-2" : ""
+        }  border-elife-700 ${isDisable ? "" : "hover:bg-elife-700"} `}
       >
         <div className="w-1/3">
           {" "}
@@ -140,7 +142,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
         </div>
       </div>
       {overview && (
-        <div className="text-sm text-elife-500 opacity-80">
+        <div className="text-sm text-elife-500 opacity-80 ">
           <span>Overview:</span> {overview}{" "}
         </div>
       )}
