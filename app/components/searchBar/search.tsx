@@ -7,7 +7,7 @@ import { getData } from "@/app/actions/fetchData";
 import { options } from "@/app/actions/Movie/getTvShow";
 import { TvShowModel } from "@/app/Model/Movie";
 import SearchResultSkeleton from "./searchResultSkeleton";
-import { MusicModel } from "@/app/Model/Music";
+import { Track } from "@/app/Model/Music";
 import { data } from "autoprefixer";
 
 interface SearchProps {
@@ -15,19 +15,11 @@ interface SearchProps {
   placeholder: string;
   sm?: boolean;
   rounded?: boolean;
-  onChoose: (data: TvShowModel | MusicModel) => void;
+  onChoose: (data: TvShowModel | Track) => void;
   searchTvShow?: boolean;
   searchMusic?: boolean;
+  spotifyToken?: string;
 }
-
-const getTvShowByName = async (name: string) => {
-  const url = `https://api.themoviedb.org/3/search/tv?&query=${name}`;
-  const data = await fetch(url, options)
-    .then((res) => res.json())
-    .catch((err) => console.error("error:" + err));
-  const tvShow: TvShowModel[] = data.results;
-  return tvShow;
-};
 
 const Search: React.FC<SearchProps> = ({
   icon,
@@ -37,9 +29,33 @@ const Search: React.FC<SearchProps> = ({
   onChoose,
   searchTvShow,
   searchMusic,
+  spotifyToken,
 }) => {
+  const getTvShowByName = async (name: string) => {
+    const url = `https://api.themoviedb.org/3/search/tv?&query=${name}`;
+    const data = await fetch(url, options)
+      .then((res) => res.json())
+      .catch((err) => console.error("error:" + err));
+    const tvShow: TvShowModel[] = data.results;
+    return tvShow;
+  };
+
+  const getTrackByName = async (name: string) => {
+    const url = `https://api.spotify.com/v1/search?q=${name}&type=track`;
+    const headers = {
+      Authorization: `Bearer ${spotifyToken}`,
+    };
+    const data = await fetch(url, { method: "GET", headers }).then((data) =>
+      data.json()
+    );
+    const tracks: Track[] = data.tracks.items;
+
+    return tracks;
+  };
+
   const [text, setText] = useState<string>("");
   const [tvShow, setTvShow] = useState<TvShowModel[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleClick = () => {
@@ -50,13 +66,19 @@ const Search: React.FC<SearchProps> = ({
     sm: "h-[28px] rounded-sm ",
     rounded: "rounded-full",
   };
-  const debouncedOnChange = useCallback(
+  const debouncedOnChangeTvShow = useCallback(
     debounce(async (searchText: string) => {
-      if (searchTvShow) {
-        const data = await getTvShowByName(searchText);
-        setTvShow(data);
-        setIsLoading(false);
-      }
+      const data = await getTvShowByName(searchText);
+      setTvShow(data);
+      setIsLoading(false);
+    }, 300),
+    []
+  );
+  const debouncedOnChangeTrack = useCallback(
+    debounce(async (searchText: string) => {
+      const data = await getTrackByName(searchText);
+      setTracks(data);
+      setIsLoading(false);
     }, 300),
     []
   );
@@ -65,7 +87,12 @@ const Search: React.FC<SearchProps> = ({
     const searchText = e.target.value;
     setIsLoading(true);
     setText(searchText);
-    debouncedOnChange(searchText);
+    if (searchMusic) {
+      debouncedOnChangeTrack(searchText);
+    }
+    if (searchTvShow) {
+      debouncedOnChangeTvShow(searchText);
+    }
   };
 
   return (
@@ -95,6 +122,7 @@ const Search: React.FC<SearchProps> = ({
           onClose={handleClick}
           text={text}
           tvShowList={tvShow}
+          trackList={tracks}
           isLoading={isLoading}
         ></SearchResultList>
       )}

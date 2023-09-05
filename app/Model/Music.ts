@@ -1,9 +1,34 @@
-export interface MusicModel  {
-    type:"song",
-    item: {   title:string,
-        artist_names: string;
-        release_date_for_display :string
-        song_art_image_thumbnail_url
-     :string}
+export interface TrackModel  {
+    type:"tracks",
+    track:{    
+        artists: string[],
+        id:string
+        name:string,
+        album: {
+            images:[{
+                url:string
+            }]
+               
+            
+        }
+    }
 
+
+  }
+  export interface Track{
+    type:"track",
+        artists: string[],
+        id:string,
+        duration_ms?:number,
+        name:string,
+        album: {
+            images:[{
+                url:string
+            }],
+            release_date?:string,
+            
+               
+            
+        }
+   
   }

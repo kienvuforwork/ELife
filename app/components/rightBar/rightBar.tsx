@@ -1,25 +1,30 @@
 "use client";
 
 import MovieCard from "../card/movieCard";
-import SongCard from "../card/songCard";
+import TrackCard from "../card/trackCard";
 import { TvShowModel } from "@/app/Model/Movie";
 import { useState, useEffect, Fragment } from "react";
 import SwitchBar from "./switchBar";
-import { MusicModel } from "@/app/Model/Music";
+import { TrackModel } from "@/app/Model/Music";
 import Search from "../searchBar/search";
 
 interface SideBarProps {
   moviesData: TvShowModel[];
-  musicData: MusicModel[];
+  trackData: TrackModel[];
 }
 
-const RightBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
+const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
   const [isMovie, setIsMovie] = useState<boolean>(true);
   const [isMusic, setIsMusic] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMovie, setIsLoadingMovie] = useState(true);
+  const [isLoadingTrack, setIsLoadingTrack] = useState(true);
+
   useEffect(() => {
     if (moviesData) {
-      setIsLoading(false);
+      setIsLoadingMovie(false);
+    }
+    if (trackData) {
+      setIsLoadingTrack(false);
     }
   }, []);
   const hanldeMovie = () => {
@@ -62,7 +67,7 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
                 name={movie.name}
                 rating={movie.vote_average}
                 key={index}
-                isLoading={isLoading}
+                isLoading={isLoadingMovie}
                 border
               ></MovieCard>
             ))}
@@ -70,14 +75,14 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, musicData }) => {
         ) : null}
         {isMusic ? (
           <div className=" flex flex-col border-2 border-elife-700  border-t-0  h-[70vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-600 scrollbar-track-elife-700">
-            {musicData?.map((song, index) => (
-              <SongCard
-                name={song.item.title}
-                artist={song.item.artist_names}
-                date={song.item.release_date_for_display}
+            {trackData?.map((data, index) => (
+              <TrackCard
+                name={data.track.name}
+                artists={data.track.artists}
                 key={index}
-                image_src={song.item.song_art_image_thumbnail_url}
-              ></SongCard>
+                image_src={data.track.album.images[0].url}
+                isLoading={isLoadingTrack}
+              ></TrackCard>
             ))}
           </div>
         ) : null}

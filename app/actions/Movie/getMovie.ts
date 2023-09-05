@@ -1,5 +1,5 @@
 
-import { MovieModel } from "../../Model/Movie";
+import {TvShowModel} from "../../Model/Movie";
 const options = {
   method: 'GET',
   headers: {
@@ -15,7 +15,7 @@ const  getMovies = async () => {
   const data = await fetch(url, options)
   .then(res => res.json())
   .catch(err => console.error('error:' + err));
-  const movies : MovieModel[] = data.results;
+  const movies : TvShowModel[] = data.results;
   return movies;
 }
 

@@ -3,17 +3,21 @@ import Modal from "./modal";
 import { AppDispatch, RootState } from "@/app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { onClose, setIsChosen } from "@/app/store/shareModalSlice";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { PiTelevisionSimpleLight } from "react-icons/pi";
 import { CiMusicNote1 } from "react-icons/ci";
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import Search from "../searchBar/search";
 import { TvShowModel } from "@/app/Model/Movie";
-import { MusicModel } from "@/app/Model/Music";
+import { Track } from "@/app/Model/Music";
 import MovieCard from "../card/movieCard";
 import Chip from "../chip";
+import Button from "../button";
+import TrackCard from "../card/trackCard";
 
 interface shareModalProps {
   genres?: Genre[];
+  spotifyToken: string;
 }
 interface Genre {
   id: number;
@@ -57,17 +61,48 @@ const feelingsWhileWatchingTVShow = [
   "Diverse",
   "Visually-stunning",
 ];
-
-const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
-  type Media = TvShowModel | MusicModel;
+const popularSongDescriptionWords = [
+  "Catchy",
+  "Upbeat",
+  "Melodic",
+  "Energetic",
+  "Soothing",
+  "Inspirational",
+  "Sensual",
+  "Emotional",
+  "Groovy",
+  "Uplifting",
+  "Passionate",
+  "Lively",
+  "Sultry",
+  "Joyful",
+  "Dreamy",
+  "Sassy",
+  "Nostalgic",
+  "Dynamic",
+  "Funky",
+  "Relaxing",
+  "Sincere",
+  "Spirited",
+  "Introspective",
+  "Mystical",
+  "Satisfying",
+];
+const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
+  type Media = TvShowModel | Track;
   const [isTvShow, setIsTvShow] = useState(false);
   const [isMusic, setIsMusic] = useState(false);
   const [selectedData, setSelectedData] = useState<Media>();
   const [selectedChip, setSelectedChip] = useState<string[]>([]);
   const [disableChip, setDisableChip] = useState(false);
+  const [like, setLike] = useState(false);
   const [chipList, setChipList] = useState<string[]>(
     feelingsWhileWatchingTVShow
   );
+
+  const toggleLike = () => {
+    setLike((prev) => !prev);
+  };
   const chosen = isTvShow || isMusic;
   const addChip = (item: string) => {
     if (selectedChip.length === 5) {
@@ -79,11 +114,15 @@ const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
     const newItems = selectedChip.filter((item) => item !== itemToRemove);
     setSelectedChip(newItems);
   };
-
   const onChoose = (data: Media) => {
     setSelectedChip([]);
     if (data.type === "tvShow") {
+      setChipList(feelingsWhileWatchingTVShow);
       setSelectedData(data as TvShowModel);
+    }
+    if (data.type === "track") {
+      setSelectedData(data as Track);
+      setChipList(popularSongDescriptionWords);
     }
   };
   const toggleMovie = () => {
@@ -164,6 +203,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
               onChoose={onChoose}
               searchTvShow={isTvShow}
               searchMusic={isMusic}
+              spotifyToken={spotifyToken}
             ></Search>
           </div>
         ) : null}
@@ -187,9 +227,32 @@ const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
             sm
           ></MovieCard>
         )}
+        {selectedData?.type === "track" && (
+          <TrackCard
+            image_src={selectedData.album.images[0].url}
+            name={selectedData.name}
+            artists={selectedData.artists}
+            releaseDate={selectedData.album.release_date}
+            duration={selectedData.duration_ms}
+          ></TrackCard>
+        )}
       </div>
       {selectedData && chipList && (
         <div className="flex flex-col gap-2 flex-1">
+          <div className="flex gap-2 items-center">
+            Recommend this show
+            {like ? (
+              <AiFillLike
+                onClick={toggleLike}
+                className="h-6 w-6 fill-blue-600 hover:fill-blue-500"
+              ></AiFillLike>
+            ) : (
+              <AiOutlineLike
+                onClick={toggleLike}
+                className="h-6 w-6 hover:fill-blue-500"
+              ></AiOutlineLike>
+            )}
+          </div>
           <div className="text-sm">Tv Show Vibes (max 5 key words)</div>
           <div className="flex flex-wrap gap-2">
             {chipList.map((title, index) => (
@@ -202,6 +265,10 @@ const ShareModal: React.FC<shareModalProps> = ({ genres }) => {
                 selected={selectedChip.includes(title)}
               ></Chip>
             ))}
+          </div>
+          <div className="mt-2">
+            {" "}
+            <Button label="Share!" full onClick={() => {}}></Button>
           </div>
         </div>
       )}
