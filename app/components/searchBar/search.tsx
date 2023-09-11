@@ -1,14 +1,12 @@
 "use client";
 import { BiSearch } from "react-icons/bi";
 import SearchResultList from "./searchResult";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import debounce from "lodash/debounce";
-import { getData } from "@/app/actions/fetchData";
 import { options } from "@/app/actions/Movie/getTvShow";
 import { TvShowModel } from "@/app/Model/Movie";
 import SearchResultSkeleton from "./searchResultSkeleton";
 import { Track } from "@/app/Model/Music";
-import { data } from "autoprefixer";
 
 interface SearchProps {
   icon?: boolean;
@@ -45,11 +43,10 @@ const Search: React.FC<SearchProps> = ({
     const headers = {
       Authorization: `Bearer ${spotifyToken}`,
     };
-    const data = await fetch(url, { method: "GET", headers }).then((data) =>
-      data.json()
-    );
+    const data = await fetch(url, { method: "GET", headers })
+      .then((data) => data.json())
+      .catch((err) => console.error("error:" + err));
     const tracks: Track[] = data.tracks.items;
-
     return tracks;
   };
 
@@ -57,10 +54,14 @@ const Search: React.FC<SearchProps> = ({
   const [tvShow, setTvShow] = useState<TvShowModel[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const handleClick = () => {
+  console.log("Music", searchMusic, "Tvshow", searchTvShow);
+  useEffect(() => {
+    handleClose();
+  }, [searchMusic, searchTvShow]);
+  const handleClose = () => {
     setText("");
     setTvShow([]);
+    setTracks([]);
   };
   const style = {
     sm: "h-[28px] rounded-sm ",
@@ -68,6 +69,7 @@ const Search: React.FC<SearchProps> = ({
   };
   const debouncedOnChangeTvShow = useCallback(
     debounce(async (searchText: string) => {
+      console.log("searching show");
       const data = await getTvShowByName(searchText);
       setTvShow(data);
       setIsLoading(false);
@@ -76,6 +78,7 @@ const Search: React.FC<SearchProps> = ({
   );
   const debouncedOnChangeTrack = useCallback(
     debounce(async (searchText: string) => {
+      console.log("searching music");
       const data = await getTrackByName(searchText);
       setTracks(data);
       setIsLoading(false);
@@ -119,7 +122,7 @@ const Search: React.FC<SearchProps> = ({
       ) : (
         <SearchResultList
           onChoose={onChoose}
-          onClose={handleClick}
+          onClose={handleClose}
           text={text}
           tvShowList={tvShow}
           trackList={tracks}

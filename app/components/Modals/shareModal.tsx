@@ -88,6 +88,16 @@ const popularSongDescriptionWords = [
   "Mystical",
   "Satisfying",
 ];
+const downLoadImage = async (url: string | undefined) => {
+  let imageResponse;
+  if (url) {
+    imageResponse = await fetch(url);
+    console.log(imageResponse);
+  }
+
+  const imageBlob = await imageResponse?.blob();
+  return imageBlob;
+};
 const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
   type Media = TvShowModel | Track;
   const [isTvShow, setIsTvShow] = useState(false);
@@ -138,6 +148,84 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
     (state: RootState) => state.shareModalSlice.isOpen
   );
   const dispatch: AppDispatch = useDispatch();
+
+  const onSubmit = async () => {
+    if (selectedData?.type === "track") {
+      try {
+        // Fetch the image from the 3rd-party API
+        const imageBlob = await downLoadImage(
+          selectedData?.album.images[0].url
+        );
+        // Create a FormData object to send the image to the Express backend
+        const formData: any = new FormData();
+        for (const key in selectedData) {
+          const typedKey = key as keyof typeof selectedData;
+          if (selectedData.hasOwnProperty(key)) {
+            formData.append(
+              `${key}`,
+              Array.isArray(selectedData[typedKey])
+                ? JSON.stringify(selectedData[typedKey])
+                : selectedData[typedKey]
+            );
+          }
+        }
+        formData.append("vibes", JSON.stringify(selectedChip));
+        formData.append("like", like);
+        formData.append("image", imageBlob);
+        formData.append("type", "listeningTrack");
+
+        // Send the image to the Express backend
+        await fetch("http://localhost:8080/user/addTrack", {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        });
+        // Optionally, set the image data in state for rendering
+      } catch (error) {
+        console.error("Error fetching or sending image:", error);
+      }
+    } else if (selectedData?.type === "tvShow") {
+      const imageBlob = await downLoadImage(
+        `https://image.tmdb.org/t/p/w200${
+          selectedData.backdrop_path && selectedData.poster_path
+        }`
+      );
+      // Create a FormData object to send the image to the Express backend
+      const formData: any = new FormData();
+      for (const key in selectedData) {
+        const typedKey = key as keyof typeof selectedData;
+        if (selectedData.hasOwnProperty(key)) {
+          formData.append(
+            `${key}`,
+            Array.isArray(selectedData[typedKey])
+              ? JSON.stringify(selectedData[typedKey])
+              : selectedData[typedKey]
+          );
+        }
+      }
+      formData.append("vibes", JSON.stringify(selectedChip));
+      formData.append("like", like);
+      formData.append("image", imageBlob, "image/jpg");
+      formData.append("type", "watching");
+      formData.append(
+        "genre",
+        JSON.stringify(
+          selectedData.genre_ids?.map((id: number) => {
+            const matchedGenre = genres?.find((genre) => genre.id === id);
+            return matchedGenre ? matchedGenre.name : null;
+          })
+        )
+      );
+      console.log(formData);
+      // Send the image to the Express backend
+      await fetch("http://localhost:8080/user/TvShow", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+    }
+  };
+
   let title = (
     <div className="text-lg font-medium uppercase">Tune In & Share</div>
   );
@@ -240,7 +328,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
       {selectedData && chipList && (
         <div className="flex flex-col gap-2 flex-1">
           <div className="flex gap-2 items-center">
-            Recommend this show
+            Recommend
             {like ? (
               <AiFillLike
                 onClick={toggleLike}
@@ -268,7 +356,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
           </div>
           <div className="mt-2">
             {" "}
-            <Button label="Share!" full onClick={() => {}}></Button>
+            <Button label="Share!" full onClick={() => onSubmit()}></Button>
           </div>
         </div>
       )}

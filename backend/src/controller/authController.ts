@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
+interface RequestWithUser extends express.Request {
+    user?: typeof User; // Add the 'user' property
+}
 
 
 const cookieOptions = {
@@ -96,10 +99,13 @@ export const checkEmail = async ( req:express.Request, res:express.Response, nex
 }
 
 
-export const protect = async ( req:express.Request, res:express.Response, next:express.NextFunction)=>{
+export const protect = async ( req:RequestWithUser, res:express.Response, next:express.NextFunction)=>{
     let token
-    if ( req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
-        
+
+    if(req.cookies.token){
+        token = req.cookies.token
+    }
+    else if( req.headers.authorization && req.headers.authorization.startsWith('Bearer')){    
          token = req.headers.authorization.split(' ')[1];
     }
 
@@ -113,7 +119,6 @@ export const protect = async ( req:express.Request, res:express.Response, next:e
         })
     }
     const decoded = await jwt.verify(token,process.env.TOKEN_SECRET)
-
     const user = await User.findById(decoded.id)
     if(!user){
         return res.status(401).json({
@@ -124,6 +129,6 @@ export const protect = async ( req:express.Request, res:express.Response, next:e
     
         })
     }
-
+    req.user = user;
    next()
 }
