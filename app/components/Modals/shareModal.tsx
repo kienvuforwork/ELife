@@ -14,6 +14,7 @@ import MovieCard from "../card/movieCard";
 import Chip from "../chip";
 import Button from "../button";
 import TrackCard from "../card/trackCard";
+import toast from "react-hot-toast";
 
 interface shareModalProps {
   genres?: Genre[];
@@ -103,6 +104,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
   const [isTvShow, setIsTvShow] = useState(false);
   const [isMusic, setIsMusic] = useState(false);
   const [selectedData, setSelectedData] = useState<Media>();
+  const [isDisable, setIsDisable] = useState(false);
   const [selectedChip, setSelectedChip] = useState<string[]>([]);
   const [disableChip, setDisableChip] = useState(false);
   const [like, setLike] = useState(false);
@@ -150,79 +152,74 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const onSubmit = async () => {
-    if (selectedData?.type === "track") {
-      try {
-        // Fetch the image from the 3rd-party API
-        const imageBlob = await downLoadImage(
-          selectedData?.album.images[0].url
-        );
-        // Create a FormData object to send the image to the Express backend
-        const formData: any = new FormData();
-        for (const key in selectedData) {
-          const typedKey = key as keyof typeof selectedData;
-          if (selectedData.hasOwnProperty(key)) {
-            formData.append(
-              `${key}`,
-              Array.isArray(selectedData[typedKey])
-                ? JSON.stringify(selectedData[typedKey])
-                : selectedData[typedKey]
-            );
-          }
-        }
-        formData.append("vibes", JSON.stringify(selectedChip));
-        formData.append("like", like);
-        formData.append("image", imageBlob);
-        formData.append("type", "listeningTrack");
-
-        // Send the image to the Express backend
-        await fetch("http://localhost:8080/user/addTrack", {
-          method: "POST",
-          body: formData,
-          credentials: "include",
-        });
-        // Optionally, set the image data in state for rendering
-      } catch (error) {
-        console.error("Error fetching or sending image:", error);
-      }
-    } else if (selectedData?.type === "tvShow") {
-      const imageBlob = await downLoadImage(
-        `https://image.tmdb.org/t/p/w200${
-          selectedData.backdrop_path && selectedData.poster_path
-        }`
-      );
-      // Create a FormData object to send the image to the Express backend
-      const formData: any = new FormData();
+    setIsDisable(true);
+    let res;
+    const formData: any = new FormData();
+    try {
       for (const key in selectedData) {
         const typedKey = key as keyof typeof selectedData;
         if (selectedData.hasOwnProperty(key)) {
           formData.append(
-            `${key}`,
+            key,
             Array.isArray(selectedData[typedKey])
               ? JSON.stringify(selectedData[typedKey])
               : selectedData[typedKey]
           );
         }
       }
-      formData.append("vibes", JSON.stringify(selectedChip));
-      formData.append("like", like);
-      formData.append("image", imageBlob, "image/jpg");
-      formData.append("type", "watching");
-      formData.append(
-        "genre",
-        JSON.stringify(
-          selectedData.genre_ids?.map((id: number) => {
-            const matchedGenre = genres?.find((genre) => genre.id === id);
-            return matchedGenre ? matchedGenre.name : null;
-          })
-        )
+      if (selectedData?.type === "track") {
+        // Fetch the image from the 3rd-party API
+        const imageBlob = await downLoadImage(
+          selectedData?.album.images[0].url
+        );
+        formData.append("vibes", JSON.stringify(selectedChip));
+        formData.append("like", like);
+        formData.append("image", imageBlob);
+        formData.append("type", "listeningTrack");
+        res = await fetch("http://localhost:8080/user/addTrack", {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        }).then((res) => res.status);
+      } else if (selectedData?.type === "tvShow") {
+        const imageBlob = await downLoadImage(
+          `https://image.tmdb.org/t/p/w200${
+            selectedData.backdrop_path && selectedData.poster_path
+          }`
+        );
+        formData.append("vibes", JSON.stringify(selectedChip));
+        formData.append("like", like);
+        formData.append("image", imageBlob);
+        formData.append("type", "watching");
+        formData.append(
+          "genre",
+          JSON.stringify(
+            selectedData.genre_ids?.map((id: number) => {
+              const matchedGenre = genres?.find((genre) => genre.id === id);
+              return matchedGenre ? matchedGenre.name : null;
+            })
+          )
+        );
+        res = await fetch("http://localhost:8080/user/TvShow", {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        }).then((res) => res.status);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    if (res === 201) {
+      toast.success(
+        `You just share a ${
+          isMusic ? "song that you listening" : " a TV Show that you watching"
+        }`
       );
-      console.log(formData);
-      // Send the image to the Express backend
-      await fetch("http://localhost:8080/user/TvShow", {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
+      setIsDisable(false);
+      dispatch(onClose());
+      setSelectedData(undefined);
+      setIsMusic(false);
+      setIsTvShow(false);
     }
   };
 
@@ -369,6 +366,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
       body={body}
       title={title}
       big
+      disabled={isDisable}
     ></Modal>
   );
 };

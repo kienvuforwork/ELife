@@ -1,5 +1,4 @@
 "use client";
-import { useCallback } from "react";
 
 import { IoMdClose } from "react-icons/io";
 interface ModalProps {
@@ -25,9 +24,9 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   return isOpen ? (
     <div
-      className={` ${
-        disabled ? "pointer-events-none cursor-not-allowed opacity-50" : ""
-      } fixed top-0 left-0 right-0 bottom-0  bg-elife-700 bg-opacity-50 flex items-start justify-center z-50`}
+      className={` z-50  ${
+        disabled ? "pointer-events-none opacity-70 z-50" : ""
+      } fixed top-0 left-0 right-0 bottom-0  bg-elife-700 bg-opacity-50 flex items-start justify-center`}
     >
       {/* MODAL */}
       <div
