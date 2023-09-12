@@ -215,12 +215,14 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
           isMusic ? "song that you listening" : " a TV Show that you watching"
         }`
       );
-      setIsDisable(false);
-      dispatch(onClose());
-      setSelectedData(undefined);
-      setIsMusic(false);
-      setIsTvShow(false);
+    } else {
+      toast.error("Erorr");
     }
+    setIsDisable(false);
+    dispatch(onClose());
+    setSelectedData(undefined);
+    setIsMusic(false);
+    setIsTvShow(false);
   };
 
   let title = (

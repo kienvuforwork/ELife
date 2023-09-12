@@ -8,7 +8,8 @@ const UserSchema = new mongoose.Schema({
     username: {type:String, required:true},
     email: {type:String , unique:true,lowercase:true,required:true},
     password:{type:String, required:true, minlength:8,select:false},
-    avata: String,
+    avatar: String,
+    isCeleb: Boolean, 
     followers: [
         {
           type: mongoose.Schema.Types.ObjectId,
@@ -31,6 +32,11 @@ const UserSchema = new mongoose.Schema({
       genre: [{type:String}],
       origin_country: String,
       recommend: Boolean,
+      vibes: {type:[String]},
+      createdAt: {
+        type: Date, // Specifies that this field is of type Date
+        default: Date.now // Sets the default value to the current date and time
+      }
      }],
      tvShowWatched: [{
       id: {type:String, unique:true, required:true},
@@ -42,6 +48,8 @@ const UserSchema = new mongoose.Schema({
       genre: [String],
       origin_country: String,
       recommend: Boolean,
+      describe: [{type:String}],
+      vibes: {type:[String]},
      }],
      listeningTrack : [{
       id: {type:String, unique:true,required:true },
@@ -51,6 +59,11 @@ const UserSchema = new mongoose.Schema({
       releaseDate: String,
       vibes: {type:[String]},
       like: Boolean,
+      createdAt: {
+        type: Date, // Specifies that this field is of type Date
+        default: Date.now // Sets the default value to the current date and time
+      },
+   
   }],
   listenedTrack :[{
     id: {type:String, unique:true,required:true },
@@ -60,7 +73,12 @@ const UserSchema = new mongoose.Schema({
     releaseDate: String,
     vibes: [String],
     like: Boolean,
-}]
+
+}],
+  posts : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post'
+  }]
 })
 
 UserSchema.pre('save', async function(next){

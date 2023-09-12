@@ -54,7 +54,6 @@ const Search: React.FC<SearchProps> = ({
   const [tvShow, setTvShow] = useState<TvShowModel[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  console.log("Music", searchMusic, "Tvshow", searchTvShow);
   useEffect(() => {
     handleClose();
   }, [searchMusic, searchTvShow]);
@@ -69,7 +68,6 @@ const Search: React.FC<SearchProps> = ({
   };
   const debouncedOnChangeTvShow = useCallback(
     debounce(async (searchText: string) => {
-      console.log("searching show");
       const data = await getTvShowByName(searchText);
       setTvShow(data);
       setIsLoading(false);
@@ -78,7 +76,6 @@ const Search: React.FC<SearchProps> = ({
   );
   const debouncedOnChangeTrack = useCallback(
     debounce(async (searchText: string) => {
-      console.log("searching music");
       const data = await getTrackByName(searchText);
       setTracks(data);
       setIsLoading(false);

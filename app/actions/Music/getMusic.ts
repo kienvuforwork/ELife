@@ -26,20 +26,19 @@ const headers = {
 .then(response => response.json())
 .then(data =>  {
 accessToken = data.access_token;
-
 })
 .catch(error => {
   console.error('Error:', error);
   return error
 });
-return accessToken 
+return accessToken as string
 
 }
 
 let headers = {
   "Authorization": `Bearer`
 };
-let token: string | undefined;
+let token: string;
 (async () => {
    token = await getToken();
   headers = {
@@ -49,9 +48,10 @@ let token: string | undefined;
 
 
 export const getTopTracks = async () => {
+  let data
   try {
     const response = await fetch("https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF", { method: "GET", headers });
-    const data: any = await response.json();
+     data = await response.json();
     // Check if the response contains an error message indicating an expired token
     if (response.status === 401 && (data.error.message === "The access token expired" )) {
       // Get a new access token
@@ -61,15 +61,12 @@ export const getTopTracks = async () => {
 
       // Retry the fetch with the new token
       const retryResponse = await fetch("https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF", { method: "GET", headers });
-      const retryData = await retryResponse.json();
-
-      return (data && token) ? {data:retryData,token}: {data:"", token:""}
+      data = await retryResponse.json();
     }
-    return (data && token) ? {data,token}: {data:"", token:""};
+    
   } catch (error) {
     console.error('Error:', error);
-   
   }
-
+  return  {data,token};
 };
 
