@@ -18,24 +18,19 @@ const PostSchema =new mongoose.Schema({
         type: Date,
         default: Date.now,
       },
-      track:{
-        name:{type:String},
-        artists: { type: [{type:String}] },
-        image: String,
-        releaseDate: String,
-        vibes: {type:[String]},
-        like: Boolean,
-      },
+      track:     {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Track'
+     
+    },
        tvShow: {
-        name:{type:String},
-        poster_path: String,
-        backdrop_path:String,
-        genre: [{type:String}],
-        origin_country: String,
-        recommend: Boolean,
-        vibes: [{type:String}]
+     type: mongoose.Schema.Types.ObjectId,
+        ref: 'TvShow'
        },
 })
+
+
+
 
 
 const Post = mongoose.model("Post", PostSchema)

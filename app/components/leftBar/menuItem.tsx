@@ -6,8 +6,9 @@ import { useCallback } from "react";
 
 interface MenuItemProps {
   title: string;
-  icon: IconType;
-  activeIcon: IconType;
+  icon?: IconType;
+  avatarSrc?: string;
+  activeIcon?: IconType;
   selected?: boolean;
 }
 
@@ -16,6 +17,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   selected,
   icon: Icon,
   activeIcon: ActiveIcon,
+  avatarSrc,
 }) => {
   const router = useRouter();
   const handleActive = useCallback(() => {
@@ -28,11 +30,14 @@ const MenuItem: React.FC<MenuItemProps> = ({
        hover:bg-elife-700`}
       onClick={handleActive}
     >
-      {selected ? (
-        <ActiveIcon className="w-8 h-8 cursor-pointer"></ActiveIcon>
-      ) : (
-        <Icon className="w-8 h-8 cursor-pointer"></Icon>
-      )}
+      {selected
+        ? ActiveIcon && (
+            <ActiveIcon className="w-8 h-8 cursor-pointer"></ActiveIcon>
+          )
+        : Icon && <Icon className="w-8 h-8 cursor-pointer"></Icon>}
+      {avatarSrc ? (
+        <img src={avatarSrc} className="rounded-full w-8 h-8"></img>
+      ) : null}
       <span
         className={`text-xl font-thin text-elife-400 ${
           selected ? "font-bold text-[1.4rem]" : ""

@@ -11,11 +11,11 @@ import { postData } from "../../actions/fetchData";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { setUser } from "@/app/store/userSlice";
 const RegisterModal = () => {
   const isOpen = useSelector(
     (state: RootState) => state.registerModalSlice.isOpen
   );
-  const apiUrl = process.env.API_KEY_LAST_FM;
   const [isDisable, setIsDisable] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
@@ -84,11 +84,14 @@ const RegisterModal = () => {
 
     if (res.status === "success") {
       document.cookie = `token=${res.token}`;
-      setIsDisable(false);
-      reset();
+      console.log(res.user);
+      dispatch(setUser({ ...res.user }));
       router.push("/home");
+      setIsDisable(false);
       dispatch(onCloseRegisterModal());
+      reset();
       toast.success("Register Successfully!!");
+      console.log(res.user);
     }
   };
   const title = <div className="text-elife-500 text-lg">Register</div>;

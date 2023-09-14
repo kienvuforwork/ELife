@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 interface userState{
     username:string,
-    img_url?:string,
+    id:string,
 
 }
 
 const initialState:userState = {
     username:'',
-    img_url:''
+    id:''
 }
 
 const userSlice = createSlice({

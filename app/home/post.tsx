@@ -19,7 +19,7 @@ const Post = () => {
           <div className="space-y-2">
             <div className="flex space-x-2 items-center">
               <h2 className="text-base"> John Doe </h2>
-              <svg
+              {/* <svg
                 className="h-4 w-4 text-blue-500"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -31,8 +31,8 @@ const Post = () => {
                   stroke-linejoin="round"
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
-              </svg>
-              <div className="  text-xs text-elife-500">is</div>
+              </svg> */}
+              <div className=" text-xs text-elife-500">is</div>
             </div>
             <p className=" text-xs text-elife-500">5 Minutes Ago</p>
           </div>

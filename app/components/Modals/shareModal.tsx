@@ -176,7 +176,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
         formData.append("like", like);
         formData.append("image", imageBlob);
         formData.append("type", "listeningTrack");
-        res = await fetch("http://localhost:8080/user/addTrack", {
+        res = await fetch("http://localhost:8080/user/track", {
           method: "POST",
           body: formData,
           credentials: "include",
@@ -200,7 +200,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
             })
           )
         );
-        res = await fetch("http://localhost:8080/user/TvShow", {
+        res = await fetch("http://localhost:8080/user/tvShow", {
           method: "POST",
           body: formData,
           credentials: "include",

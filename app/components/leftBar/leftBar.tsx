@@ -23,6 +23,7 @@ interface LeftBarProps {
 const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.userSlice);
   const logout = () => {
     dispatch(clearUser()); // Assuming this clears the user data in your Redux store
     toast.success("Logged out!");
@@ -38,8 +39,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
     if (!currentUser) {
       setIsLoading(false);
     }
-  }, []);
-  const user = useSelector((state: RootState) => state.userSlice);
+  }, [currentUser]);
   const pathname = usePathname().split("/")[1];
   return (
     <div className="h-[100vh] flex flex-col  p-2 justify-start gap-6">
@@ -62,6 +62,10 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
         </div>
       ) : (
         <div className="flex flex-col gap-2 justify-start items-start">
+          <MenuItem
+            title={user.username}
+            avatarSrc={`http://localhost:8080/user/avatar/${user._id}`}
+          ></MenuItem>
           <MenuItem
             title="Home"
             icon={BiHomeCircle}

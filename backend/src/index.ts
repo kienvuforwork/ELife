@@ -6,7 +6,7 @@ import http from "http";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import router from "./router";
-
+import path from "path";
 const globalErr = require("./controller/errorController")
 const AppError = require("./ErrorHandler/appError")
 
@@ -20,10 +20,9 @@ const corsOptions = {
 const app = express()
 app.use(cookieParser())
 app.use(cors(corsOptions))
-
 app.use(compression())
 app.use(bodyParser.json())
-
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 
 const server = http.createServer(app)
@@ -40,7 +39,7 @@ mongoose.connection.on('error', (error:Error) => console.log(error))
 
 app.use("/", router())
 app.all("*", (req:express.Request,res:express.Response,next: express.NextFunction)=> {
-  next(new AppError('cant fint this url', 404))
+  next(new AppError(`cant fint this url: ${req.originalUrl}`, 404))
 })
 
 app.use(globalErr)

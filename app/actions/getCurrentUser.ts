@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+
 import { cookies } from 'next/headers'
 export const getCurrentUser = async () => {
 
     const token =cookies().get("token")?.value
 
     try {
-      const response = await fetch("http://localhost:8080/user/getUser", {
+      const response = await fetch("http://localhost:8080/user", {
         method: "GET",
         credentials: "same-origin",
         headers: {

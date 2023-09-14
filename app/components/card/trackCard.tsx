@@ -39,7 +39,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
           <a className="text-elife-500"> {name}</a>
           <div className="flex flex-wrap gap-1 mt-1">
             {artists.map((artist: any, index: number) => (
-              <span className=" text-elife-600">
+              <span className=" text-elife-600" key={index}>
                 {index === artists.length - 1 ? artist.name : artist.name + ","}
               </span>
             ))}

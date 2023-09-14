@@ -1,5 +1,5 @@
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:8080/user/getUser");
+  const res = await fetch("http://localhost:8080/user");
   const data = await res.json();
   return {
     props: {

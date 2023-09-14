@@ -79,7 +79,7 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
               <TrackCard
                 name={data.track.name}
                 artists={data.track.artists}
-                key={index}
+                key={data.track.id}
                 image_src={data.track.album.images[0].url}
                 isLoading={isLoadingTrack}
               ></TrackCard>

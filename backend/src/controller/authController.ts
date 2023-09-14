@@ -1,5 +1,6 @@
 
 const User = require('./../model/UserModel')
+import { catchAsync } from "./../ErrorHandler/catchAsync";
 import express from "express";
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -23,8 +24,8 @@ const signToken = (id:String) =>{
     return jwt.sign({id}, process.env.TOKEN_SECRET, {expiresIn: 100000})
 }
 
-export const register = async(req:express.Request, res:express.Response) =>{
-    console.log(req.body)
+export const register = catchAsync( async(req:express.Request, res:express.Response) =>{
+    let newUser
     try{
         const { email, password, username} = req.body
         if ( !email || !password || !username ){
@@ -34,14 +35,15 @@ export const register = async(req:express.Request, res:express.Response) =>{
         if(existingUser){
             return res.sendStatus(400)
         }
-        const newUser = await User.create({
+        newUser = await User.create({
             email, username, password
         })
-        const token = jwt.sign({id:newUser._id}, process.env.TOKEN_SECRET, {expiresIn: "1000d"})
-        return res.status(200).cookie('jwt', token, cookieOptions).json({
+        const token = signToken(newUser._id)
+        try{  res.cookie('jwt', token,  cookieOptions)}catch(E){console.log(E)}
+        return res.status(201).json({
             status: 'success',
             token,
-            data:{newUser}
+            user:{username: newUser.username, id: newUser._id}
         })
     } catch(error){
   
@@ -50,9 +52,9 @@ export const register = async(req:express.Request, res:express.Response) =>{
             message: error._message
         })
     }
-}
+})
 
-export const login = async ( req:express.Request, res:express.Response, next:express.NextFunction)=>{
+export const login = catchAsync(async ( req:express.Request, res:express.Response, next:express.NextFunction)=>{
     const {username, password} = req.body;
     if(!username || !password) {
         return next()
@@ -67,15 +69,15 @@ export const login = async ( req:express.Request, res:express.Response, next:exp
             }
         })
     }
-    const token = signToken(user.id)
+    const token = signToken(user._id)
     try{  res.cookie('jwt', token,  cookieOptions)}catch(E){console.log(E)}
   
-    res.status(201).json({
+    return res.status(201).json({
         status:"success",
         token,
-        user,
+        user:{username: user.username, id: user._id}
     })
-}
+})
 
 export const checkEmail = async ( req:express.Request, res:express.Response, next:express.NextFunction)=>{
     const {email} = req.body
@@ -99,7 +101,7 @@ export const checkEmail = async ( req:express.Request, res:express.Response, nex
 }
 
 
-export const protect = async ( req:RequestWithUser, res:express.Response, next:express.NextFunction)=>{
+export const protect =catchAsync( async ( req:RequestWithUser, res:express.Response, next:express.NextFunction)=>{
     let token
 
     if(req.cookies.token){
@@ -131,4 +133,4 @@ export const protect = async ( req:RequestWithUser, res:express.Response, next:e
     }
     req.user = user;
    next()
-}
+})
