@@ -50,14 +50,14 @@ const avatarSetting = multer({
 
 export const uploadAvatarMulter = avatarSetting.single("image")
 export const uploadImage = upload.single("image")
-export const uploadAvatar = async (req:RequestWithUser, res:express.Response, next:express.NextFunction) => {
-console.log(req.file)
+export const uploadAvatar = catchAsync(async (req:RequestWithUser, res:express.Response, next:express.NextFunction) => {
 const path = `./public/img/users/user-${req.user._id}.jpeg`;
-// toFile() method stores the image on disk
 await sharp(req.file.buffer).resize(200, 200).toFormat('jpeg').toFile(path);
+ const updatedUser = await User.findByIdAndUpdate( {_id:req.user._id}, { avatar : `http://localhost:8080/user/avatar/${req.user.id}`}, { new: true, upsert:true }, ) 
+ console.log(updatedUser)
 next()
 }
-
+)
 
 interface RequestWithUser extends express.Request {
   user?: typeof User; // Add the 'user' property

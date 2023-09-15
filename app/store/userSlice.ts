@@ -3,7 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 interface userState{
     username:string,
     id:string,
-
+    avatar?: string
 }
 
 const initialState:userState = {

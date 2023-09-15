@@ -13,7 +13,11 @@ import { clearUser } from "@/app/store/userSlice";
 import { toast } from "react-hot-toast";
 import { useRouter, usePathname } from "next/navigation";
 import Cookies from "js-cookie";
-import { BiHomeCircle, BiSolidHomeCircle } from "react-icons/bi";
+import {
+  BiHomeCircle,
+  BiSolidHomeCircle,
+  BiSolidUserCircle,
+} from "react-icons/bi";
 import { onOpen as onOpenShareModal } from "@/app/store/shareModalSlice";
 
 interface LeftBarProps {
@@ -40,6 +44,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
       setIsLoading(false);
     }
   }, [currentUser]);
+  console.log(user.avatar);
   const pathname = usePathname().split("/")[1];
   return (
     <div className="h-[100vh] flex flex-col  p-2 justify-start gap-6">
@@ -62,10 +67,22 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
         </div>
       ) : (
         <div className="flex flex-col gap-2 justify-start items-start">
-          <MenuItem
-            title={user.username}
-            avatarSrc={`http://localhost:8080/user/avatar/${user._id}`}
-          ></MenuItem>
+          {user.avatar ? (
+            <MenuItem
+              title={user.username}
+              avatar={user.avatar}
+              selected={user.username === pathname}
+              key={4}
+            ></MenuItem>
+          ) : (
+            <MenuItem
+              title={user.username}
+              activeIcon={BiSolidUserCircle}
+              selected={user.username === pathname}
+              key={4}
+            ></MenuItem>
+          )}
+
           <MenuItem
             title="Home"
             icon={BiHomeCircle}
@@ -80,10 +97,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
             selected={"asdf" === pathname}
             key={2}
           ></MenuItem>
-          {/* <MenuItem title="Sign out" onClick={logout} icon={}>
-            {" "}
-            < className="w-7 h-7 cursor-pointer"></IoMdNotificationsOutline>
-          </MenuItem> */}
+
           <Button
             label="Share the vibe"
             full
