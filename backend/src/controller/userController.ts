@@ -9,6 +9,7 @@ const multer = require('multer')
 const AppError = require('./../ErrorHandler/appError')
 const Post = require("./../model/postModel")
 import { catchAsync } from "./../ErrorHandler/catchAsync";
+import { ObjectId } from 'mongodb'
 dotenv.config();
 const multerStorage = multer.diskStorage({
   destination: (req: express.Request, file:any, cb:any) => {
@@ -209,4 +210,49 @@ export const GetTvShowUser = catchAsync(async(req:RequestWithUser, res:express.R
     tvShow
   }
   )
+})
+
+
+export const Follow = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
+  const user = req.user
+  const id = req.params.id
+  await User.findByIdAndUpdate(id, { $addToSet: { follower:user._id} },  {
+    upsert: true, 
+    new: true,    
+  },) 
+ const newUser = await User.findByIdAndUpdate(user._id, { $addToSet: { following:id} },  {
+  upsert: true, 
+  new: true,    
+},) 
+  return res.status(201).json({
+    status:"success",
+    user:newUser
+  })
+})
+
+export const Unfollow = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
+  const user = req.user
+  const id = req.params.id
+  await User.findByIdAndUpdate(id, { $pull: { follower:user._id} }, {
+    upsert: true, // Create the track if it doesn't exist
+    new: true,    // Return the updated or newly created track
+  },) 
+ const newUser = await User.findByIdAndUpdate(user._id, { $pull: { following:id} },  {
+  upsert: true, // Create the track if it doesn't exist
+  new: true,    // Return the updated or newly created track
+},) 
+  return res.status(201).json({
+    status:"success",
+    user:newUser
+  })
+})
+
+
+export const CheckFollow = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
+  const user = await User.findById(req.user._id)
+  const _id = req.params.id
+  const userExist = user.following.some((id:ObjectId)=> id.equals(_id));
+  return res.status(201).json({
+    userExist: userExist ? true: false
+  })
 })

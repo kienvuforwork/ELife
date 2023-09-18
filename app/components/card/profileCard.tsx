@@ -7,11 +7,72 @@ import { CiMusicNote1 } from "react-icons/ci";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { AiOutlineUser } from "react-icons/ai";
 import ImageUploadModal from "../Modals/imageUploadModal";
+import { useEffect, useState } from "react";
 interface UserCardProps {
   user: User;
   isCurrentUser?: boolean;
+  currentUser?: User;
 }
-const UserCard: React.FC<UserCardProps> = ({ user, isCurrentUser }) => {
+const UserCard: React.FC<UserCardProps> = ({
+  user,
+  isCurrentUser,
+  currentUser,
+}) => {
+  const [follow, setFollow] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const checkIsFollow = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:8080/user/is-follow/${user._id}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+
+        const data = await res.json(); // Parse the response body as JSON
+        console.log(data.userExist);
+        if (data.userExist) {
+          setFollow(true);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    checkIsFollow();
+  }, []);
+  const handleFollowUser = async () => {
+    try {
+      if (!follow) {
+        setFollow(true);
+        const res = await fetch(
+          `http://localhost:8080/user/follow/${user._id}`,
+          {
+            method: "PUT",
+            credentials: "include",
+          }
+        );
+      } else if (follow) {
+        setFollow(false);
+        const res = await fetch(
+          `http://localhost:8080/user/unfollow/${user._id}`,
+          {
+            method: "PUT",
+            credentials: "include",
+          }
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <div className="flex flex-col items-center  bg-center bg-cover border-elife-700 border-b-2">
       <div className="max-w-3xl w-full mx-auto z-10">
@@ -32,37 +93,48 @@ const UserCard: React.FC<UserCardProps> = ({ user, isCurrentUser }) => {
                   <AiFillCheckCircle className="w-4 h-4 right-0 absolute bottom-1  fill-blue-600"></AiFillCheckCircle>
                 )}
               </div>
-              <div className="flex gap-2 flex-col  sm:ml-5 justify-center text-slate-400">
+              <div className="flex gap-2 flex-col  sm:ml-5 justify-center ">
                 <div className="w-full flex-none text-lg text-gray-200 font-bold leading-none">
                   {user?.username}
                 </div>
-                <div className="text-sm ">
-                  {user?.followers.length} followers
+                <div className="text-sm text-slate-400">
+                  {user?.followers?.length} followers
                 </div>
                 <div className="flex justify-start gap-8">
                   <div className="inline-flex items-center gap-2">
                     <CiMusicNote1 className={`w-5 h-5`}></CiMusicNote1>
-                    <span className="">
-                      {user?.listeningTrack.length} Songs listening{" "}
+                    <span className="text-slate-400">
+                      {user?.listeningTrack?.length} Songs listening{" "}
                     </span>
                   </div>
                   <div className="inline-flex items-center gap-2">
                     <PiTelevisionSimpleLight
                       className={`w-5 h-5`}
                     ></PiTelevisionSimpleLight>
-                    <p className="">
-                      {user?.tvShowWatching.length} TvShows watching
+                    <p className="text-slate-400">
+                      {user?.tvShowWatching?.length} TvShows watching
                     </p>
                   </div>
                 </div>
                 <div>
                   {" "}
                   {!isCurrentUser ? (
-                    <Button
-                      label="Follow"
-                      onClick={() => {}}
-                      sm={true}
-                    ></Button>
+                    follow ? (
+                      <Button
+                        label="Unfollow"
+                        onClick={handleFollowUser}
+                        sm={true}
+                        isLoading={isLoading}
+                        bgColor="bg-elife-700"
+                      ></Button>
+                    ) : (
+                      <Button
+                        label="Follow"
+                        onClick={handleFollowUser}
+                        sm={true}
+                        isLoading={isLoading}
+                      ></Button>
+                    )
                   ) : (
                     <ImageUploadModal></ImageUploadModal>
                   )}

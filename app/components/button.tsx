@@ -8,6 +8,7 @@ interface ButtonProps {
   lg?: boolean;
   full?: boolean;
   isLoading?: boolean;
+  bgColor?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,11 +19,14 @@ const Button: React.FC<ButtonProps> = ({
   lg,
   full,
   isLoading,
+  bgColor,
 }) => {
   return (
     <button
       onClick={onClick}
-      className={`rounded-3xl hover:opacity-70  transition-all duration-300 bg-blue-700 py-2 ${
+      className={`rounded-3xl hover:opacity-70  transition-all duration-300 ${
+        bgColor ? bgColor : "bg-blue-700"
+      }  py-2 ${
         isLoading
           ? "bg-gray-800   rounded-full text-gray-800 animate-pulse "
           : ""

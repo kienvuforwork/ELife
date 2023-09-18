@@ -6,7 +6,6 @@ import { User } from "@/app/Model/User";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import SwitchBar from "@/app/components/rightBar/switchBar";
-import MovieCard from "@/app/components/card/movieCard";
 import { TvShowModel } from "@/app/Model/Movie";
 const UserProfile = () => {
   const pathname = usePathname();
@@ -46,6 +45,7 @@ const UserProfile = () => {
           <UserCard
             user={user as User}
             isCurrentUser={currentUser.username === user?.username}
+            currentUser={currentUser}
           ></UserCard>
           <SwitchBar
             onSetFollower={() => {}}
