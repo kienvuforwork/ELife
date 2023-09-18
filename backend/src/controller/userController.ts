@@ -51,6 +51,7 @@ const avatarSetting = multer({
 export const uploadAvatarMulter = avatarSetting.single("image")
 export const uploadImage = upload.single("image")
 export const uploadAvatar = catchAsync(async (req:RequestWithUser, res:express.Response, next:express.NextFunction) => {
+  console.log(req.body)
 const path = `./public/img/users/user-${req.user._id}.jpeg`;
 await sharp(req.file.buffer).resize(200, 200).toFormat('jpeg').toFile(path);
  const updatedUser = await User.findByIdAndUpdate( {_id:req.user._id}, { avatar : `http://localhost:8080/user/avatar/${req.user.id}`}, { new: true, upsert:true }, ) 
@@ -192,6 +193,7 @@ export const SearchUserByName = catchAsync(async(req:express.Request, res:expres
 
 export const UpdateUser =catchAsync(async(req:RequestWithUser, res:express.Response) =>{
   const user = req.user
+
   return res.json(user)
 
 }) 

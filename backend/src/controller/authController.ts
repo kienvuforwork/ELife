@@ -31,9 +31,19 @@ export const register = catchAsync( async(req:express.Request, res:express.Respo
         if ( !email || !password || !username ){
             return res.sendStatus(400)
         }
-        const existingUser = await User.findOne({email})
-        if(existingUser){
-            return res.sendStatus(400)
+        const existingEmail = await User.findOne({email})
+        const existingUsername = await User.findOne({username})
+        if(existingEmail){
+            return res.status(400).json({
+                type:"email",
+                message:"This email is already taken!"
+            })
+        }
+        if(existingUsername){
+            return res.status(400).json({
+                type:"username",
+                message:"This username is already taken!"
+            })
         }
         newUser = await User.create({
             email, username, password

@@ -33,7 +33,7 @@ const Modal: React.FC<ModalProps> = ({
         className={`flex flex-col items-center justify-center md:mt-[10vh] mt-0  ${
           bgWhite ? "bg-elife-400" : "bg-black"
         } h-auto  my-6 py-5 z-50 shadow-xl rounded-md px-4 translate duration-300 ${
-          big ? "2xl:w-1/2 md:w-3/4 w-full" : "md:w-1/2 xl:w-1/4"
+          big ? "2xl:w-1/2 md:w-3/4 w-full" : "w-3/4 md:w-1/2 xl:w-1/4"
         }
       `}
       >

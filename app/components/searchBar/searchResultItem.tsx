@@ -4,7 +4,7 @@ import React from "react";
 import { TvShowModel } from "@/app/Model/Movie";
 import { Track } from "@/app/Model/Music";
 import { User } from "@/app/Model/User";
-
+import { AiOutlineUser } from "react-icons/ai";
 interface SearchResultItemProps {
   dataType: "tvShow" | "track" | "user";
   data: TvShowModel | Track | User;
@@ -40,12 +40,17 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
       className="flex py-2 px-4 text-sm gap-4 hover:opacity-80 cursor-pointer border-b-[1px] border-elife-700"
       onClick={handleChoose}
     >
-      <img
-        src={img}
-        className={`w-12 ${dataType === "track" ? "h-12" : "h-auto"} ${
-          dataType === "user" && "rounded-full w-8 h-8"
-        }`}
-      ></img>
+      {img ? (
+        <img
+          src={img}
+          className={`w-12 ${dataType === "track" ? "h-12" : "h-auto"} ${
+            dataType === "user" && "rounded-full w-8 h-8"
+          }`}
+        ></img>
+      ) : (
+        <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-700 border-2 border-elife-700"></AiOutlineUser>
+      )}
+
       <div
         className={`flex flex-col ${dataType === "user" && "justify-center"}`}
       >

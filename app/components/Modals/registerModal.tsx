@@ -24,16 +24,6 @@ const RegisterModal = () => {
     if (!isValid) {
       return "Invalid email!";
     }
-    try {
-      const res = await postData("http://localhost:8080/auth/check-email", {
-        email,
-      });
-      if (res.status === "fail") {
-        return "This email already taken!";
-      }
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const onClose = () => {
@@ -48,6 +38,7 @@ const RegisterModal = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setError,
   } = useForm<FieldValues>({
     defaultValues: {
       username: "",
@@ -58,7 +49,6 @@ const RegisterModal = () => {
   register("email", {
     required: { value: true, message: "You should have an email!" },
     minLength: 5,
-    validate: { validateEmail },
   });
   register("username", {
     required: { value: true, message: "You should have an username!" },
@@ -78,27 +68,39 @@ const RegisterModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsDisable(true);
-    const res = await postData("http://localhost:8080/auth/register", {
-      ...data,
-    });
-
+    let res;
+    try {
+      res = await postData("http://localhost:8080/auth/register", {
+        ...data,
+      });
+      if (res.type === "email") {
+        setError("email", {
+          type: "manual",
+          message: "This email is already taken",
+        });
+      } else if (res.type === "username") {
+        setError("username", {
+          type: "manual",
+          message: "This username is already taken",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
     if (res.status === "success") {
       document.cookie = `token=${res.token}`;
-      console.log(res.user);
       dispatch(setUser({ ...res.user }));
       router.push("/home");
-      setIsDisable(false);
       dispatch(onCloseRegisterModal());
       reset();
       toast.success("Register Successfully!!");
-      console.log(res.user);
     }
+    setIsDisable(false);
   };
   const title = <div className="text-elife-500 text-lg">Register</div>;
   const body = (
     <div className="flex flex-col justify-center items-start w-full gap-4 my-4 mb-10">
       <div className="text-elife-400 text-xl">Welcome to Elife !</div>
-
       <Input
         id="email"
         label="Email"

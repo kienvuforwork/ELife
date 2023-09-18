@@ -36,7 +36,6 @@ const UserProfile = () => {
     };
     fetchUser();
   }, []);
-  console.log(tvShows);
   const currentUser = useSelector((state: RootState) => state.userSlice);
 
   return (
