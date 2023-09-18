@@ -3,15 +3,16 @@
 import React from "react";
 import { TvShowModel } from "@/app/Model/Movie";
 import { Track } from "@/app/Model/Music";
+import { User } from "@/app/Model/User";
 
 interface SearchResultItemProps {
-  dataType: "tvShow" | "track";
-  data: TvShowModel | Track;
+  dataType: "tvShow" | "track" | "user";
+  data: TvShowModel | Track | User;
   img: string;
   name: string;
   artists?: string[];
   onClick: () => void;
-  onChoose: (data: TvShowModel | Track) => void;
+  onChoose: (data: TvShowModel | Track | User) => void;
 }
 const SearchResultItem: React.FC<SearchResultItemProps> = ({
   img,
@@ -30,6 +31,9 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
     if (dataType === "track") {
       onChoose({ ...data, type: "track" } as Track);
     }
+    if (dataType === "user") {
+      onChoose({ ...data } as User);
+    }
   };
   return (
     <div
@@ -38,17 +42,23 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
     >
       <img
         src={img}
-        className={`w-12 ${dataType === "track" ? "h-12" : "h-auto"}`}
+        className={`w-12 ${dataType === "track" ? "h-12" : "h-auto"} ${
+          dataType === "user" && "rounded-full w-8 h-8"
+        }`}
       ></img>
-      <div className="flex flex-col">
-        <div> {name}</div>
-        <div className="flex flex-wrap gap-1 mt-1">
-          {artists?.map((artist: any, index: number) => (
-            <span className=" text-elife-600" key={index}>
-              {index === artists.length - 1 ? artist.name : artist.name + ","}
-            </span>
-          ))}
-        </div>
+      <div
+        className={`flex flex-col ${dataType === "user" && "justify-center"}`}
+      >
+        <div className=""> {name}</div>
+        {artists && (
+          <div className="flex flex-wrap gap-1 mt-1">
+            {artists?.map((artist: any, index: number) => (
+              <span className=" text-elife-600" key={index}>
+                {index === artists.length - 1 ? artist.name : artist.name + ","}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

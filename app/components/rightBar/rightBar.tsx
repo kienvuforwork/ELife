@@ -7,7 +7,9 @@ import { useState, useEffect, Fragment } from "react";
 import SwitchBar from "./switchBar";
 import { TrackModel } from "@/app/Model/Music";
 import Search from "../searchBar/search";
+import { User } from "@/app/Model/User";
 
+import { useRouter } from "next/navigation";
 interface SideBarProps {
   moviesData: TvShowModel[];
   trackData: TrackModel[];
@@ -18,7 +20,10 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
   const [isMusic, setIsMusic] = useState<boolean>(false);
   const [isLoadingMovie, setIsLoadingMovie] = useState(true);
   const [isLoadingTrack, setIsLoadingTrack] = useState(true);
-
+  const router = useRouter();
+  const onChoose = (user: User) => {
+    router.push(`/user/${user.username}`);
+  };
   useEffect(() => {
     if (moviesData) {
       setIsLoadingMovie(false);
@@ -43,11 +48,11 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
         <div className="px-4">
           <Search
             placeholder="Search"
-            onChoose={() => {
-              return;
-            }}
+            // @ts-ignore
+            onChoose={onChoose}
             rounded
             icon
+            searchUser
           ></Search>
         </div>
 

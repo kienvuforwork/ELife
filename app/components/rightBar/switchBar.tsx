@@ -3,38 +3,118 @@
 import { useState } from "react";
 
 interface SwitchBarProps {
-  onSetMovie: () => void;
-  onSetMusic: () => void;
+  onSetMovie?: () => void;
+  onSetMusic?: () => void;
+  onSetFollower?: () => void;
+  onSetFollowing?: () => void;
+  onSetPost?: () => void;
 }
 
-const SwitchBar: React.FC<SwitchBarProps> = ({ onSetMovie, onSetMusic }) => {
+const SwitchBar: React.FC<SwitchBarProps> = ({
+  onSetMovie,
+  onSetMusic,
+  onSetFollower,
+  onSetFollowing,
+  onSetPost,
+}) => {
   const [isMovie, setIsMovie] = useState<boolean>(true);
+  const [isMusic, setIsMusic] = useState<boolean>(false);
+  const [userFollower, setUserFollower] = useState<boolean>(false);
+  const [userFollowing, setUserFollowing] = useState<boolean>(false);
+  const [userPost, setUserPost] = useState<boolean>(true);
   const handleMovie = () => {
-    onSetMovie();
+    onSetMovie && onSetMovie();
     setIsMovie(true);
+    setIsMusic(false);
+    setUserFollower(false);
+    setUserFollowing(false);
+    setUserPost(false);
   };
-  const handeMusic = () => {
-    onSetMusic();
+  const handleMusic = () => {
+    onSetMusic && onSetMusic();
     setIsMovie(false);
+    setIsMusic(true);
+    setUserFollower(false);
+    setUserFollowing(false);
+    setUserPost(false);
+  };
+  const handleFollower = () => {
+    onSetMusic && onSetMusic();
+    setIsMovie(false);
+    setIsMusic(false);
+    setUserFollower(true);
+    setUserFollowing(false);
+    setUserPost(false);
+  };
+  const handleFollowing = () => {
+    onSetMusic && onSetMusic();
+    setIsMovie(false);
+    setIsMusic(false);
+    setUserFollower(false);
+    setUserFollowing(true);
+    setUserPost(false);
+  };
+  const handlePost = () => {
+    onSetMusic && onSetMusic();
+    setIsMovie(false);
+    setIsMusic(false);
+    setUserFollower(false);
+    setUserFollowing(false);
+    setUserPost(true);
   };
   return (
     <div className="flex justify-center items-center w-full text-lg text-elife-600 ">
-      <div
-        className={`w-1/2 p-2 cursor-pointer flex justify-center ${
-          isMovie ? "border-b-2 border-elife-600" : ""
-        } `}
-        onClick={handleMovie}
-      >
-        Watching
-      </div>
-      <div
-        className={`w-1/2 p-2 cursor-pointer flex justify-center ${
-          !isMovie ? "border-b-2 border-elife-600" : ""
-        } `}
-        onClick={handeMusic}
-      >
-        Listening
-      </div>
+      {onSetMovie && (
+        <div
+          className={`w-1/2 p-2 cursor-pointer flex justify-center ${
+            isMovie ? "border-b-2 border-elife-600" : ""
+          } `}
+          onClick={handleMovie}
+        >
+          Watching
+        </div>
+      )}
+      {onSetMusic && (
+        <div
+          className={`w-1/2 p-2 cursor-pointer flex justify-center ${
+            isMusic ? "border-b-2 border-elife-600" : ""
+          } `}
+          onClick={handleMusic}
+        >
+          Listening
+        </div>
+      )}
+      {onSetPost && (
+        <div
+          className={`w-1/2 p-2 cursor-pointer flex justify-center ${
+            userPost ? "border-b-2 border-elife-600" : ""
+          } `}
+          onClick={handlePost}
+        >
+          Posts
+        </div>
+      )}
+
+      {onSetFollower && (
+        <div
+          className={`w-1/2 p-2 cursor-pointer flex justify-center ${
+            userFollower ? "border-b-2 border-elife-600" : ""
+          } `}
+          onClick={handleFollower}
+        >
+          Follower
+        </div>
+      )}
+      {onSetFollowing && (
+        <div
+          className={`w-1/2 p-2 cursor-pointer flex justify-center ${
+            userFollowing ? "border-b-2 border-elife-600" : ""
+          } `}
+          onClick={handleFollowing}
+        >
+          Following
+        </div>
+      )}
     </div>
   );
 };

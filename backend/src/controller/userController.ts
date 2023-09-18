@@ -183,18 +183,11 @@ export const userAddTvShow = catchAsync(async (req:RequestWithUser, res:express.
 
 
 export const SearchUserByName = catchAsync(async(req:express.Request, res:express.Response) => {
-  const { username  } = req.body.username;
+  const  username   = req.params.username;
   const regex = new RegExp(username , "i")
   const users = await User.find({ username: regex });
-  const fieldsToKeep = ['_id', 'username', "avatar"]
-  const filteredUsers:any = users.map((user:typeof User) => {
-    const filteredUser: any = {};
-    fieldsToKeep.forEach((field) => {
-      filteredUser[field] = user[field];
-    });
-    return filteredUser;
-  });
-  return  res.status(201).json(filteredUsers);
+
+  return  res.status(201).json(users);
 })
 
 export const UpdateUser =catchAsync(async(req:RequestWithUser, res:express.Response) =>{
@@ -204,3 +197,14 @@ export const UpdateUser =catchAsync(async(req:RequestWithUser, res:express.Respo
 }) 
 
 
+export const GetTvShowUser = catchAsync(async(req:RequestWithUser, res:express.Response) =>{
+  const userId = req.params.id;
+  const user = await User.findById(userId)
+  const tvShowId = user.tvShowWatching
+  const tvShow = await TvShow.find({ _id: { $in: tvShowId } });
+  return res.status(201).json({
+    message:"sucess",
+    tvShow
+  }
+  )
+})

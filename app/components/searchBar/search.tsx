@@ -7,15 +7,17 @@ import { options } from "@/app/actions/Movie/getTvShow";
 import { TvShowModel } from "@/app/Model/Movie";
 import SearchResultSkeleton from "./searchResultSkeleton";
 import { Track } from "@/app/Model/Music";
+import { User } from "@/app/Model/User";
 
 interface SearchProps {
   icon?: boolean;
   placeholder: string;
   sm?: boolean;
   rounded?: boolean;
-  onChoose: (data: TvShowModel | Track) => void;
+  onChoose: (data: TvShowModel | Track | User) => void;
   searchTvShow?: boolean;
   searchMusic?: boolean;
+  searchUser?: boolean;
   spotifyToken?: string;
 }
 
@@ -28,6 +30,7 @@ const Search: React.FC<SearchProps> = ({
   searchTvShow,
   searchMusic,
   spotifyToken,
+  searchUser,
 }) => {
   const getTvShowByName = async (name: string) => {
     const url = `https://api.themoviedb.org/3/search/tv?&query=${name}`;
@@ -50,9 +53,21 @@ const Search: React.FC<SearchProps> = ({
     return tracks;
   };
 
+  const getUserByName = async (name: string) => {
+    const url = `http://localhost:8080/users/${name}`;
+
+    const data = await fetch(url, { method: "GET" })
+      .then((data) => data.json())
+      .catch((err) => console.error("error:" + err));
+
+    const users: User[] = data;
+    return users;
+  };
+
   const [text, setText] = useState<string>("");
   const [tvShow, setTvShow] = useState<TvShowModel[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     handleClose();
@@ -74,6 +89,16 @@ const Search: React.FC<SearchProps> = ({
     }, 300),
     []
   );
+
+  const debouncedOnChangeUser = useCallback(
+    debounce(async (searchText: string) => {
+      const data = await getUserByName(searchText);
+      setUsers(data);
+      setIsLoading(false);
+    }, 300),
+    []
+  );
+
   const debouncedOnChangeTrack = useCallback(
     debounce(async (searchText: string) => {
       const data = await getTrackByName(searchText);
@@ -82,7 +107,6 @@ const Search: React.FC<SearchProps> = ({
     }, 300),
     []
   );
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchText = e.target.value;
     setIsLoading(true);
@@ -92,6 +116,9 @@ const Search: React.FC<SearchProps> = ({
     }
     if (searchTvShow) {
       debouncedOnChangeTvShow(searchText);
+    }
+    if (searchUser) {
+      debouncedOnChangeUser(searchText);
     }
   };
 
@@ -123,6 +150,7 @@ const Search: React.FC<SearchProps> = ({
           text={text}
           tvShowList={tvShow}
           trackList={tracks}
+          userList={users}
           isLoading={isLoading}
         ></SearchResultList>
       )}

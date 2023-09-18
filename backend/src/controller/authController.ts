@@ -43,7 +43,7 @@ export const register = catchAsync( async(req:express.Request, res:express.Respo
         return res.status(201).json({
             status: 'success',
             token,
-            user:{username: newUser.username, id: newUser._id}
+            user:{username: newUser.username, id: newUser._id,avatar: newUser.avatar }
         })
     } catch(error){
   
@@ -75,7 +75,7 @@ export const login = catchAsync(async ( req:express.Request, res:express.Respons
     return res.status(201).json({
         status:"success",
         token,
-        user:{username: user.username, id: user._id}
+        user:{username: user.username, id: user._id,avatar: user.avatar }
     })
 })
 

@@ -3,14 +3,15 @@
 import { TvShowModel } from "@/app/Model/Movie";
 import SearchResultItem from "./searchResultItem";
 import { Track } from "@/app/Model/Music";
-
+import { User } from "@/app/Model/User";
 interface SearchResultListProps {
   text?: string | undefined;
   tvShowList?: TvShowModel[];
   trackList?: Track[];
+  userList?: User[];
   right?: boolean;
   onClose: () => void;
-  onChoose: (data: TvShowModel | Track) => void;
+  onChoose: (data: TvShowModel | Track | User) => void;
   isLoading: boolean | undefined;
 }
 
@@ -21,11 +22,13 @@ const SearchResultList: React.FC<SearchResultListProps> = ({
   isLoading,
   onClose,
   trackList,
+  userList,
 }) => {
   if (
     !isLoading &&
     tvShowList?.length === 0 &&
     trackList?.length === 0 &&
+    userList?.length === 0 &&
     text !== ""
   ) {
     return (
@@ -65,6 +68,17 @@ const SearchResultList: React.FC<SearchResultListProps> = ({
           img={data.album.images[0].url}
           onChoose={onChoose}
           onClick={onClose}
+        ></SearchResultItem>
+      ))}
+      {userList?.map((user: any, index: number) => (
+        <SearchResultItem
+          dataType="user"
+          data={user as User}
+          img={user.avatar}
+          key={index}
+          onChoose={onChoose}
+          onClick={onClose}
+          name={user.username}
         ></SearchResultItem>
       ))}
     </div>

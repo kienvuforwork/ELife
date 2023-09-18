@@ -287,6 +287,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
             <Search
               placeholder="Search"
               sm={true}
+              // @ts-ignore
               onChoose={onChoose}
               searchTvShow={isTvShow}
               searchMusic={isMusic}

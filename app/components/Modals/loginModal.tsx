@@ -35,13 +35,16 @@ const LoginModal = () => {
       });
 
       if (res.status === "success") {
+        console.log(res.body);
         document.cookie = `token=${res.token}`;
         dispatch(setUser({ ...res.user }));
+
         router.push("/home");
         setIsDisable(false);
         dispatch(onCloseLoginModal());
         reset();
         toast.success("Logged in!");
+        console.log("log in");
       } else if (res.status === "Fail") {
         setIsDisable(false);
         toast.error("Incorrect username or password!!");

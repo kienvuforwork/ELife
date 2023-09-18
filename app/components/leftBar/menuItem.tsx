@@ -10,6 +10,7 @@ interface MenuItemProps {
   avatar?: string;
   activeIcon?: IconType;
   selected?: boolean;
+  link: string;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
@@ -18,14 +19,13 @@ const MenuItem: React.FC<MenuItemProps> = ({
   icon: Icon,
   activeIcon: ActiveIcon,
   avatar,
+  link,
 }) => {
   return (
-    <Link
-      href={avatar ? `/user/${title.toLowerCase()}` : `/${title.toLowerCase()}`}
-    >
+    <Link href={link}>
       <div
         className={`flex px-4 py-2 rounded-full items-center cursor-pointer gap-4 
-     
+      ${selected && "bg-elife-700"}
        hover:bg-elife-700`}
       >
         {selected
