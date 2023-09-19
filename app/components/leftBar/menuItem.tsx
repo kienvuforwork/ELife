@@ -1,8 +1,7 @@
 "use client";
 
 import { IconType } from "react-icons";
-import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+
 import Link from "next/link";
 interface MenuItemProps {
   title: string;

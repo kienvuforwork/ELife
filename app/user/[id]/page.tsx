@@ -1,61 +1,185 @@
 "use client";
-import UserCard from "@/app/components/card/profileCard";
+import UserCard from "@/app/components/card/userCard";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, Fragment } from "react";
 import { User } from "@/app/Model/User";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import SwitchBar from "@/app/components/rightBar/switchBar";
-import { TvShowModel } from "@/app/Model/Movie";
+import { AiOutlineUser } from "react-icons/ai";
+import Loader from "@/app/components/loader";
+import Post from "@/app/components/card/post";
+import Link from "next/link";
 const UserProfile = () => {
   const pathname = usePathname();
   const [user, setUser] = useState<User>();
-  const [isLoading, setIdLoading] = useState(true);
-  const [tvShows, setTvShows] = useState<TvShowModel[]>();
+  const [follower, setFollower] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [isPost, setIsPost] = useState(true);
+  const [isFollower, setIsFollower] = useState(false);
+  const [isFollowing, setIsFollwing] = useState(false);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const pathNameList = pathname.split("/");
   const username = pathNameList[pathNameList.length - 1];
+
+  const handleFollowingTab = () => {
+    setIsFollwing(true);
+    setIsFollower(false);
+    setIsPost(false);
+  };
+  const handleFollowerTab = () => {
+    setIsFollwing(false);
+    setIsFollower(true);
+    setIsPost(false);
+  };
+  const handlePostTab = () => {
+    setIsFollwing(false);
+    setIsFollower(false);
+    setIsPost(true);
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await fetch(`http://localhost:8080/users/${username}`);
         const data = await res.json();
         setUser(data[0]);
-        if (data[0]) {
-          const user = data[0];
-          const res = await fetch(
-            `http://localhost:8080/user/${user?._id}/tvShow`
-          );
-          const a = await res.json();
-          setTvShows(a.tvShow);
-        }
+        setIsLoadingUser(false);
       } catch (e) {
         console.log(e);
       }
-      setIdLoading(false);
     };
+
+    const fetchPost = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(`http://localhost:8080/post/user/${username}`);
+        const data = await res.json();
+        setPosts(data.postWithData);
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const fetchFollowing = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          `http://localhost:8080/user/${username}/following`
+        );
+        const data = await res.json();
+        setFollowing(data.following);
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    const fetchFollower = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          `http://localhost:8080/user/${username}/follower`
+        );
+        const data = await res.json();
+
+        setFollower(data.followers);
+
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchFollower();
+    fetchFollowing();
+    fetchPost();
     fetchUser();
   }, []);
   const currentUser = useSelector((state: RootState) => state.userSlice);
-
-  return (
-    !isLoading && (
-      <Fragment>
-        <div className="h-1000 border-2 border-elife-700">
-          {" "}
-          <UserCard
-            user={user as User}
-            isCurrentUser={currentUser.username === user?.username}
-            currentUser={currentUser}
-          ></UserCard>
-          <SwitchBar
-            onSetFollower={() => {}}
-            onSetFollowing={() => {}}
-            onSetPost={() => {}}
-          ></SwitchBar>
-          <div className="w-full flex flex-wrap"></div>
-        </div>
-      </Fragment>
-    )
+  return !isLoadingUser ? (
+    <Fragment>
+      <div className="h-1000 border-2 border-elife-700">
+        {" "}
+        <UserCard
+          user={user as User}
+          isCurrentUser={currentUser.username === user?.username}
+          currentUser={currentUser}
+        ></UserCard>
+        <SwitchBar
+          onSetFollower={handleFollowerTab}
+          onSetFollowing={handleFollowingTab}
+          onSetPost={handlePostTab}
+        ></SwitchBar>
+        {!isLoading ? (
+          isPost && (
+            <div className="w-full flex flex-wrap">
+              {posts.length > 0 &&
+                posts?.map((post: any, index) => (
+                  <Post
+                    username={post.username}
+                    data={post.data}
+                    date={new Date(post.customDate).toLocaleString()}
+                    key={index}
+                    avatar={user?.avatar}
+                    type={post.type}
+                  ></Post>
+                ))}
+            </div>
+          )
+        ) : (
+          <Loader></Loader>
+        )}
+        {!isLoading
+          ? isFollower &&
+            follower.map((follower: User) => (
+              <Link href={`/user/${follower.username}`}>
+                {" "}
+                <div
+                  className="flex cursor-pointer items-center pl-6 p-2 border-t-2 border-elife-700 hover:bg-elife-700"
+                  key={follower.username}
+                >
+                  {follower.avatar ? (
+                    <img
+                      src={follower.avatar}
+                      className="w-8 h-8 rounded-full"
+                    ></img>
+                  ) : (
+                    <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-500 border-2 border-elife-500"></AiOutlineUser>
+                  )}
+                  <span className="ml-6">{follower.username}</span>
+                </div>{" "}
+              </Link>
+            ))
+          : ""}
+        {!isLoading
+          ? isFollowing &&
+            following.map((following: User) => (
+              <Link href={`/user/${following.username}`}>
+                {" "}
+                <div
+                  className="flex cursor-pointer items-center pl-6 p-2 border-t-2 border-elife-700 hover:bg-elife-700"
+                  key={following.username}
+                >
+                  {following.avatar ? (
+                    <img
+                      src={following.avatar}
+                      className="w-8 h-8 rounded-full"
+                    ></img>
+                  ) : (
+                    <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-500 border-2 border-elife-500"></AiOutlineUser>
+                  )}
+                  <span className=" ml-6">{following.username}</span>
+                </div>
+              </Link>
+            ))
+          : ""}
+      </div>
+    </Fragment>
+  ) : (
+    <Loader></Loader>
   );
 };
 

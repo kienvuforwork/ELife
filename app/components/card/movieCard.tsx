@@ -16,6 +16,7 @@ interface MovieCardProps {
   sm?: boolean;
   border?: boolean;
   col?: boolean;
+  hover?: boolean;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({
@@ -30,6 +31,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
   sm,
   border,
   col,
+  hover,
 }) => {
   const convertRatingOutOf10ToOutOf5 = (ratingOutOf10: any) => {
     // Ensure the input is within the valid range
@@ -82,11 +84,11 @@ const MovieCard: React.FC<MovieCardProps> = ({
   return (
     <div className="flex flex-col ">
       <div
-        className={`flex xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1 border-2 ${
+        className={`flex xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1  ${
           border ? "border-t-2" : ""
         }  border-elife-700 ${isDisable ? "" : "hover:bg-elife-700"} `}
       >
-        <div className="w-1/3">
+        <div className="w-2/5">
           {" "}
           <img src={image_src} className="w-full h-full"></img>
         </div>

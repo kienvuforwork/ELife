@@ -3,8 +3,8 @@ import express from 'express';
 import auth from './auth';
 import user from './user';
 import post from './post';
-import track from './track';
-import tvShow from './tvShow';
+import track from './tvShow';
+import tvShow from './track';
 const router = express.Router();
 
 export default (): express.Router => {

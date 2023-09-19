@@ -47,7 +47,7 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
       <div className="p-4 pt-2 pl-6">
         <div className="px-4">
           <Search
-            placeholder="Search"
+            placeholder="Search user"
             // @ts-ignore
             onChoose={onChoose}
             rounded

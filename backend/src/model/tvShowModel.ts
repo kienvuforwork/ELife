@@ -20,8 +20,8 @@ export interface TvShow {
     overview:String,
     genre: [{type:String}],
     origin_country: String,
+    vibes: [{type:String}],
     recommend: Boolean,
-    vibes: {type:[String]},
     createdAt: {
       type: Date, // Specifies that this field is of type Date
       default: Date.now // Sets the default value to the current date and time

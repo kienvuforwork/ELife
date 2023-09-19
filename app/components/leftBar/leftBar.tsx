@@ -11,14 +11,14 @@ import Logo from "./logo";
 import MenuItem from "./menuItem";
 import { clearUser } from "@/app/store/userSlice";
 import { toast } from "react-hot-toast";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
 import Cookies from "js-cookie";
 import {
   BiHomeCircle,
   BiSolidHomeCircle,
   BiSolidUserCircle,
 } from "react-icons/bi";
-import { FaRegCircleUser } from "react-icons/fa6";
 import { onOpen as onOpenShareModal } from "@/app/store/shareModalSlice";
 
 interface LeftBarProps {
@@ -27,6 +27,7 @@ interface LeftBarProps {
 
 const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
   const router = useRouter();
+
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: RootState) => state.userSlice);
   const logout = () => {
@@ -45,7 +46,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
       setIsLoading(false);
     }
   }, [currentUser]);
-  const pathname = usePathname().split("/")[1];
+  const pathname = usePathname().split("/");
   return (
     <div className="h-[100vh] flex flex-col  p-2 justify-start gap-6">
       <Logo></Logo>
@@ -71,7 +72,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
             <MenuItem
               title={user.username}
               avatar={user.avatar}
-              selected={`user` === pathname}
+              selected={user.username === pathname[2]}
               key={4}
               link={`/user/${user.username.toLowerCase()}`}
             ></MenuItem>
@@ -80,7 +81,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
               title={user.username}
               icon={BiSolidUserCircle}
               activeIcon={BiSolidUserCircle}
-              selected={`user` === pathname}
+              selected={user.username === pathname[2]}
               key={4}
               link={`/user/${user.username.toLowerCase()}`}
             ></MenuItem>
@@ -90,7 +91,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
             title="Home"
             icon={BiHomeCircle}
             activeIcon={BiSolidHomeCircle}
-            selected={"home" === pathname}
+            selected={"home" === pathname[1]}
             key={1}
             link={`/home`}
           ></MenuItem>
@@ -98,7 +99,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
             title="asdf"
             icon={BiHomeCircle}
             activeIcon={BiSolidHomeCircle}
-            selected={"asdf" === pathname}
+            selected={"asdf" === pathname[1]}
             key={2}
             link={`/asdf`}
           ></MenuItem>

@@ -1,6 +1,6 @@
-import { GetTrackImage } from "./../controller/imageController"
+import {  GetTvShowImage } from "../controller/imageController"
 import express from "express"
 
 export default (router:express.Router)=>{
-    router.get("/track/image/:id", GetTrackImage)
+    router.get("/tvShow/image/:id", GetTvShowImage)
 }

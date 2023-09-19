@@ -17,6 +17,6 @@ export const GetTvShowImage = catchAsync(async (req:express.Request, res:express
 
 export const GetTrackImage = catchAsync(async (req:express.Request, res:express.Response) => {
     const id = req.params.id
-    const imagePath =  `C:/Users/kienv/OneDrive/Desktop/elife/elife/backend/public/img/tvShows/track-${id}.jpeg`
+    const imagePath =  `C:/Users/kienv/OneDrive/Desktop/elife/elife/backend/public/img/tracks/track-${id}.jpeg`
     res.sendFile(imagePath);
 })

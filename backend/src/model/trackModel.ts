@@ -14,7 +14,6 @@ const TrackSchema = new mongoose.Schema({
   artists: { type: [{type:String}], required:true },
   image: String,
   releaseDate: String,
-  vibes: {type:[String]},
   like: Boolean,
   createdAt: {
     type: Date, // Specifies that this field is of type Date

@@ -216,7 +216,7 @@ export const GetTvShowUser = catchAsync(async(req:RequestWithUser, res:express.R
 export const Follow = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
   const user = req.user
   const id = req.params.id
-  await User.findByIdAndUpdate(id, { $addToSet: { follower:user._id} },  {
+  await User.findByIdAndUpdate(id, { $addToSet: { followers:user._id} },  {
     upsert: true, 
     new: true,    
   },) 
@@ -256,3 +256,28 @@ export const CheckFollow = catchAsync(async(req:RequestWithUser, res:express.Res
     userExist: userExist ? true: false
   })
 })
+
+export const GetFollower = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
+  const user = await User.findOne({username: req.params.username})
+
+ const followers = await Promise.all(user.followers.map(async(id : ObjectId) => {
+  const follower = await User.findById(id)
+  return follower
+}))
+return res.status(201).json({
+  status:"success",
+  followers
+})
+})
+
+export const GetFollowing = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
+  const user = await User.findOne({username: req.params.username})
+  const following = await Promise.all(user.following.map(async(id : ObjectId) => {
+   const followingUser = await User.findById(id)
+   return followingUser
+ }))
+ return res.status(201).json({
+   status:"success",
+  following
+ })
+ })

@@ -36,7 +36,6 @@ const UserCard: React.FC<UserCardProps> = ({
         }
 
         const data = await res.json(); // Parse the response body as JSON
-        console.log(data.userExist);
         if (data.userExist) {
           setFollow(true);
         }

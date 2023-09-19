@@ -30,7 +30,7 @@ const Chip: React.FC<ChipProps> = ({
   return (
     <div
       onClick={handleClick}
-      className={`center relative inline-block cursor-pointer whitespace-nowrap rounded-lg  py-1 px-2.5 align-baseline text-sm leading-none  ${
+      className={`center relative inline-block cursor-pointer whitespace-nowrap rounded-lg ml-1  py-1 px-2.5 align-baseline text-sm leading-none  ${
         selected ? "bg-elife-600 text-elife-700" : "bg-elife-700 text-blue-400"
       }  `}
     >

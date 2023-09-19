@@ -3,7 +3,7 @@ import Modal from "./modal";
 import { AppDispatch, RootState } from "@/app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { onClose, setIsChosen } from "@/app/store/shareModalSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiTelevisionSimpleLight } from "react-icons/pi";
 import { CiMusicNote1 } from "react-icons/ci";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
@@ -93,7 +93,6 @@ const downLoadImage = async (url: string | undefined) => {
   let imageResponse;
   if (url) {
     imageResponse = await fetch(url);
-    console.log(imageResponse);
   }
 
   const imageBlob = await imageResponse?.blob();
@@ -111,6 +110,19 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
   const [chipList, setChipList] = useState<string[]>(
     feelingsWhileWatchingTVShow
   );
+  const settedData = useSelector(
+    (state: RootState) => state.shareModalSlice.data
+  );
+  const isOpen = useSelector(
+    (state: RootState) => state.shareModalSlice.isOpen
+  );
+  useEffect(() => {
+    console.log(selectedData);
+    if (settedData) {
+      setIsChosen(true);
+      setSelectedData(settedData);
+    }
+  }, [settedData]);
 
   const toggleLike = () => {
     setLike((prev) => !prev);
@@ -146,9 +158,6 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
     setIsMusic((prevState) => !prevState);
   };
 
-  const isOpen = useSelector(
-    (state: RootState) => state.shareModalSlice.isOpen
-  );
   const dispatch: AppDispatch = useDispatch();
 
   const onSubmit = async () => {

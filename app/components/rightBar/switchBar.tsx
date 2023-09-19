@@ -39,7 +39,7 @@ const SwitchBar: React.FC<SwitchBarProps> = ({
     setUserPost(false);
   };
   const handleFollower = () => {
-    onSetMusic && onSetMusic();
+    onSetFollower && onSetFollower();
     setIsMovie(false);
     setIsMusic(false);
     setUserFollower(true);
@@ -47,7 +47,7 @@ const SwitchBar: React.FC<SwitchBarProps> = ({
     setUserPost(false);
   };
   const handleFollowing = () => {
-    onSetMusic && onSetMusic();
+    onSetFollowing && onSetFollowing();
     setIsMovie(false);
     setIsMusic(false);
     setUserFollower(false);
@@ -55,7 +55,7 @@ const SwitchBar: React.FC<SwitchBarProps> = ({
     setUserPost(false);
   };
   const handlePost = () => {
-    onSetMusic && onSetMusic();
+    onSetPost && onSetPost();
     setIsMovie(false);
     setIsMusic(false);
     setUserFollower(false);
