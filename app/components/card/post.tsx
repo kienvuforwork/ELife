@@ -40,6 +40,8 @@ const Post: React.FC<PostProps> = ({
   const dispatch: AppDispatch = useDispatch();
   const setShareModal = () => {
     dispatch(onOpenShareModal());
+    delete data.vibes;
+    delete data.like;
     if (type === "track") {
       dispatch(
         setData({
@@ -53,7 +55,16 @@ const Post: React.FC<PostProps> = ({
         } as Track)
       );
     } else if (type === "tvShow") {
-      dispatch(setData({ ...(data as TvShowModel), type: "tvShow" }));
+      console.log(data.genre, data.vibes);
+      dispatch(
+        setData({
+          ...(data as TvShowModel),
+          type: "tvShow",
+          poster_path: `http://localhost:8080/tvShow/image/${data.id}`,
+          backdrop_path: `http://localhost:8080/tvShow/image/${data.id}`,
+          origin_country: [data.origin_country],
+        })
+      );
     }
   };
   return (

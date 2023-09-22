@@ -8,4 +8,6 @@ export interface TvShowModel  {
     overview?:string,
     genre_ids?: number[],
     origin_country?: string[],
+    vibes?:string[];
+    genre?: string
   }

@@ -25,13 +25,18 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
 }) => {
   const handleChoose = () => {
     onClick();
+
     if (dataType === "tvShow") {
-      onChoose({ ...data, type: "tvShow" } as TvShowModel);
-    }
-    if (dataType === "track") {
+      const tvShowData = data as TvShowModel;
+      onChoose({
+        ...tvShowData,
+        type: "tvShow",
+        poster_path: `https://image.tmdb.org/t/p/w200/${tvShowData.poster_path}`,
+        backdrop_path: `https://image.tmdb.org/t/p/w200/${tvShowData.backdrop_path}`,
+      } as TvShowModel);
+    } else if (dataType === "track") {
       onChoose({ ...data, type: "track" } as Track);
-    }
-    if (dataType === "user") {
+    } else if (dataType === "user") {
       onChoose({ ...data } as User);
     }
   };

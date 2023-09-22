@@ -148,8 +148,8 @@ const UserProfile = () => {
         )}
         {!isLoading
           ? isFollower &&
-            follower.map((follower: User) => (
-              <Link href={`/user/${follower.username}`}>
+            follower.map((follower: User, index: number) => (
+              <Link href={`/user/${follower.username}`} key={index}>
                 {" "}
                 <div
                   className="flex cursor-pointer items-center pl-6 p-2 border-t-2 border-elife-700 hover:bg-elife-700"
@@ -170,8 +170,8 @@ const UserProfile = () => {
           : ""}
         {!isLoading
           ? isFollowing &&
-            following.map((following: User) => (
-              <Link href={`/user/${following.username}`}>
+            following.map((following: User, index: number) => (
+              <Link href={`/user/${following.username}`} key={index}>
                 {" "}
                 <div
                   className="flex cursor-pointer items-center pl-6 p-2 border-t-2 border-elife-700 hover:bg-elife-700"

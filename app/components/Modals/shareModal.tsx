@@ -117,7 +117,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
     (state: RootState) => state.shareModalSlice.isOpen
   );
   useEffect(() => {
-    console.log(selectedData);
+    console.log(settedData);
     if (settedData) {
       setIsChosen(true);
       setSelectedData(settedData);
@@ -178,10 +178,11 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
       }
       if (selectedData?.type === "track") {
         // Fetch the image from the 3rd-party API
+
         const imageBlob = await downLoadImage(
           selectedData?.album.images[0].url
         );
-        console.log(selectedData.album.images[0].url);
+
         formData.append("vibes", JSON.stringify(selectedChip));
         formData.append("like", like);
         formData.append("image", imageBlob);
@@ -192,24 +193,25 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
           credentials: "include",
         }).then((res) => res.status);
       } else if (selectedData?.type === "tvShow") {
+        console.log(selectedData);
         const imageBlob = await downLoadImage(
-          `https://image.tmdb.org/t/p/w200${
-            selectedData.backdrop_path && selectedData.poster_path
-          }`
+          selectedData.backdrop_path && selectedData.poster_path
         );
+        console.log(imageBlob);
         formData.append("vibes", JSON.stringify(selectedChip));
         formData.append("like", like);
         formData.append("image", imageBlob);
         formData.append("type", "watching");
-        formData.append(
-          "genre",
-          JSON.stringify(
-            selectedData.genre_ids?.map((id: number) => {
-              const matchedGenre = genres?.find((genre) => genre.id === id);
-              return matchedGenre ? matchedGenre.name : null;
-            })
-          )
-        );
+        !selectedData.genre &&
+          formData.append(
+            "genre",
+            JSON.stringify(
+              selectedData.genre_ids?.map((id: number) => {
+                const matchedGenre = genres?.find((genre) => genre.id === id);
+                return matchedGenre ? matchedGenre.name : null;
+              })
+            )
+          );
         res = await fetch("http://localhost:8080/user/tvShow", {
           method: "POST",
           body: formData,
@@ -238,7 +240,6 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
   let title = (
     <div className="text-lg font-medium uppercase">Tune In & Share</div>
   );
-
   let body = (
     <div
       className={`${
@@ -310,7 +311,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
         {" "}
         {selectedData?.type === "tvShow" && (
           <MovieCard
-            image_src={`https://image.tmdb.org/t/p/w200/${selectedData.poster_path}`}
+            image_src={selectedData && selectedData.poster_path}
             name={selectedData.name}
             isDisable
             origin_country={selectedData.origin_country}

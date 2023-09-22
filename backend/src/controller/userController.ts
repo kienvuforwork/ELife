@@ -25,6 +25,7 @@ const multerStorage = multer.diskStorage({
     if(req.body.type.includes("track")){
       cb(null, `track-${req.body.id}.${ext}`)
     }else if(req.body.type.includes("tvShow")){
+
       cb(null, `tvShow-${req.body.id}.${ext}`)
     }
 
@@ -32,6 +33,7 @@ const multerStorage = multer.diskStorage({
 })
 const storage = multer.memoryStorage();
 const multerFilter = (req: express.Request, file:any, cb:any) => {
+
   if(file.mimetype.startsWith('image')){
     cb(null, true)
   }else{
@@ -52,11 +54,9 @@ const avatarSetting = multer({
 export const uploadAvatarMulter = avatarSetting.single("image")
 export const uploadImage = upload.single("image")
 export const uploadAvatar = catchAsync(async (req:RequestWithUser, res:express.Response, next:express.NextFunction) => {
-  console.log(req.body)
 const path = `./public/img/users/user-${req.user._id}.jpeg`;
 await sharp(req.file.buffer).resize(200, 200).toFormat('jpeg').toFile(path);
  const updatedUser = await User.findByIdAndUpdate( {_id:req.user._id}, { avatar : `http://localhost:8080/user/avatar/${req.user.id}`}, { new: true, upsert:true }, ) 
- console.log(updatedUser)
 next()
 }
 )
@@ -108,7 +108,7 @@ export const userAddTrack =catchAsync(async (req:RequestWithUser, res:express.Re
   const artists = JSON.parse(req.body.artists).map((item:any) => item.name)
   const {id, name, like, type} = req.body
   let updatedUser
-  const newTrack = await Track.findOneAndUpdate(   { id } , {vibes:JSON.parse(req.body.vibes),artists, id,name,like,image:`track-${req.body.id}`},     {
+  const newTrack = await Track.findOneAndUpdate(   { id } , {vibes:JSON.parse(req.body.vibes),artists, id,name,like,image:`track-${req.body.id}`}, {
     upsert: true, // Create the track if it doesn't exist
     new: true,    // Return the updated or newly created track
   })
@@ -148,13 +148,13 @@ export const userAddTvShow = catchAsync(async (req:RequestWithUser, res:express.
   const user = req.user
   const {id, name, like, type,vote_average, overview, origin_country} = req.body
   let updatedUser
-  const newTvShow = await TvShow.findOneAndUpdate( {id},{genre:JSON.parse(req.body.genre), vibes:JSON.parse(req.body.vibes),overview,origin_country:JSON.parse(origin_country)[0], vote_average, id,name,recommend: like,image:`track-${req.body.id}`},    {
+  const newTvShow = await TvShow.findOneAndUpdate( {id},{genre:JSON.parse(req.body.genre), vibes:JSON.parse(req.body.vibes),overview,origin_country:JSON.parse(origin_country)[0], vote_average, id,name,recommend: like,image:`tvShow-${req.body.id}`},    {
     upsert: true, // Create the track if it doesn't exist
     new: true,    // Return the updated or newly created track
   })
   if(type[1] === "watching"){
    updatedUser = await User.findByIdAndUpdate(
-      user._id,
+      user._id, 
       { $push: {  tvShowWatching: newTvShow._id} }, 
       { new: true },
     );
