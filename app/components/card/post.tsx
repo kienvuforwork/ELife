@@ -1,4 +1,3 @@
-import tv from "../../public/images/icons8-tv-50.png";
 import { AiOutlineUser } from "react-icons/ai";
 import TrackCard from "./trackCard";
 import { Track } from "@/app/Model/Music";
@@ -6,11 +5,13 @@ import Chip from "../chip";
 import Button from "../button";
 import MovieCard from "./movieCard";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/app/store";
+import { AppDispatch, RootState } from "@/app/store";
+import { useSelector } from "react-redux";
 import {
   onOpen as onOpenShareModal,
   setData,
 } from "@/app/store/shareModalSlice";
+import { FiDelete } from "react-icons/fi";
 import { TvShowModel } from "@/app/Model/Movie";
 
 interface PostProps {
@@ -21,17 +22,20 @@ interface PostProps {
   recommend?: boolean;
   vibes?: string[];
   type: "track" | "tvShow";
+  onDelete?: () => void;
 }
 
 const Post: React.FC<PostProps> = ({
   username,
   data,
-  recommend,
-  vibes,
+  onDelete,
   date,
   avatar,
   type,
 }) => {
+  const user = useSelector((state: RootState) => state.userSlice.username);
+  const isCurrentUser = user === username;
+
   const customDate = date && date.split(",")[0].replace(/\//g, "-");
   const dispatch: AppDispatch = useDispatch();
   const setShareModal = () => {
@@ -45,6 +49,7 @@ const Post: React.FC<PostProps> = ({
             images: [{ url: `http://localhost:8080/track/image/${data.id}` }],
           },
           type: "track",
+          id: data.id,
         } as Track)
       );
     } else if (type === "tvShow") {
@@ -53,8 +58,8 @@ const Post: React.FC<PostProps> = ({
   };
   return (
     data && (
-      <div className=" flex w-full justify-center items-center border-t-2 border-b-2 border-elife-700">
-        <div className=" text-white rounded-lg  w-full space-y-6 p-10">
+      <div className=" flex flex-col w-full justify-center items-center border-t-2 border-b-2 border-elife-700">
+        <div className=" text-white rounded-lg  w-full  p-10">
           <div className="flex space-x-4 items-center ">
             <div className="w-14">
               {avatar ? (
@@ -163,7 +168,14 @@ const Post: React.FC<PostProps> = ({
             ) : (
               <div></div>
             )}
-            <Button label="Vibe now" sm onClick={setShareModal}></Button>
+            {!isCurrentUser ? (
+              <Button label="Vibe now" sm onClick={setShareModal}></Button>
+            ) : (
+              <FiDelete
+                className="w-6 h-6 cursor-pointer"
+                onClick={onDelete}
+              ></FiDelete>
+            )}
           </div>
         </div>
       </div>

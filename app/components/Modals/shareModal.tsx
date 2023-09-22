@@ -181,6 +181,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
         const imageBlob = await downLoadImage(
           selectedData?.album.images[0].url
         );
+        console.log(selectedData.album.images[0].url);
         formData.append("vibes", JSON.stringify(selectedChip));
         formData.append("like", like);
         formData.append("image", imageBlob);

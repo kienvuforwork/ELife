@@ -6,6 +6,12 @@ import { catchAsync } from "./../ErrorHandler/catchAsync";
 const Track = require("../model/trackModel")
 const TvShow = require("../model/tvShowModel")
 
+
+interface RequestWithUser extends express.Request {
+    user?: typeof User; // Add the 'user' property
+  }
+  
+
 export const post = catchAsync(async (req:express.Request, res:express.Response) => {
     const data = req.body
     const newPost= await Post.create({data})
@@ -42,4 +48,31 @@ export const getUserPost = catchAsync(async(req:express.Request, res:express.Res
         message:'success',
        postWithData
     })
+})
+
+
+
+export const deletePost =  catchAsync(async(req:RequestWithUser, res:express.Response, next:express.NextFunction) => {
+    const id = req.params.id
+    const user = req.user
+    if(user.posts.includes(id)){
+        const isDelete = await Post.findByIdAndDelete(id)
+        await User.findByIdAndUpdate(user._id, { $pull: { posts:id} }, {
+            upsert: true, // Create the track if it doesn't exist
+            new: true,    // Return the updated or newly created track
+          },) 
+          if(isDelete){
+            return res.status(201).json({
+                status:"success"   , message:"deleted"
+            })
+          }
+
+    }
+  
+    return res.status(201).json({
+        status:"fail",
+        message:"You dont own this post!"
+        
+    })
+
 })

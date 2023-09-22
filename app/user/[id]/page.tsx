@@ -10,6 +10,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import Loader from "@/app/components/loader";
 import Post from "@/app/components/card/post";
 import Link from "next/link";
+import toast from "react-hot-toast";
 const UserProfile = () => {
   const pathname = usePathname();
   const [user, setUser] = useState<User>();
@@ -86,7 +87,6 @@ const UserProfile = () => {
         const data = await res.json();
 
         setFollower(data.followers);
-
         setIsLoading(false);
       } catch (e) {
         console.log(e);
@@ -99,6 +99,19 @@ const UserProfile = () => {
     fetchUser();
   }, []);
   const currentUser = useSelector((state: RootState) => state.userSlice);
+  const onDelete = async (id: string) => {
+    setIsLoading(true);
+    const updatedPost = posts.filter((post: any) => post._id !== id);
+    setPosts(updatedPost);
+    const res = await fetch(`http://localhost:8080/post/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (res) {
+      toast.success("Deleted a post!");
+      setIsLoading(false);
+    }
+  };
   return !isLoadingUser ? (
     <Fragment>
       <div className="h-1000 border-2 border-elife-700">
@@ -125,6 +138,7 @@ const UserProfile = () => {
                     key={index}
                     avatar={user?.avatar}
                     type={post.type}
+                    onDelete={() => onDelete(post._id)}
                   ></Post>
                 ))}
             </div>
