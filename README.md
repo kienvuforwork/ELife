@@ -16,10 +16,6 @@
  
  Solution: I created a new ReduxProvider used client side and wrap the application with that provider.
 
-2. Why i do not create a model for tvshow and track?
-   The track and the tvshow in this app always come with user so i attach it to user. The popular track and the tv Show come from 3rd api.
-   Pros : fast query
-   Cons: duplication data, if we quere user and only need the infor of the user there also redundency data
-   Im just devleoping an app as a personal project so i choose the first approach which is simple
+
    
    
