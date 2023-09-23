@@ -259,25 +259,43 @@ export const CheckFollow = catchAsync(async(req:RequestWithUser, res:express.Res
 
 export const GetFollower = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
   const user = await User.findOne({username: req.params.username})
+  if(user.follower){
+    const followers = await Promise.all(user.followers.map(async(id : ObjectId) => {
+      const follower = await User.findById(id)
+      return follower
+    }))
+  }
 
- const followers = await Promise.all(user.followers.map(async(id : ObjectId) => {
-  const follower = await User.findById(id)
-  return follower
-}))
 return res.status(201).json({
   status:"success",
-  followers
+  followers:[]
 })
 })
 
 export const GetFollowing = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
   const user = await User.findOne({username: req.params.username})
-  const following = await Promise.all(user.following.map(async(id : ObjectId) => {
-   const followingUser = await User.findById(id)
-   return followingUser
- }))
+
+  if(user.following){
+    const following = await Promise.all(user.following.map(async(id : ObjectId) => {
+      const followingUser = await User.findById(id)
+      return followingUser
+    }))
+  }
+
  return res.status(201).json({
    status:"success",
-  following
+   following:[]
  })
+ })
+
+
+ export const VerifyUser = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
+  const user = await User.findById(req.user._id)
+  user.isCeleb = true
+  await user.save()
+  return res.status(201).json({
+    status:"success",
+    user
+  })
+
  })

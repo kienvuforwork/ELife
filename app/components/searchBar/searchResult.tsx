@@ -54,7 +54,7 @@ const SearchResultList: React.FC<SearchResultListProps> = ({
             name={tvShow.name}
             key={index}
             dataType="tvShow"
-            data={tvShow}
+            data={tvShow as TvShowModel}
           ></SearchResultItem>
         ) : null
       )}
@@ -79,6 +79,7 @@ const SearchResultList: React.FC<SearchResultListProps> = ({
           onChoose={onChoose}
           onClick={onClose}
           name={user.username}
+          isCeleb={user.isCeleb}
         ></SearchResultItem>
       ))}
     </div>

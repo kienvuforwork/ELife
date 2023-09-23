@@ -89,7 +89,7 @@ const UserCard: React.FC<UserCardProps> = ({
                 )}
 
                 {user?.isCeleb && (
-                  <AiFillCheckCircle className="w-4 h-4 right-0 absolute bottom-1  fill-blue-600"></AiFillCheckCircle>
+                  <AiFillCheckCircle className="w-6 h-6 right-0 absolute bottom-1  fill-blue-600"></AiFillCheckCircle>
                 )}
               </div>
               <div className="flex gap-2 flex-col  sm:ml-5 justify-center ">

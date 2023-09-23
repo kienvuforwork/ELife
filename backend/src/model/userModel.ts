@@ -8,18 +8,18 @@ const UserSchema = new mongoose.Schema({
     password:{type:String, required:true, minlength:8,select:false},
     avatar: String,
     isCeleb: Boolean, 
-    followers: [
+    followers:{ type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }], default:[]
+    },
+    following:{ type: [
         {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'
-        }
-      ],
-    following: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User'
-        }
-      ],
+        }], default:[]
+      },
      tvShowWatching: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'TvShow'
@@ -49,6 +49,7 @@ UserSchema.pre('save', async function(next){
   next()
   
 })
+
 
 
 UserSchema.methods.correctPassword=async function(givenPassword: String, password: String): Promise<boolean>{

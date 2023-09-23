@@ -5,6 +5,7 @@ import { TvShowModel } from "@/app/Model/Movie";
 import { Track } from "@/app/Model/Music";
 import { User } from "@/app/Model/User";
 import { AiOutlineUser } from "react-icons/ai";
+import { AiFillCheckCircle } from "react-icons/ai";
 interface SearchResultItemProps {
   dataType: "tvShow" | "track" | "user";
   data: TvShowModel | Track | User;
@@ -13,6 +14,7 @@ interface SearchResultItemProps {
   artists?: string[];
   onClick: () => void;
   onChoose: (data: TvShowModel | Track | User) => void;
+  isCeleb?: boolean;
 }
 const SearchResultItem: React.FC<SearchResultItemProps> = ({
   img,
@@ -22,6 +24,7 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
   dataType,
   onChoose,
   data,
+  isCeleb,
 }) => {
   const handleChoose = () => {
     onClick();
@@ -46,14 +49,25 @@ const SearchResultItem: React.FC<SearchResultItemProps> = ({
       onClick={handleChoose}
     >
       {img ? (
-        <img
-          src={img}
-          className={`w-12 ${dataType === "track" ? "h-12" : "h-auto"} ${
-            dataType === "user" && "rounded-full w-8 h-8"
-          }`}
-        ></img>
+        <div className="relative">
+          <img
+            src={img}
+            className={`w-12 ${dataType === "track" ? "h-12" : "h-auto"} ${
+              dataType === "user" && "rounded-full w-8 h-8"
+            }`}
+          ></img>
+          {isCeleb && (
+            <AiFillCheckCircle className="w-3 h-3 right-0 absolute bottom-0  fill-blue-600"></AiFillCheckCircle>
+          )}
+        </div>
       ) : (
-        <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-700 border-2 border-elife-700"></AiOutlineUser>
+        <div className="relative">
+          {" "}
+          <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-700 border-2 border-elife-700"></AiOutlineUser>{" "}
+          {isCeleb && (
+            <AiFillCheckCircle className="w-3 h-3 right-0 absolute bottom-0  fill-blue-600"></AiFillCheckCircle>
+          )}
+        </div>
       )}
 
       <div

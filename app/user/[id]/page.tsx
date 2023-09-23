@@ -98,6 +98,7 @@ const UserProfile = () => {
     fetchPost();
     fetchUser();
   }, []);
+
   const currentUser = useSelector((state: RootState) => state.userSlice);
   const onDelete = async (id: string) => {
     setIsLoading(true);
@@ -129,7 +130,7 @@ const UserProfile = () => {
         {!isLoading ? (
           isPost && (
             <div className="w-full flex flex-wrap">
-              {posts.length > 0 &&
+              {posts.length > 0 ? (
                 posts?.map((post: any, index) => (
                   <Post
                     username={post.username}
@@ -139,8 +140,14 @@ const UserProfile = () => {
                     avatar={user?.avatar}
                     type={post.type}
                     onDelete={() => onDelete(post._id)}
+                    isCeleb={user?.isCeleb}
                   ></Post>
-                ))}
+                ))
+              ) : (
+                <div className="text-elife-600 text-center w-full pt-4">
+                  Stay tune, {username} is searching something!
+                </div>
+              )}
             </div>
           )
         ) : (
@@ -148,46 +155,72 @@ const UserProfile = () => {
         )}
         {!isLoading
           ? isFollower &&
-            follower.map((follower: User, index: number) => (
-              <Link href={`/user/${follower.username}`} key={index}>
+            (follower ? (
+              follower.map((follower: User, index: number) => (
+                <Link href={`/user/${follower.username}`} key={index}>
+                  {" "}
+                  <div
+                    className="flex cursor-pointer items-center pl-6 p-2 border-t-2 border-elife-700 hover:bg-elife-700"
+                    key={follower.username}
+                  >
+                    {follower.avatar ? (
+                      <img
+                        src={follower.avatar}
+                        className="w-8 h-8 rounded-full"
+                      ></img>
+                    ) : (
+                      <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-500 border-2 border-elife-500"></AiOutlineUser>
+                    )}
+                    <span className="ml-6">{follower.username}</span>
+                  </div>{" "}
+                </Link>
+              ))
+            ) : (
+              <div className="w-full flex justify-center items-center text-elife-600 pt-4 gap-2">
                 {" "}
-                <div
-                  className="flex cursor-pointer items-center pl-6 p-2 border-t-2 border-elife-700 hover:bg-elife-700"
-                  key={follower.username}
-                >
-                  {follower.avatar ? (
-                    <img
-                      src={follower.avatar}
-                      className="w-8 h-8 rounded-full"
-                    ></img>
-                  ) : (
-                    <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-500 border-2 border-elife-500"></AiOutlineUser>
-                  )}
-                  <span className="ml-6">{follower.username}</span>
-                </div>{" "}
-              </Link>
+                {username} not follow anyone yet{" "}
+                <img
+                  width="32"
+                  height="32"
+                  src="https://img.icons8.com/parakeet/48/sad.png"
+                  alt="sad"
+                />{" "}
+              </div>
             ))
           : ""}
         {!isLoading
           ? isFollowing &&
-            following.map((following: User, index: number) => (
-              <Link href={`/user/${following.username}`} key={index}>
+            (following ? (
+              following.map((following: User, index: number) => (
+                <Link href={`/user/${following.username}`} key={index}>
+                  {" "}
+                  <div
+                    className="flex cursor-pointer items-center pl-6 p-2 border-t-2 border-elife-700 hover:bg-elife-700"
+                    key={following.username}
+                  >
+                    {following.avatar ? (
+                      <img
+                        src={following.avatar}
+                        className="w-8 h-8 rounded-full"
+                      ></img>
+                    ) : (
+                      <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-500 border-2 border-elife-500"></AiOutlineUser>
+                    )}
+                    <span className=" ml-6">{following.username}</span>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="w-full flex justify-center items-center text-elife-600 pt-4 gap-2">
                 {" "}
-                <div
-                  className="flex cursor-pointer items-center pl-6 p-2 border-t-2 border-elife-700 hover:bg-elife-700"
-                  key={following.username}
-                >
-                  {following.avatar ? (
-                    <img
-                      src={following.avatar}
-                      className="w-8 h-8 rounded-full"
-                    ></img>
-                  ) : (
-                    <AiOutlineUser className=" w-8 h-8 object-cover rounded-full fill-elife-500 border-2 border-elife-500"></AiOutlineUser>
-                  )}
-                  <span className=" ml-6">{following.username}</span>
-                </div>
-              </Link>
+                No one follow {username} yet{" "}
+                <img
+                  width="32"
+                  height="32"
+                  src="https://img.icons8.com/parakeet/48/sad.png"
+                  alt="sad"
+                />{" "}
+              </div>
             ))
           : ""}
       </div>

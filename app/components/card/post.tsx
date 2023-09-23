@@ -7,6 +7,7 @@ import MovieCard from "./movieCard";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
 import { useSelector } from "react-redux";
+import { AiFillCheckCircle } from "react-icons/ai";
 import {
   onOpen as onOpenShareModal,
   setData,
@@ -23,6 +24,7 @@ interface PostProps {
   vibes?: string[];
   type: "track" | "tvShow";
   onDelete?: () => void;
+  isCeleb?: boolean;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -32,10 +34,10 @@ const Post: React.FC<PostProps> = ({
   date,
   avatar,
   type,
+  isCeleb,
 }) => {
   const user = useSelector((state: RootState) => state.userSlice.username);
   const isCurrentUser = user === username;
-
   const customDate = date && date.split(",")[0].replace(/\//g, "-");
   const dispatch: AppDispatch = useDispatch();
   const setShareModal = () => {
@@ -72,7 +74,11 @@ const Post: React.FC<PostProps> = ({
       <div className=" flex flex-col w-full justify-center items-center border-t-2 border-b-2 border-elife-700">
         <div className=" text-white rounded-lg  w-full  p-10">
           <div className="flex space-x-4 items-center ">
-            <div className="w-14">
+            <div className="w-14 relative">
+              {isCeleb && (
+                <AiFillCheckCircle className="w-4 h-4 right-0 absolute bottom-0  fill-blue-600"></AiFillCheckCircle>
+              )}
+
               {avatar ? (
                 <img
                   src={avatar}
@@ -86,19 +92,6 @@ const Post: React.FC<PostProps> = ({
             <div className="w-full">
               <div className="flex space-x-2 items-center">
                 <h2 className="text-base font-bold">{username}</h2>
-                {/* <svg
-                className="h-4 w-4 text-blue-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg> */}
                 <div className="w-full text-sm text-elife-500 flex items-center justify-between">
                   <div>
                     {" "}
