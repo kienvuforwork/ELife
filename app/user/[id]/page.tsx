@@ -88,6 +88,7 @@ const UserProfile = () => {
 
         setFollower(data.followers);
         setIsLoading(false);
+        console.log(data);
       } catch (e) {
         console.log(e);
       }
@@ -98,7 +99,6 @@ const UserProfile = () => {
     fetchPost();
     fetchUser();
   }, []);
-
   const currentUser = useSelector((state: RootState) => state.userSlice);
   const onDelete = async (id: string) => {
     setIsLoading(true);
@@ -155,7 +155,7 @@ const UserProfile = () => {
         )}
         {!isLoading
           ? isFollower &&
-            (follower ? (
+            (follower.length > 0 ? (
               follower.map((follower: User, index: number) => (
                 <Link href={`/user/${follower.username}`} key={index}>
                   {" "}
@@ -190,7 +190,7 @@ const UserProfile = () => {
           : ""}
         {!isLoading
           ? isFollowing &&
-            (following ? (
+            (following.length > 0 ? (
               following.map((following: User, index: number) => (
                 <Link href={`/user/${following.username}`} key={index}>
                   {" "}

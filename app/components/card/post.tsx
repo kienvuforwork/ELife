@@ -25,6 +25,7 @@ interface PostProps {
   type: "track" | "tvShow";
   onDelete?: () => void;
   isCeleb?: boolean;
+  isLoggedIn?: boolean;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -35,6 +36,7 @@ const Post: React.FC<PostProps> = ({
   avatar,
   type,
   isCeleb,
+  isLoggedIn,
 }) => {
   const user = useSelector((state: RootState) => state.userSlice.username);
   const isCurrentUser = user === username;
@@ -173,7 +175,9 @@ const Post: React.FC<PostProps> = ({
               <div></div>
             )}
             {!isCurrentUser ? (
-              <Button label="Vibe now" sm onClick={setShareModal}></Button>
+              isLoggedIn && (
+                <Button label="Vibe now" sm onClick={setShareModal}></Button>
+              )
             ) : (
               <FiDelete
                 className="w-6 h-6 cursor-pointer"

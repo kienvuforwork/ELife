@@ -76,3 +76,22 @@ export const deletePost =  catchAsync(async(req:RequestWithUser, res:express.Res
     })
 
 })
+
+export const getCelebPost = catchAsync(async(req:RequestWithUser, res:express.Response, next:express.NextFunction) => {
+    const posts = await Post.find({isCeleb:true})
+    const postWithCeleb =await Promise.all(posts.map(async(post:typeof Post) => {
+        let data
+        if(post.type === "track"){
+            data = await Track.findById(post.track)
+        }else if (post.type==="tvShow"){
+            data = await TvShow.findById(post.tvShow)
+        }
+
+       return {...post._doc, data}
+    }))
+    return res.status(201).json({
+        status:"success",
+       postWithCeleb
+        
+    })
+})

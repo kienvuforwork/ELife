@@ -33,7 +33,6 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
   const tvShowGenres = await getTvShowGenre();
   const { data, token } = await getTopTracks();
 
-  // Now you can access the data and token values here
   return (
     <html lang="en" className={roboto.className}>
       <Providers>
@@ -56,7 +55,7 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
               {" "}
               <RightBar
                 moviesData={movieData}
-                trackData={data.tracks.items.slice(0, 20)}
+                trackData={data && data.tracks.items.slice(0, 20)}
               ></RightBar>
             </div>
           </Container>
