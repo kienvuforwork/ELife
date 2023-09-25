@@ -2,10 +2,13 @@
 import { Fragment, useEffect, useState } from "react";
 import Post from "../components/card/post";
 import Loader from "../components/loader";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const router = useRouter();
+
   useEffect(() => {
     const getPost = async () => {
       const res = await fetch("http://localhost:8080/user/following/posts", {
@@ -13,8 +16,12 @@ const Home = () => {
         credentials: "include",
       });
       const data = await res.json();
-      setPosts(data.posts[0]);
-      console.log(data);
+
+      if (data.status === "fail") {
+        router.push("/");
+      } else {
+        setPosts(data.posts[0]);
+      }
     };
     getPost();
     setIsLoading(false);
