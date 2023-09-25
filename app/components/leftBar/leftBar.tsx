@@ -12,7 +12,7 @@ import MenuItem from "./menuItem";
 import { clearUser } from "@/app/store/userSlice";
 import { toast } from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
-
+import { IoIosNotificationsOutline, IoIosNotifications } from "react-icons/io";
 import Cookies from "js-cookie";
 import {
   BiHomeCircle,
@@ -96,12 +96,12 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
             link={`/home`}
           ></MenuItem>
           <MenuItem
-            title="asdf"
-            icon={BiHomeCircle}
-            activeIcon={BiSolidHomeCircle}
-            selected={"asdf" === pathname[1]}
+            title="Notifications"
+            icon={IoIosNotificationsOutline}
+            activeIcon={IoIosNotifications}
+            selected={"notifications" === pathname[1]}
             key={2}
-            link={`/asdf`}
+            link={`/notifications`}
           ></MenuItem>
 
           <Button

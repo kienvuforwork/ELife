@@ -10,6 +10,7 @@ const AppError = require('./../ErrorHandler/appError')
 const Post = require("./../model/postModel")
 import { catchAsync } from "./../ErrorHandler/catchAsync";
 import { ObjectId } from 'mongodb'
+import { getUserPost } from "./postController";
 dotenv.config();
 const multerStorage = multer.diskStorage({
   destination: (req: express.Request, file:any, cb:any) => {
@@ -300,4 +301,33 @@ export const GetFollowing = catchAsync(async(req:RequestWithUser, res:express.Re
     user
   })
 
+ })
+
+
+ export const getUserFollowingPosts = catchAsync(async(req:RequestWithUser, res:express.Response, next: express.NextFunction)=> {
+    const userId = req.user._id
+    const user = await User.findById(userId)
+    const following = await Promise.all(user.following.map(async(id : ObjectId) => {
+      const followingUser = await User.findById(id)
+      return followingUser
+    }))
+    const postsOfFollowing = await Promise.all(following.map( async(user) =>  { 
+      const posts = await Post.find({ username:user.username });
+      const postWithData =await Promise.all(posts.map(async(post:typeof Post) => {
+          let data
+          if(post.type === "track"){
+              data = await Track.findById(post.track)
+          }else if (post.type==="tvShow"){
+              data = await TvShow.findById(post.tvShow)
+          }
+  
+         return {...post._doc, data}
+      }))
+      return postWithData
+    }))
+  
+    return res.status(201).json({
+      status:"success",
+        posts: postsOfFollowing
+    })
  })

@@ -23,7 +23,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   return (
     <Link href={link}>
       <div
-        className={`flex px-4 py-2 rounded-full items-center cursor-pointer gap-4 
+        className={`flex md:px-4 md:py-2 rounded-full items-center cursor-pointer gap-4 px-2 py-1
       ${selected && "bg-elife-700"}
        hover:bg-elife-700`}
       >

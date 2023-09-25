@@ -4,10 +4,17 @@ import Loader from "./components/loader";
 import Post from "./components/card/post";
 import { onOpen } from "./store/loginModalSlice";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "./store";
-
+import { AppDispatch, RootState } from "./store";
+import { useSelector } from "react-redux";
+import { redirect } from "next/navigation";
 const Home = () => {
   const [posts, setPost] = useState([]);
+  const user = useSelector((state: RootState) => state.userSlice.username);
+  useEffect(() => {
+    if (user) {
+      redirect("/home");
+    }
+  });
   const dispatch: AppDispatch = useDispatch();
   const onOpenLoginModal = () => {
     dispatch(onOpen());

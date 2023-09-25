@@ -1,5 +1,5 @@
 import express from "express"
-import { getUser, userAddTrack, uploadImage, SearchUserByName, UpdateUser, userAddTvShow, uploadAvatar, uploadAvatarMulter, GetTvShowUser, Follow, Unfollow, CheckFollow, GetFollower, GetFollowing, VerifyUser} from "../controller/userController"
+import { getUser, userAddTrack, uploadImage, SearchUserByName, UpdateUser, userAddTvShow, uploadAvatar, uploadAvatarMulter, GetTvShowUser, Follow, Unfollow, CheckFollow, GetFollower, GetFollowing, VerifyUser, getUserFollowingPosts} from "../controller/userController"
 import { protect } from "../controller/authController"
 import { GetAvatar } from "../controller/imageController"
 
@@ -16,5 +16,6 @@ export default (router:express.Router)=>{
     router.get("/user/is-follow/:id",protect, CheckFollow)
     router.get("/user/:username/follower", GetFollower)
     router.get("/user/:username/following", GetFollowing)
+    router.get("/user/following/posts", protect, getUserFollowingPosts)
     // router.post("/user/verify", protect, VerifyUser)
 }   
