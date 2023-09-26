@@ -14,6 +14,7 @@ import {
 } from "@/app/store/shareModalSlice";
 import { FiDelete } from "react-icons/fi";
 import { TvShowModel } from "@/app/Model/Movie";
+import CardLoadingSkeleton from "./cardLoadingSkeleton";
 
 interface PostProps {
   username: string;
@@ -26,6 +27,7 @@ interface PostProps {
   onDelete?: () => void;
   isCeleb?: boolean;
   isLoggedIn?: boolean;
+  isLoading?: boolean;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -37,6 +39,7 @@ const Post: React.FC<PostProps> = ({
   type,
   isCeleb,
   isLoggedIn,
+  isLoading,
 }) => {
   const user = useSelector((state: RootState) => state.userSlice.username);
   const isCurrentUser = user === username;
@@ -59,7 +62,6 @@ const Post: React.FC<PostProps> = ({
         } as Track)
       );
     } else if (type === "tvShow") {
-      console.log(data.genre, data.vibes);
       dispatch(
         setData({
           ...(data as TvShowModel),
@@ -71,6 +73,10 @@ const Post: React.FC<PostProps> = ({
       );
     }
   };
+  if (isLoading) {
+    console.log("run");
+    return <CardLoadingSkeleton></CardLoadingSkeleton>;
+  }
   return (
     data && (
       <div className=" flex flex-col w-full justify-center items-center border-t-2 border-b-2 border-elife-700">

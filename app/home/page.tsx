@@ -5,7 +5,7 @@ import Loader from "../components/loader";
 import { useRouter } from "next/navigation";
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const router = useRouter();
 
@@ -20,12 +20,14 @@ const Home = () => {
       if (data.status === "fail") {
         router.push("/");
       } else {
-        setPosts(data.posts[0]);
+        const allPost = [...data.posts.flat()];
+        setPosts(allPost);
       }
     };
     getPost();
     setIsLoading(false);
   }, []);
+
   return !isLoading ? (
     <Fragment>
       <div className="border-2 border-elife-700  w-full pt-2 flex flex-col gap-2">
@@ -36,7 +38,7 @@ const Home = () => {
             key={index}
             data={post.data}
             type={post.type}
-            date={post.customDate}
+            date={new Date(post.customDate).toLocaleString()}
             isLoggedIn={true}
           ></Post>
         ))}

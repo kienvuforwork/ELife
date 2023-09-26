@@ -128,6 +128,7 @@ export const userAddTrack =catchAsync(async (req:RequestWithUser, res:express.Re
     })
     await newPost.save();
     updatedUser = await User.findByIdAndUpdate(user._id, { $push: { posts:newPost._id} }, { new: true }) 
+    notifyUsers(updatedUser._id, "is listening to something!")
   }else if(type[1] === "listenedTrack"){
     updatedUser = await User.findByIdAndUpdate(
       user._id,
@@ -144,6 +145,18 @@ export const userAddTrack =catchAsync(async (req:RequestWithUser, res:express.Re
 
 })
 
+
+const notifyUsers = async(id:any, message:string) => {
+  const user = await User.findById(id)
+  await Promise.all(user.followers.map(async(id : ObjectId) => {
+    await User.findByIdAndUpdate(id, { $push: {notifications:{
+      message,
+      username:user.username,
+      avatar:user.avatar,
+      read:false
+    }} }, { new: true },) 
+  }))
+}
 
 export const userAddTvShow = catchAsync(async (req:RequestWithUser, res:express.Response) => {
   const user = req.user
@@ -169,6 +182,7 @@ export const userAddTvShow = catchAsync(async (req:RequestWithUser, res:express.
     })
     await newPost.save();
     updatedUser = await User.findByIdAndUpdate(user._id, { $push: { posts:newPost._id} },       { new: true },) 
+    notifyUsers(updatedUser._id, "is watching something!")
   }else if(type[1] === "watched"){
     updatedUser = await User.findByIdAndUpdate(
       user._id,
@@ -218,30 +232,37 @@ export const GetTvShowUser = catchAsync(async(req:RequestWithUser, res:express.R
 export const Follow = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
   const user = req.user
   const id = req.params.id
-  await User.findByIdAndUpdate(id, { $addToSet: { followers:user._id} },  {
-    upsert: true, 
-    new: true,    
-  },) 
- const newUser = await User.findByIdAndUpdate(user._id, { $addToSet: { following:id} },  {
+
+ const userMakeFollowreq = await User.findByIdAndUpdate(user._id, { $addToSet: { following:id, } },  {
   upsert: true, 
   new: true,    
-},) 
+},)  
+const userGetFollower = await User.findByIdAndUpdate(id, { $addToSet: { followers:user._id,notifications: {
+  message:"just follow you!",
+  read:false,
+  username: userMakeFollowreq.username,
+  avatar: userMakeFollowreq.avatar
+ }} },  {
+    upsert: true, 
+    new: true,    
+  },)
   return res.status(201).json({
     status:"success",
-    user:newUser
+    user:userMakeFollowreq
   })
 })
 
 export const Unfollow = catchAsync(async(req:RequestWithUser, res:express.Response)=> {
   const user = req.user
   const id = req.params.id
-  await User.findByIdAndUpdate(id, { $pull: { follower:user._id} }, {
-    upsert: true, // Create the track if it doesn't exist
-    new: true,    // Return the updated or newly created track
+  console.log("run")
+  await User.findByIdAndUpdate(id, { $pull: { followers:user._id} }, {
+    upsert: true, 
+    new: true,    
   },) 
  const newUser = await User.findByIdAndUpdate(user._id, { $pull: { following:id} },  {
-  upsert: true, // Create the track if it doesn't exist
-  new: true,    // Return the updated or newly created track
+  upsert: true, 
+  new: true,   
 },) 
   return res.status(201).json({
     status:"success",

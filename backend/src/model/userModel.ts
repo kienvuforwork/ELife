@@ -40,7 +40,15 @@ const UserSchema = new mongoose.Schema({
   posts : [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post'
-  }]
+  }],
+  notifications: {
+    type: [{
+      message:String,
+      read:Boolean,
+      username:String,
+      avatar:String
+    }]
+  }
 })
 
 UserSchema.pre('save', async function(next){

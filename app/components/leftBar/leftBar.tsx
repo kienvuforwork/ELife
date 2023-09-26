@@ -14,6 +14,7 @@ import { toast } from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
 import { IoIosNotificationsOutline, IoIosNotifications } from "react-icons/io";
 import Cookies from "js-cookie";
+import io from "socket.io-client";
 import {
   BiHomeCircle,
   BiSolidHomeCircle,
@@ -27,25 +28,33 @@ interface LeftBarProps {
 
 const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
   const router = useRouter();
+  // const socket = io.connect("http://localhost:8080");
 
+  // socket.on("notification", (message) => {
+  //   console.log(message);
+  // });
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: RootState) => state.userSlice);
   const logout = () => {
     dispatch(clearUser()); // Assuming this clears the user data in your Redux store
     toast.success("Logged out!");
-    router.push("");
+    router.push("/");
     Cookies.remove("token");
   };
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     if (currentUser) {
-      dispatch(setUser({ ...currentUser }));
+      dispatch(
+        setUser({ ...currentUser, notifications: currentUser.notifications })
+      );
+
       setIsLoading(false);
     }
     if (!currentUser) {
       setIsLoading(false);
     }
   }, [currentUser]);
+
   const pathname = usePathname().split("/");
   return (
     <div className="h-[100vh] flex flex-col  p-2 justify-start gap-6">

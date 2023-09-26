@@ -4,6 +4,7 @@ interface userState{
     username:string,
     _id:string,
     avatar?: string
+    notifications?:any
 }
 
 const initialState:userState = {

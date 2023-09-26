@@ -85,7 +85,7 @@ export const login = catchAsync(async ( req:express.Request, res:express.Respons
     return res.status(201).json({
         status:"success",
         token,
-        user:{username: user.username, id: user._id,avatar: user.avatar }
+        user:{username: user.username, id: user._id,avatar: user.avatar, notifications: user.notifications }
     })
 })
 
