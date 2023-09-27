@@ -66,6 +66,7 @@ export const register = catchAsync( async(req:express.Request, res:express.Respo
 
 export const login = catchAsync(async ( req:express.Request, res:express.Response, next:express.NextFunction)=>{
     const {username, password} = req.body;
+    console.log("run")
     if(!username || !password) {
         return next()
     }

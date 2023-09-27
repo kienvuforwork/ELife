@@ -79,8 +79,8 @@ const Post: React.FC<PostProps> = ({
   }
   return (
     data && (
-      <div className=" flex flex-col w-full justify-center items-center border-t-2 border-b-2 border-elife-700">
-        <div className=" text-white rounded-lg  w-full  p-10">
+      <div className=" flex flex-col w-full justify-center items-center border-t-2 border-b-2 border-elife-700 ">
+        <div className=" text-white rounded-lg  w-full  p-4 md:p-10">
           <div className="flex space-x-4 items-center ">
             <div className="w-14 relative">
               {isCeleb && (
@@ -99,8 +99,8 @@ const Post: React.FC<PostProps> = ({
             </div>
             <div className="w-full">
               <div className="flex space-x-2 items-center">
-                <h2 className="text-base font-bold">{username}</h2>
-                <div className="w-full text-sm text-elife-500 flex items-center justify-between">
+                <h2 className="text:sm md:text-base font-bold">{username}</h2>
+                <div className="w-full text-xs  md:text-sm text-elife-500 flex items-center justify-between">
                   <div>
                     {" "}
                     {type === "track" ? "is listening to " : "is watching "}
@@ -125,7 +125,9 @@ const Post: React.FC<PostProps> = ({
                   </div>
                 </div>
               </div>
-              <p className=" text-sm text-elife-500">Shared: {customDate}</p>
+              <p className="text-xs md:text-sm text-elife-500">
+                Shared: {customDate}
+              </p>
             </div>
           </div>
           <div className="flex">
@@ -152,7 +154,7 @@ const Post: React.FC<PostProps> = ({
             </div>
 
             <div
-              className={`flex flex-col  text-sm  pt-4  ${
+              className={`flex flex-col text-xs md:text-sm  pt-4  ${
                 data.vibes && data.vibes.length > 0 ? "border-l-2 w-[50%]" : ""
               } border-elife-700`}
             >

@@ -35,7 +35,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
   }
   return (
     <div
-      className={`flex xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1 ${
+      className={`flex  md:text-xs lg:text-md xl:gap-5 gap-2 w-full xl:p-5 md:p-3 p-1 ${
         border && "border-t-2"
       } border-elife-700  ${hover && "cursor-pointer hover:bg-elife-700"} `}
     >
@@ -44,7 +44,7 @@ const TrackCard: React.FC<TrackCardProps> = ({
       </div>
       <div className="flex flex-col w-2/3 gap-2">
         <div
-          className={`xl:text-sm font-medium text-sm  ${
+          className={`xl:text-sm font-medium text-xs  ${
             hover && "hover:cursor-pointer"
           } `}
         >

@@ -10,7 +10,6 @@ const AppError = require('./../ErrorHandler/appError')
 const Post = require("./../model/postModel")
 import { catchAsync } from "./../ErrorHandler/catchAsync";
 import { ObjectId } from 'mongodb'
-import { getUserPost } from "./postController";
 dotenv.config();
 const multerStorage = multer.diskStorage({
   destination: (req: express.Request, file:any, cb:any) => {
@@ -86,6 +85,7 @@ return false
 
 export const getUser =catchAsync(async (req:express.Request, res:express.Response) =>{
   const user = await checkToken(req)
+  console.log("get user")
   if(user){
     return res.status(201).json({
       status:"success",
@@ -204,7 +204,6 @@ export const SearchUserByName = catchAsync(async(req:express.Request, res:expres
   const  username   = req.params.username;
   const regex = new RegExp(username , "i")
   const users = await User.find({ username: regex });
-
   return  res.status(201).json(users);
 })
 

@@ -22,7 +22,9 @@ const userSlice = createSlice({
               ...action.payload,
             };
             
-    }, clearUser: (state : userState) => initialState,}
+    }, clearUser: (state : userState) => {
+        return initialState
+    }}
 
 })
 

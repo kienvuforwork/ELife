@@ -42,7 +42,7 @@ const Home = () => {
             <Post
               username={post.username}
               type={post.type}
-              date={post.customDate}
+              date={new Date(post.customDate).toLocaleString()}
               key={index}
               data={post.data}
               isLoggedIn={false}

@@ -5,7 +5,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import CardLoadingSkeleton from "./cardLoadingSkeleton";
 
 interface MovieCardProps {
-  image_src: string;
+  image_src?: string;
   name: string;
   rating?: number;
   isLoading?: boolean;
@@ -94,7 +94,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
         </div>
         <div className={`flex flex-col w-2/3 ${sm ? "gap-1" : "gap-2`"} `}>
           <div
-            className={` xl:text-lg font-medium text-sm text-elife-500 ${
+            className={` xl:text-lg font-medium md:text-sm sm:text-xs text-elife-500 ${
               isDisable ? "" : "hover:cursor-pointer"
             } `}
           >

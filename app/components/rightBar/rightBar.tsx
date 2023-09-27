@@ -56,7 +56,7 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
           ></Search>
         </div>
 
-        <div className="xl:text-2xl text-md font-medium flex justify-center text-elife-400 text-center p-4  gap-4 flex-col">
+        <div className="xl:text-2xl text-sm md:text-md font-medium flex justify-center text-elife-400 text-center p-4  gap-4 flex-col">
           {" "}
           Trending Now: What Everyone's
           <SwitchBar

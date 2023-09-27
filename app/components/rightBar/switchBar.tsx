@@ -63,7 +63,7 @@ const SwitchBar: React.FC<SwitchBarProps> = ({
     setUserPost(true);
   };
   return (
-    <div className="flex justify-center items-center w-full text-lg text-elife-600 ">
+    <div className="flex justify-center items-center w-full text-sm md:text-md xl:text-lg text-elife-600 ">
       {onSetMovie && (
         <div
           className={`w-1/2 p-2 cursor-pointer flex justify-center ${

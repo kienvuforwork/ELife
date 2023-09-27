@@ -23,7 +23,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   return (
     <Link href={link}>
       <div
-        className={`flex md:px-4 md:py-2 rounded-full items-center cursor-pointer gap-4 px-2 py-1
+        className={`flex  md:px-4 md:py-2 rounded-full items-center cursor-pointer gap-1 md:gap-2 lg:gap-4 px-2 py-1
       ${selected && "bg-elife-700"}
        hover:bg-elife-700`}
       >
@@ -36,7 +36,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
           <img src={avatar} className="rounded-full w-8 h-8"></img>
         ) : null}
         <span
-          className={`text-xl font-thin text-elife-400 ${
+          className={` text-sm md:text-sm lg:text-md xl:text-xl font-thin text-elife-400 ${
             selected ? "font-bold text-[1.4rem]" : ""
           }`}
         >

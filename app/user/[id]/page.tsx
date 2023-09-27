@@ -100,6 +100,7 @@ const UserProfile = () => {
     fetchUser();
   }, []);
   const currentUser = useSelector((state: RootState) => state.userSlice);
+  console.log(currentUser);
   const onDelete = async (id: string) => {
     setIsLoading(true);
     const updatedPost = posts.filter((post: any) => post._id !== id);

@@ -30,7 +30,9 @@ const Button: React.FC<ButtonProps> = ({
         isLoading
           ? "bg-gray-800   rounded-full text-gray-800 animate-pulse "
           : ""
-      }  ${full ? "w-full text-lg" : ""} ${sm ? "px-6 rounded text-sm" : ""}`}
+      }  ${full ? "w-full text-sm md:text-md lg:text-lg" : ""} ${
+        sm ? "px-6 rounded text-sm" : ""
+      }`}
     >
       {" "}
       {label}

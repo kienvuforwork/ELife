@@ -20,6 +20,7 @@ const UserCard: React.FC<UserCardProps> = ({
 }) => {
   const [follow, setFollow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const checkIsFollow = async () => {
       try {

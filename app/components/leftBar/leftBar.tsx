@@ -40,6 +40,7 @@ const LeftBar: React.FC<LeftBarProps> = ({ currentUser }) => {
     toast.success("Logged out!");
     router.push("/");
     Cookies.remove("token");
+    console.log(user);
   };
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
