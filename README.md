@@ -6,6 +6,16 @@
 - Typescript
 - Tailwindcss
 - Redux with redux toolkit
+- Nodejs
+- Mongodb
+
+## Elife a socail platform for users to sahre their current tvshow or music they wathcing or listening
+1. Sign in, sign up.
+2. User can post their song or tvshow (searching by using a 3rd party api from spotify and moviedb)
+3. Search and follow user
+4. Update avatar
+5.  protect route using middleware
+...
 
 ## Explain some architecture concepts and how technologies in this project work.
 1. How i used redux and redux toolkit with Nextjs
