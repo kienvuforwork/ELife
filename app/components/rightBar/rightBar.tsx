@@ -56,7 +56,7 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
           ></Search>
         </div>
 
-        <div className="xl:text-2xl text-sm md:text-md font-medium flex justify-center text-elife-400 text-center p-4  gap-4 flex-col">
+        <div className="xl:text-2xl text-sm md:text-md font-medium flex justify-center text-elife-400 text-center p-4  gap-4 flex-col -z-10 ">
           {" "}
           Trending Now: What Everyone's
           <SwitchBar
@@ -87,6 +87,7 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
                 key={data.track.id}
                 image_src={data.track.album.images[0].url}
                 isLoading={isLoadingTrack}
+                border
               ></TrackCard>
             ))}
           </div>

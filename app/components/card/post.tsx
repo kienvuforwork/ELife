@@ -130,8 +130,8 @@ const Post: React.FC<PostProps> = ({
               </p>
             </div>
           </div>
-          <div className="flex">
-            <div className="w-[50%]">
+          <div className="flex flex-col md:flex-row">
+            <div className="w-[70%] md:w-[50%] mt-2">
               {type === "track" && (
                 <TrackCard
                   name={data.name}
@@ -155,7 +155,9 @@ const Post: React.FC<PostProps> = ({
 
             <div
               className={`flex flex-col text-xs md:text-sm  pt-4  ${
-                data.vibes && data.vibes.length > 0 ? "border-l-2 w-[50%]" : ""
+                data.vibes && data.vibes.length > 0
+                  ? "border-none md:border-l-2 w-[50%]"
+                  : ""
               } border-elife-700`}
             >
               {data.vibes && data.vibes.length > 0 ? (

@@ -243,48 +243,52 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
   let body = (
     <div
       className={`${
-        selectedData ? "flex flex-col xl:flex-row gap-2" : null
-      } pb-6 mt-2  w-full`}
+        selectedData
+          ? "flex flex-col md:flex-row xl:flex-row gap-2 items-center md:items-start "
+          : null
+      } pb-1 md:pb-6 mt-1 md:mt-2  w-full`}
     >
-      <div className="mt-6 flex flex-1 flex-col items-center">
+      <div className="mt-1 md:mt-6 flex flex-1 flex-col items-center">
         {!chosen && (
-          <div className="text-xl font-md">What are you gonna share?</div>
+          <div className="text-md md:text-xl font-md">
+            What are you gonna share?
+          </div>
         )}
-        <div className="flex p-4 mt-6 gap-4 justify-center items-center">
+        <div className="flex p-2 md:p-4 mt-2 md:mt-6  gap-2 md:gap-2 lg:gap-4 justify-center items-center">
           <div
             onClick={toggleMusic}
-            className={`flex   items-center gap-2 border-[1px]  rounded-xl py-2 px-6 hover:border-blue-600 ${
+            className={`flex   items-center gap-2 border-[1px] py-1 px-3  rounded-xl md:py-2 md:px-6 hover:border-blue-600 ${
               isMusic ? "border-blue-600 " : "opacity-70"
             } group cursor-pointer transition-all duration-300`}
           >
             <CiMusicNote1
-              className={`w-10 h-10  group-hover:fill-blue-600 ${
+              className={`w-8 h-8 md:w-10 md:h-10   group-hover:fill-blue-600 ${
                 isMusic && "fill-blue-600"
               } transition-all duration-300`}
             ></CiMusicNote1>
             <div
               className={` group-hover:text-blue-600 ${
                 isMusic && "text-blue-600"
-              } transition-all duration-300`}
+              } transition-all duration-300 text-sm md:text-md`}
             >
               Song
             </div>
           </div>
           <div
             onClick={toggleMovie}
-            className={`flex  items-center gap-2 border-[1px]  rounded-xl py-2 px-4 hover:border-red-400 ${
+            className={`flex  items-center gap-2 border-[1px]  py-1 px-3  rounded-xl md:py-2 md:px-6 hover:border-red-400 ${
               isTvShow ? "border-red-400 " : "opacity-70"
             } group cursor-pointer transition-all duration-300`}
           >
             <PiTelevisionSimpleLight
-              className={`w-10 h-10  group-hover:fill-red-400 ${
+              className={`w-8 h-8 md:w-10 md:h-10  group-hover:fill-red-400 ${
                 isTvShow && "fill-red-400"
               }  transition-all duration-300`}
             ></PiTelevisionSimpleLight>
             <div
               className={` group-hover:text-red-400 ${
                 isTvShow && "text-red-400"
-              } transition-all duration-300`}
+              } transition-all duration-300 text-sm md:text-md`}
             >
               Tv show
             </div>
@@ -292,7 +296,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
         </div>
 
         {chosen ? (
-          <div className="flex flex-col transition-all duration-300 transform items-center gap-2 mt-4">
+          <div className="flex flex-col transition-all duration-300 transform items-center  gap-2 mt-2 md:mt-4">
             {isMusic && "What song are you listening to?"}
             {isTvShow && "What Tv show are you watching?"}
             <Search
@@ -307,7 +311,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
           </div>
         ) : null}
       </div>
-      <div className="flex-1">
+      <div className="w-[80%]  md:flex-1">
         {" "}
         {selectedData?.type === "tvShow" && (
           <MovieCard
@@ -353,7 +357,7 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
             )}
           </div>
           <div className="text-sm">Tv Show Vibes (max 5 key words)</div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1">
             {chipList.map((title, index) => (
               <Chip
                 title={title}

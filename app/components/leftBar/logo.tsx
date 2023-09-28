@@ -8,7 +8,7 @@ const Logo = () => {
     <Image
       height={100}
       width={100}
-      className="cursor:pointer width:auto"
+      className="cursor:pointer w-12 h-12"
       src={logo}
       alt="logo"
     ></Image>

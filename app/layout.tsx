@@ -46,11 +46,11 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
           <LoginModal></LoginModal>
           <Container>
             {" "}
-            <div className="sm:col-span-3  md:col-span-2 hidden lg:block sticky top-0 h-screen">
+            <div className="md:col-span-12 lg:col-span-2 lg:block sticky top-0 col-span-12 h-10  lg:h-screen z-20 ">
               {" "}
               <LeftBar currentUser={currentUser}></LeftBar>
             </div>
-            <div className="md:col-span-7 lg:col-span-6 sm:col-span-8 col-span-12 ">
+            <div className="md:col-span-7 lg:col-span-6 sm:col-span-8 col-span-12 z-0">
               {" "}
               {children}
             </div>
