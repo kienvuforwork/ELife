@@ -85,7 +85,6 @@ return false
 
 export const getUser =catchAsync(async (req:express.Request, res:express.Response) =>{
   const user = await checkToken(req)
-  console.log("get user")
   if(user){
     return res.status(201).json({
       status:"success",
