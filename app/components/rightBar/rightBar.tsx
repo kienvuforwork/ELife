@@ -74,6 +74,7 @@ const RightBar: React.FC<SideBarProps> = ({ moviesData, trackData }) => {
                 key={index}
                 isLoading={isLoadingMovie}
                 border
+                isDisable
               ></MovieCard>
             ))}
           </div>

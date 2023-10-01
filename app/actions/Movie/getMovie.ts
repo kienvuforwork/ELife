@@ -1,10 +1,11 @@
 
 import {TvShowModel} from "../../Model/Movie";
+const token = process.env.MOVIEDB_TOKEN;
 const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMWU0ZWI1ODcxZDE3MTM3NjBkNTk3ZTRjYzVlNGNlOSIsInN1YiI6IjYxMjllYTVjMmM2YjdiMDA4OWJkNzI5MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.cqvVxw-iSLuWXo99ENYDofcx4-Np5sfpRhHRUOtGPww'
+    Authorization: `Bearer ${token}`
   }
 };
 

@@ -137,7 +137,7 @@ const ImageUploadModal = () => {
   return (
     <Fragment>
       <div
-        className="cursor-pointer text-sm hover:text-elife-600"
+        className="cursor-pointer text-sm hover:text-elife-600 inline-block"
         onClick={onOpen}
       >
         Update Avatar

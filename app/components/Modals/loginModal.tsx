@@ -37,7 +37,6 @@ const LoginModal = () => {
       if (res.status === "success") {
         document.cookie = `token=${res.token}`;
         dispatch(setUser({ ...res.user }));
-        console.log(res.user);
         router.push("/home");
         setIsDisable(false);
         dispatch(onCloseLoginModal());

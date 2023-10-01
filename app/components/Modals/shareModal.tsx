@@ -92,7 +92,10 @@ const popularSongDescriptionWords = [
 const downLoadImage = async (url: string | undefined) => {
   let imageResponse;
   if (url) {
-    imageResponse = await fetch(url);
+    imageResponse = await fetch(url, {
+      mode: "no-cors",
+    });
+    console.log(imageResponse);
   }
 
   const imageBlob = await imageResponse?.blob();
@@ -117,7 +120,6 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
     (state: RootState) => state.shareModalSlice.isOpen
   );
   useEffect(() => {
-    console.log(settedData);
     if (settedData) {
       setIsChosen(true);
       setSelectedData(settedData);
@@ -193,11 +195,9 @@ const ShareModal: React.FC<shareModalProps> = ({ genres, spotifyToken }) => {
           credentials: "include",
         }).then((res) => res.status);
       } else if (selectedData?.type === "tvShow") {
-        console.log(selectedData);
         const imageBlob = await downLoadImage(
           selectedData.backdrop_path && selectedData.poster_path
         );
-        console.log(imageBlob);
         formData.append("vibes", JSON.stringify(selectedChip));
         formData.append("like", like);
         formData.append("image", imageBlob);

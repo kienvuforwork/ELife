@@ -21,7 +21,19 @@ const Home = () => {
         router.push("/");
       } else {
         const allPost = [...data.posts.flat()];
-        setPosts(allPost);
+        console.log(allPost);
+        if (allPost.length !== 0) {
+          setPosts(allPost);
+        } else {
+          try {
+            const res = await fetch("http://localhost:8080/post/celeb");
+            const posts = await res.json();
+            setPosts(posts.postWithCeleb.slice(0, 3));
+          } catch (error) {
+            console.error("Error fetching data:", error);
+            setPosts([]);
+          }
+        }
       }
     };
     getPost();

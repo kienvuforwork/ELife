@@ -103,7 +103,7 @@ const UserCard: React.FC<UserCardProps> = ({
                 <div className="flex justify-start gap-8">
                   <div className="inline-flex items-center gap-2">
                     <CiMusicNote1 className={`w-5 h-5`}></CiMusicNote1>
-                    <span className="text-slate-400">
+                    <span className="text-slate-400 text-sm ">
                       {user?.listeningTrack?.length} Songs listening{" "}
                     </span>
                   </div>
@@ -111,7 +111,7 @@ const UserCard: React.FC<UserCardProps> = ({
                     <PiTelevisionSimpleLight
                       className={`w-5 h-5`}
                     ></PiTelevisionSimpleLight>
-                    <p className="text-slate-400">
+                    <p className="text-slate-400 text-sm">
                       {user?.tvShowWatching?.length} TvShows watching
                     </p>
                   </div>

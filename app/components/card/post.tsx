@@ -98,9 +98,9 @@ const Post: React.FC<PostProps> = ({
               )}
             </div>
             <div className="w-full">
-              <div className="flex space-x-2 items-center">
+              <div className="flex flex-col md:flex-row  items-start md:space-x-2 md:items-center">
                 <h2 className="text:sm md:text-base font-bold">{username}</h2>
-                <div className="w-full text-xs  md:text-sm text-elife-500 flex items-center justify-between">
+                <div className="w-full text-xs  md:text-sm text-elife-500 flex  items-center justify-between">
                   <div>
                     {" "}
                     {type === "track" ? "is listening to " : "is watching "}

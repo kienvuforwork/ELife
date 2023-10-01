@@ -137,7 +137,7 @@ const Search: React.FC<SearchProps> = ({
         value={text}
         className={`focus:bg-white focus:outline-none   ${
           rounded ? style.rounded : ""
-        }   focus:border-sky-500 focus:ring-1 focus:ring-sky-500 text-elife-700 text-sm md:text-md lg:text-lg bg-elife-500 w-full h-[30px] md:h-[40px] p-2 px-4 ${
+        }   focus:border-sky-500 focus:ring-1 focus:ring-sky-500 text-elife-700 text-sm md:text-md lg:text-lg bg-elife-500 w-full h-[30px] md:h-[35px] lg:h-[40px] p-2 px-4 ${
           sm ? style.sm : ""
         }  h-[40px]`}
       />

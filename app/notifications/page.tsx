@@ -13,7 +13,11 @@ const Notification = () => {
       <div className="text-center text-md mt-4 md:text-lg">Notifications</div>
       <div className="border-2 border-elife-700  w-full pt-2 flex flex-col gap-2">
         {notifications.map((item: any, index: number) => (
-          <Link href={`/user/${item.username}`} key={index}>
+          <Link
+            href={`/user/${item.username}`}
+            key={index}
+            className="hover:opacity-90 "
+          >
             <div
               className={`flex items-center gap-4 p-4 border-b-2 border-elife-700 ${
                 item.read && "bg-elife-700"
